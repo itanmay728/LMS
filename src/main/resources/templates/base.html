@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" dir="" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+	
+	<link th:href="@{css/style.css}" rel="stylesheet" />
+	
+    <title th:text="${title}">Base Html</title>
+    
+  </head>
+  	<body>
+  <nav class="navbar navbar-expand-lg secondary">
+  <img th:src="@{/img/Suprams_logo.jpg}">
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link text-white" href="#" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-white" href="#">Info</a>
+      </li>
+    </ul>
+
+  </div>
+
+
+
+
+<a th:href="@{/CustomersForm}">
+      <button type="button" class="btn  bg-primary mr-3">Customer form</button>
+     </a>
+
+	<a th:href="@{/login}">
+      <button type="button" class="btn  btn-danger mr-3">Login</button>
+     </a>
+     
+</nav>
+    
+     <div th:replace="${content}"></div> 
+    
+       
+  	
+   <footer class="text-center bg-light fixed-bottom">
+  <div class="secondary text-white py-2 ">
+    <span>Copyright &copy; 2024 SUPRAMS</span>
+  </div>
+</footer>
+   
+   
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+		crossorigin="anonymous">
+   </script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js">
+</script>
+  </body>
+</html>
