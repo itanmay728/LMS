@@ -34,9 +34,6 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
 	private User_Credentials_Repository user_Credentials_Repository;
 	
 	@Autowired
-	private BCryptPasswordEncoder passwordEncoder; 
-	
-	@Autowired
 	private BusinessAssociateHistoryRepo businessAssociateHistoryRepo;
 	
 	@Autowired
@@ -90,12 +87,11 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
         
         users_Credentials.setName(ba.getName());
         
-        String password =  passwordEncoder.encode(ba.getPassword());
+        String password =  bCryptPasswordEncoder.encode(ba.getPassword());
         users_Credentials.setPassword(password);
         
         
         users_Credentials.setUserName(ba.getUserName());
-        users_Credentials.setAddress(ba.getAddress());
         users_Credentials.setRole("ROLE_BUSINESSASSOCIATE");
         
         

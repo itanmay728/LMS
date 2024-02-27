@@ -1,6 +1,8 @@
 package com.example.leadManagementSystem2.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -15,16 +17,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
+import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 import com.example.leadManagementSystem2.Service.DataFetchingService;
+import com.example.leadManagementSystem2.Service.EmployeeService;
 import com.example.leadManagementSystem2.Service.UserService;
-
-import jakarta.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/Admin")
@@ -47,6 +50,12 @@ public class AdminController {
 	@Autowired
 	BusinessAssociateService businessAssociateService;
 	
+	@Autowired
+	private EmployeeService employeeService;
+	
+	@Autowired
+	private EmployeeDetailsRepository employeeDetailsRepository;
+	
 	@GetMapping("/admin_Dashboard")
 	public String getAdminDashboard(ModelMap model ) {
 		model.put("userName", "Tanmay");
@@ -55,8 +64,7 @@ public class AdminController {
 	
 	@GetMapping("/registration")
 	public String getAccountRegistrationPage() {
-		
-		return "Admin/AccountRegistrationPage";
+		return "Admin/AddEmployeeForm";
 	}
 	
 	
@@ -70,11 +78,12 @@ public class AdminController {
 	
 	
 	@PostMapping("/saveUser")
-	public String CreateAccount(@ModelAttribute Users_Credentials Users_credentials) {
+	public String CreateAccount(@ModelAttribute EmployeeDetails employeeDetails) {
 		
-		/* Users_Credentials users_Credentials1 = */ userService.saveUser(Users_credentials);
+		/* Users_Credentials users_Credentials1 =  userService.saveUser(Users_credentials);*/
 		
-		System.out.println(Users_credentials);
+		employeeService.saveEmployeeDetails(employeeDetails);
+		System.out.println(employeeDetails);
 
 		
 		return "redirect:/Admin/registration";
@@ -158,8 +167,24 @@ public class AdminController {
 	}
 	
 	
-	
-	
+	@GetMapping("/profile")
+	public String getProfile(Model model, Principal principal) {
+		
+		String Usename = principal.getName();
+		System.out.println(Usename);
+		
+		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(Usename);
+		UUID id = user.getId();
+		
+		EmployeeDetails employeeDetails =   employeeDetailsRepository.getEmployeeDetailsByUUID(id);
+		
+		
+		System.out.println(employeeDetails);
+		model.addAttribute("employeeDetails", employeeDetails);
+		
+		return "Admin/AdminProfile";
+		
+	}
 	
 	
 	

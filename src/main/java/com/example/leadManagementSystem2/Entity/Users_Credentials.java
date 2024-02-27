@@ -1,20 +1,28 @@
 package com.example.leadManagementSystem2.Entity;
 
+import java.util.UUID;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Users_Credentials {
 
+	/*
+	 * @Id
+	 * 
+	 * @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
+	 */
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private UUID id;
 	
-	
-	private String Name;
+	private String name;
 	
 	@Column(unique = true)
 	private String userName;
@@ -22,23 +30,26 @@ public class Users_Credentials {
 	private String password;
 	
 	private String role;
-	
-	private String Address;
 
-	public Long getId() {
+	@OneToOne
+	@JoinColumn(name = "Employee_Id")
+	private EmployeeDetails employeeDetails;
+	
+	
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 
 	public String getName() {
-		return Name;
+		return name;
 	}
 
 	public void setName(String name) {
-		Name = name;
+		this.name = name;
 	}
 
 	public String getUserName() {
@@ -64,23 +75,16 @@ public class Users_Credentials {
 	public void setRole(String role) {
 		this.role = role;
 	}
+	
+	
+	
 
-	public String getAddress() {
-		return Address;
+	public EmployeeDetails getEmployeeDetails() {
+		return employeeDetails;
 	}
 
-	public void setAddress(String address) {
-		Address = address;
-	}
-
-	public Users_Credentials(Long id, String name, String userName, String password, String role, String address) {
-		super();
-		this.id = id;
-		Name = name;
-		this.userName = userName;
-		this.password = password;
-		this.role = role;
-		Address = address;
+	public void setEmployeeDetails(EmployeeDetails employeeDetails) {
+		this.employeeDetails = employeeDetails;
 	}
 
 	public Users_Credentials() {
@@ -88,11 +92,25 @@ public class Users_Credentials {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Users_Credentials(UUID id, String name, String userName, String password, String role,
+			EmployeeDetails employeeDetails) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.userName = userName;
+		this.password = password;
+		this.role = role;
+		this.employeeDetails = employeeDetails;
+	}
+
 	@Override
 	public String toString() {
-		return "Users_Credentials [id=" + id + ", Name=" + Name + ", userName=" + userName + ", password=" + password
-				+ ", role=" + role + ", Address=" + Address + "]";
+		return "Users_Credentials [id=" + id + ", name=" + name + ", userName=" + userName + ", password=" + password
+				+ ", role=" + role + ", employeeDetails=" + employeeDetails + "]";
 	}
+
+	
+	
 	
 	
 	

@@ -28,6 +28,9 @@ public class IndexController {
 	@Autowired
 	User_Credentials_Repository user_Credentials_Repository;
 	
+	@Autowired
+	UserService userService;
+	
 	@GetMapping()
 	public String getIndexPage() {
 		
@@ -60,7 +63,22 @@ public class IndexController {
 	}
 	
 	
+	  
 	
+	  
+	@GetMapping("/addAdmin")
+	public String getAddadmin() {
+		
+		return "AddAdmin";
+	}
+	
+	@PostMapping("/SaveAdmin")
+	public String SaveAdmin(@ModelAttribute Users_Credentials users_Credentials) {
+		
+		userService.saveUser(users_Credentials);
+		
+		return "redirect:/addAdmin";
+	}
 	
 	
 	

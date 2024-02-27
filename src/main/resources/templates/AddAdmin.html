@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="base::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin | AddUser</title>
-</head>
+<title>Add Admin</title>
 </head>
 <body>
+
 
 
 <section>
@@ -16,10 +16,14 @@
 						<div class="card-header text-center fs-4">Create Account</div>
 
 						<div class="card-body">
-							<form th:action="@{/Admin/saveUser}" th:object="${Users}" method="post">
+							<form action="SaveAdmin" th:object="${Users}" method="post">
+							<div class="mb-3">
+									<label>Enter UUID</label>
+										<input type="text" name="id" class="form-control">
+								</div>
 								<div class="mb-3">
 									<label>Enter Full Name</label>
-										<input type="text" name="Name" class="form-control">
+										<input type="text" name="name" class="form-control">
 								</div>
 								<div class="mb-3">
 									<label>Enter Email</label>
@@ -30,13 +34,7 @@
 									<label>Enter Password</label>
 										<input type="password" name="password" class="form-control">
 								</div>
-								
-								<div class="mb-3">
-									<label>Enter Address</label>
-										<input type="text" name="Address" class="form-control">
-								</div>
-								
-								
+						
 								
 								<div class="mb-3">
 							<label>Select Course</label> 
@@ -60,6 +58,7 @@
 		</div>
 
 </section>
+
 
 </body>
 </html>
