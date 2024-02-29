@@ -8,9 +8,9 @@ import org.springframework.data.repository.query.Param;
 
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 
-public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails, UUID> {
+public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails, Long> {
 
 	
 	@Query("select u from EmployeeDetails u where u.id = :id")
-	public EmployeeDetails getEmployeeDetailsByUUID(@Param("id") UUID id);
+	public EmployeeDetails getEmployeeDetailsByid(@Param("id") Long id);
 }
