@@ -1,15 +1,21 @@
 package com.example.leadManagementSystem2.controller;
 
+import java.security.Principal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
+import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.UserService;
@@ -31,6 +37,9 @@ public class IndexController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	BusinessAssociateRepository businessAssociateRepository;
+	
 	@GetMapping()
 	public String getIndexPage() {
 		
@@ -48,8 +57,14 @@ public class IndexController {
 	
 	
 	@GetMapping("/CustomersForm")
-	public String getCustomersForm() {
-		return "CustomersForm";
+	public String getCustomersForm(Model model, Principal principal) {
+		String Username = principal.getName();
+		System.out.println(Username);
+		
+		BusinessAssociate businessAssociate =   businessAssociateRepository.getBusinessAssociateByUserName(Username);
+		
+		model.addAttribute("businessAssociate", businessAssociate);
+		return "BusinessAssociate/CustomersForm";
 	}
 	
 	@PostMapping("/saveLeads")
@@ -79,7 +94,6 @@ public class IndexController {
 		
 		return "redirect:/addAdmin";
 	}
-	
 	
 	
 }

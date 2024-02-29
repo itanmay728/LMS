@@ -31,23 +31,24 @@ public class EmployeeServiceImpl implements EmployeeService{
 		
 		employeeDetails.setRole("ROLE_"+employeeDetails.getRole());
 		
-		EmployeeDetails newEmployee = employeeDetailsRepository.save(employeeDetails);
 		
 		
 		 Users_Credentials users_Credentials = new Users_Credentials();
+	        users_Credentials.setName(employeeDetails.getName());
 	        
-		 	users_Credentials.setId(newEmployee.getId());
-	        users_Credentials.setName(newEmployee.getName());
-	        
-	        String password =  bCryptPasswordEncoder.encode(newEmployee.getPassword());
+	        String password =  bCryptPasswordEncoder.encode(employeeDetails.getPassword());
 	        users_Credentials.setPassword(password);
 	        
 	        
-	        users_Credentials.setUserName(newEmployee.getUserName());
-	        users_Credentials.setRole(newEmployee.getRole());
+	        users_Credentials.setUserName(employeeDetails.getUserName());
+	        users_Credentials.setRole(employeeDetails.getRole());
+	        users_Credentials.setEmployeeDetails(employeeDetails);
 	        
+	        employeeDetails.setUsers_Credentials(users_Credentials);
 	        
-	        user_Credentials_Repository.save(users_Credentials);
+	        EmployeeDetails newEmployee = employeeDetailsRepository.save(employeeDetails);
+	        
+	        /*user_Credentials_Repository.save(users_Credentials);*/
 		
 		return newEmployee;
 	}

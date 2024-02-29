@@ -93,9 +93,10 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
         
         users_Credentials.setUserName(ba.getUserName());
         users_Credentials.setRole("ROLE_BUSINESSASSOCIATE");
+        users_Credentials.setBusinessAssociate(ba);
         
-        
-        user_Credentials_Repository.save(users_Credentials);
+        ba.setUsers_Credentials(users_Credentials);
+        //user_Credentials_Repository.save(users_Credentials);
         
         javaMailSender.send(message);
 		

@@ -1,10 +1,15 @@
 package com.example.leadManagementSystem2.Entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class BusinessAssociate {
@@ -37,7 +42,12 @@ public class BusinessAssociate {
 	
 	private boolean approval;
 
+	@OneToOne(mappedBy = "businessAssociate", cascade = CascadeType.ALL)
+	private Users_Credentials users_Credentials;
 	
+	@OneToMany(mappedBy = "businessAssociate")
+	private List<Leads> leads;
+
 	public Long getId() {
 		return id;
 	}
@@ -101,7 +111,7 @@ public class BusinessAssociate {
 	public void setAadhaarNumber(String aadhaarNumber) {
 		this.aadhaarNumber = aadhaarNumber;
 	}
-	
+
 	public String getAccountNumber() {
 		return accountNumber;
 	}
@@ -141,7 +151,7 @@ public class BusinessAssociate {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public boolean isApproval() {
 		return approval;
 	}
@@ -150,15 +160,31 @@ public class BusinessAssociate {
 		this.approval = approval;
 	}
 
+	public Users_Credentials getUsers_Credentials() {
+		return users_Credentials;
+	}
+
+	public void setUsers_Credentials(Users_Credentials users_Credentials) {
+		this.users_Credentials = users_Credentials;
+	}
+
+	public List<Leads> getLeads() {
+		return leads;
+	}
+
+	public void setLeads(List<Leads> leads) {
+		this.leads = leads;
+	}
+
 	public BusinessAssociate() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	
 	public BusinessAssociate(Long id, String name, String userName, String phone, String address, String businessName,
 			String panNumber, String aadhaarNumber, String accountNumber, String accountHolderName, String ifscCode,
-			String branchAddress, String password, boolean approval) {
+			String branchAddress, String password, boolean approval, Users_Credentials users_Credentials,
+			List<Leads> leads) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -174,6 +200,8 @@ public class BusinessAssociate {
 		this.branchAddress = branchAddress;
 		this.password = password;
 		this.approval = approval;
+		this.users_Credentials = users_Credentials;
+		this.leads = leads;
 	}
 
 	@Override
@@ -182,24 +210,9 @@ public class BusinessAssociate {
 				+ ", address=" + address + ", businessName=" + businessName + ", panNumber=" + panNumber
 				+ ", aadhaarNumber=" + aadhaarNumber + ", accountNumber=" + accountNumber + ", accountHolderName="
 				+ accountHolderName + ", ifscCode=" + ifscCode + ", branchAddress=" + branchAddress + ", password="
-				+ password + ", approval=" + approval + "]";
+				+ password + ", approval=" + approval + ", users_Credentials=" + users_Credentials + ", leads=" + leads
+				+ "]";
 	}
-	
-	
-	
-	
-
-
-	
-	
-
-	
-
-
-	
-
-	
-	
 	
 	
 	

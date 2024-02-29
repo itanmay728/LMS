@@ -83,7 +83,6 @@ public class AdminController {
 		/* Users_Credentials users_Credentials1 =  userService.saveUser(Users_credentials);*/
 		
 		employeeService.saveEmployeeDetails(employeeDetails);
-		System.out.println(employeeDetails);
 
 		
 		return "redirect:/Admin/registration";
@@ -174,9 +173,9 @@ public class AdminController {
 		System.out.println(Usename);
 		
 		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(Usename);
-		UUID id = user.getId();
+		Long id = user.getId();
 		
-		EmployeeDetails employeeDetails =   employeeDetailsRepository.getEmployeeDetailsByUUID(id);
+		EmployeeDetails employeeDetails =   employeeDetailsRepository.getEmployeeDetailsByid(id);
 		
 		
 		System.out.println(employeeDetails);

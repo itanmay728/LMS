@@ -1,7 +1,5 @@
 package com.example.leadManagementSystem2.Entity;
 
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -20,7 +18,8 @@ public class Users_Credentials {
 	 */
 	
 	@Id
-	private UUID id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 	
 	private String name;
 	
@@ -34,13 +33,16 @@ public class Users_Credentials {
 	@OneToOne
 	@JoinColumn(name = "Employee_Id")
 	private EmployeeDetails employeeDetails;
+
+	@OneToOne
+	@JoinColumn(name = "businessAssociate_id")
+	private BusinessAssociate businessAssociate;
 	
-	
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -75,9 +77,6 @@ public class Users_Credentials {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	
-	
-	
 
 	public EmployeeDetails getEmployeeDetails() {
 		return employeeDetails;
@@ -87,13 +86,22 @@ public class Users_Credentials {
 		this.employeeDetails = employeeDetails;
 	}
 
+	
+	public BusinessAssociate getBusinessAssociate() {
+		return businessAssociate;
+	}
+
+	public void setBusinessAssociate(BusinessAssociate businessAssociate) {
+		this.businessAssociate = businessAssociate;
+	}
+
 	public Users_Credentials() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Users_Credentials(UUID id, String name, String userName, String password, String role,
-			EmployeeDetails employeeDetails) {
+	public Users_Credentials(Long id, String name, String userName, String password, String role,
+			EmployeeDetails employeeDetails, BusinessAssociate businessAssociate) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -101,14 +109,19 @@ public class Users_Credentials {
 		this.password = password;
 		this.role = role;
 		this.employeeDetails = employeeDetails;
+		this.businessAssociate = businessAssociate;
 	}
 
 	@Override
 	public String toString() {
 		return "Users_Credentials [id=" + id + ", name=" + name + ", userName=" + userName + ", password=" + password
-				+ ", role=" + role + ", employeeDetails=" + employeeDetails + "]";
+				+ ", role=" + role + ", employeeDetails=" + employeeDetails + ", businessAssociate=" + businessAssociate
+				+ "]";
 	}
 
+	
+	
+	
 	
 	
 	

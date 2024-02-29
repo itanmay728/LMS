@@ -55,7 +55,7 @@ public class MyConfiguration {
 	            request.anyRequest().authenticated();
 	            
 	        }).formLogin(form->{
-	            form.loginPage("/signin").loginProcessingUrl("/userLogin")
+	            form.loginPage("/login").loginProcessingUrl("/userLogin")
 	                   .successHandler(customAuthSuccessHandler).permitAll();
 	        });
 	        
