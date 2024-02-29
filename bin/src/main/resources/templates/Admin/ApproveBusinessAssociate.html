@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Approve Business Associate</title>
+</head>
+<body>
+
+
+ <section>
+<div class="card text-center mt-3">
+ <h2 >Verify Business Associate</h2>
+ </div>
+<div class="card text-center mt-4" th:each=" BADetail : ${approvedBusinessAssociates}">
+  
+  <div class="card-header " >
+  <div  class="card-header text-center ">
+  	 <span class = "float-sm-start fw-bold ">ID :- </span>
+     <span class = "float-sm-start" th:text="${BADetail.Id}"></span>
+     
+     <span class = "fw-bold mr-2">Name :- </span>
+   	 <span th:text="${BADetail.name}"></span>
+   	 
+   	 <span class = "float-sm-end">
+   	 <span class = "fw-bold ">Business Name :- </span>
+   	 <span  th:text="${BADetail.businessName}"></span>
+   	 </span>
+   </div>
+  </div>
+  
+  <div class="card-body">
+  
+  <table class="table table-bordered table-hover  ">
+  <thead class= "table-primary table-sm">
+ 					 <tr>
+  					
+						<th>email</th>
+						<th>Phone Number</th>
+						<th>Address</th>
+						<th>panNumber</th>
+						<th>aadhaarNumber</th>
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr>
+						<td th:text="${BADetail.userName}"></td>
+						<td th:text="${BADetail.phone}"></td>
+						<td th:text="${BADetail.address}"></td>
+						<td th:text="${BADetail.panNumber}"></td>
+						<td th:text="${BADetail.aadhaarNumber}"></td>
+					</tr>
+  </tbody>
+  
+  </table>
+    
+    
+    
+    <h5 class=" fw-bold bg-success  text-white mt-4 ">Bank Details</h5>
+    
+   <table class="table table-bordered table-hover  ">
+  <thead class= "table-primary table-sm">
+ 					 <tr>
+  					
+						<th>Account Number</th>
+						<th>Account HolderName</th>
+						<th>Ifsc Code</th>
+						<th>Branch Address</th>
+						
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr>
+						<td th:text="${BADetail.accountNumber}"></td>
+						<td th:text="${BADetail.accountHolderName}"></td>
+						<td th:text="${BADetail.ifscCode}"></td>
+						<td th:text="${BADetail.branchAddress}"></td>
+						
+					</tr>
+  </tbody>
+  
+  </table>
+    
+    
+    
+  </div>
+  
+  
+  <div class="card-footer text-muted">
+  
+    <a th:href="@{/Admin/admin_Dashboard/approve/{id} (id=${BADetail.Id})}"   class = "btn btn-primary"> Approve </a>
+
+
+					<!-- Button trigger modal -->
+					<a
+						th:href="@{/Admin/admin_Dashboard/reject/{id} (id=${BADetail.Id})}"
+						type="button" class="btn btn-danger text-white ms-2"
+						data-bs-toggle="modal" data-bs-target="#exampleModal" th:attr="data-bs-target='#modal-warning'+${BADetail.Id}">Reject</a>
+
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" th:id="'modal-warning'+${BADetail.Id}" tabindex="-1"
+						aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog modal-dialog-centered">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h1 class="modal-title fs-5" id="exampleModalLabel">Rejection
+										Reason</h1>
+									<button type="button" class="btn-close" data-bs-dismiss="modal"
+										aria-label="Close"></button>
+								</div>
+								<div class="modal-body">
+
+									<form
+										th:action="@{/Admin/admin_Dashboard/reject/{id} (id=${BADetail.Id})}"
+										method="post">
+										<div class="form-group">
+
+											<div>
+												For Id:- <span th:text="${BADetail.Id}"></span>
+											</div>
+
+											<label>Reason</label>
+
+
+
+											<textarea class="form-control mt-1" name="rejectionReason"
+												placeholder="Reason" rows="4"></textarea>
+										</div>
+
+										<button type="submit" class="btn btn-primary col-md-12 mt-2">Submit</button>
+									</form>
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+				</div>
+  
+ </div>
+ </section> 
+ 
+    
+</body>
+</html>

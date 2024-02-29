@@ -17,12 +17,16 @@
 
 						<div class="card-body">
 							<form action="SaveAdmin" th:object="${Users}" method="post">
+							<div class="mb-3">
+									<label>Enter UUID</label>
+										<input type="text" name="id" class="form-control">
+								</div>
 								<div class="mb-3">
 									<label>Enter Full Name</label>
 										<input type="text" name="name" class="form-control">
 								</div>
 								<div class="mb-3">
-									<label>Enter Email address</label>
+									<label>Enter Email</label>
 										<input type="email" name="userName" class="form-control">
 								</div>
 								

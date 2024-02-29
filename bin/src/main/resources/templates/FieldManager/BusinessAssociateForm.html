@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="/FieldManager/FieldManagerBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Business Associate Form</title>
+</head>
+<body>
+
+
+
+<section>
+
+	<div class="container p-2"></div>
+		<div class="row">
+			<div class="col-md-6 offset-md-3">
+				<div class="card">
+					<div class="card-header text-center fs-4">Business Associate
+						Details</div>
+					<!-- <th:block th:if="${session.msg}">
+						<p class="text-center text-success">[[${session.msg}]]</p>
+						<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block> -->
+					<div class="card-body">
+						<form action="/fieldManager/saveBA" method="post">
+							<div class="mb-3">
+								<label>Enter Full Name</label> <input type="text" name="name"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter Email</label> <input type="email" name="userName"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter Phone Number</label> <input type="text" name="phone"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter Address</label> <input type="text" name="address"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter Business Name</label> <input type="text" name="businessName"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter PAN Number</label> <input type="text" name="panNumber"
+									class="form-control">
+							</div>
+							<div class="mb-3">
+								<label>Enter Aadhaar Number</label> <input type="text" name="aadhaarNumber"
+									class="form-control">
+							</div>
+							
+							<fieldset>
+								<legend>Bank Details</legend>
+								<div class="mb-3">
+									<label>Account Holder Name</label> <input type="text"
+										name="accountHolderName" class="form-control">
+								</div>
+								<div class="mb-3">
+									<label>Account Number</label> <input type="text"
+										name="accountNumber" class="form-control">
+								</div>
+								<div class="mb-3">
+									<label>IFSC Code</label> <input type="text" name="ifscCode"
+										class="form-control">
+								</div>
+								<div class="mb-3">
+									<label>Branch Address</label> <input type="text"
+										name="branchAddress" class="form-control">
+								</div>
+							</fieldset>
+							
+							
+							<button type="submit" class="btn btn-primary col-md-12">Create</button>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+<br>
+<br>
+</section>
+
+</body>
+</html>

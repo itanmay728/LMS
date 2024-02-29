@@ -1,0 +1,16 @@
+@charset "ISO-8859-1";
+
+.secondary{
+	background: #009688 !important;
+}
+.collapse{
+	margin-left: 10px;
+}
+.banner{
+	width:100%;
+	height:87vh;
+	background:linear-gradient(rgb(99 95 95 / 50%), rgba(225,225,225.8)), url(../img/Bg.jpeg);
+	background-size:cover;
+	color: white;
+	
+}
