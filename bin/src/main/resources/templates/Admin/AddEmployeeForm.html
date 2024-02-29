@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Admin | AddEmployee</title>
+</head>
+</head>
+<body>
+
+
+<section>
+
+					<div class="card">
+						<div class="card-header text-center fs-4">Add Employee</div>
+
+						<div class="card-body">
+							<form th:action="@{/Admin/saveUser}" th:object="${Users}" method="post">
+								<div class="mb-3">
+									<label>Enter Full Name</label>
+										<input type="text" name="name" class="form-control" placeholder="Full Name">
+								</div>
+								
+								
+								<div class="mb-3">
+									<label>Enter Address</label>
+										<input type="text" name="address" class="form-control"  placeholder="Full Address">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Phone Number</label>
+										<input type="text" name="phone" class="form-control"  placeholder="Phone number">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Pan Number</label>
+										<input type="text" name="panNumber" class="form-control"  placeholder="Pan Number">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Aadhaar</label>
+										<input type="text" name="aadhaar" class="form-control"  placeholder="Aadhaar Number">
+								</div>
+
+								
+							<fieldset class="bg-success p-2 text-white ">
+								<legend class = "text-center">Employee Bank Details</legend>
+								<div class="mb-3">
+									<label>Account Holder Name</label> <input type="text"
+										name="accountHolderName" class="form-control"  placeholder="Full Name">
+								</div>
+								<div class="mb-3">
+									<label>Account Number</label> <input type="text"
+										name="accountNumber" class="form-control"  placeholder="Full Name">
+								</div>
+								<div class="mb-3">
+									<label>IFSC Code</label> <input type="text" name="ifscCode"
+										class="form-control"  placeholder="Full Name">
+								</div>
+								<div class="mb-3">
+									<label>Branch Address</label> <input type="text"
+										name="branchAddress" class="form-control"  placeholder="Full Name">
+								</div>
+							</fieldset>
+								
+								<br>
+								<br>
+								
+								<div class="mb-3">
+									<label>Enter Email</label>
+										<input type="email" name="userName" class="form-control"  placeholder="@example.com">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Password</label>
+										<input type="password" name="password" class="form-control"  placeholder="Enter a strong password">
+								</div>
+								<div class="mb-3">
+							<label>Select role</label> 
+							<select class="form-select"
+										aria-label="Default select example" name="role">
+
+										<option>ADMIN</option>
+										<option>CALLER</option>
+										<option>MANAGER</option>
+										<option>FIELDMANAGER</option>
+										<option>CLIENT</option>
+									</select>
+
+								</div>
+								<button class="btn btn-primary col-md-12">Create</button>
+							</form>
+						</div>
+					</div>
+<br>
+</section>
+
+</body>
+</html>

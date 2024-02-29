@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+</head>
+<body>
+<div th:insert="Caller/Caller_Dashboard.html :: navBar"></div>
+
+	<div class="row">
+		<div class="col-md-6 offset-md-3 mt-2">
+			<div class="card">
+				<div class="card-header text-center fs-4 font-weight-bold ">Update Your Details</div>
+					
+				<div class="card-body">
+					<form th:action="@{/Caller/Caller_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
+
+						<div class="mb-3">
+							<label>Enter Full Name</label> <input type="text" name="name" th:value="${Leads.name}" 
+								placeholder="Full Name" class="form-control" />
+						</div>
+
+						<div class="mb-3">
+							<label>Enter Email</label> <input type="email" name="email" th:value="${Leads.email}"
+								placeholder="email@example.com" class="form-control">
+						</div>
+
+
+						<div class="mb-3">
+							<label>Enter Phone number</label> <input type="text" name="phone" th:value="${Leads.phone}"
+								placeholder="PhoneNumber" class="form-control">
+						</div>
+
+
+
+						<div class="mb-3">
+							<label>Enter Address</label> <input type="text" name="address" th:value="${Leads.address}"
+								placeholder="Full Address" class="form-control">
+						</div>
+
+						<div class="mb-3">
+							<label>Message</label>
+							<textarea class="form-control" name="message" 
+								placeholder="message" rows="3" th:inline="text">[[${Leads.message}]]	</textarea>
+						</div>
+
+						 <div class="mb-3">
+							<label>Select Course</label> <select class="form-control" 
+								name="course">
+								<option th:text="${Leads.course}"></option>
+								<option>9th</option>
+								<option>10th</option>
+								<option>12th</option>
+							</select>
+						</div>
+						
+						
+						<div class="mb-3">
+							<label>Lead Status</label> <select class="form-control"
+								name="leadStatus" >
+								<option th:text="${Leads.leadStatus}"></option>
+								<option>Ringed</option>
+								<option>not received</option>
+								<option>not connected</option>
+							</select>
+						</div> 
+						
+
+						<button type="submit" class="btn btn-primary col-md-12">Update</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<br>
+
+<div th:insert="Caller/Caller_Dashboard.html :: footer"></div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
+		crossorigin="anonymous">
+   </script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js">
+  </script>
+
+</body>
+</html>

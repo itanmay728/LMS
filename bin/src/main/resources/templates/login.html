@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="base::layout(~{::section})">
+
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+
+<section class = "banner ">
+<div class="container p-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3 mt-5 ">
+					<div class="card ">
+						<div class="card-header text-center fs-4 bg-dark">Login Page</div>
+
+						<div class="card-body text-secondary">
+							<form action="userLogin" method="post">
+								
+								<div class="mb-3">
+									<label>Enter Email</label> <input type="email" name="username"
+										class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Password</label> <input type="password"
+										name="password" class="form-control">
+								</div>
+								<button type="submit" class="btn btn-primary col-md-12">Login</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</section>
+</body>
+</html>

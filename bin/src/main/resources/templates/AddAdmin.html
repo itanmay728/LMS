@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="base::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Add Admin</title>
+</head>
+<body>
+
+
+
+<section>
+<div class="container p-3">
+			<div class="row">
+				<div class="col-md-6 offset-md-3">
+					<div class="card">
+						<div class="card-header text-center fs-4">Create Account</div>
+
+						<div class="card-body">
+							<form action="SaveAdmin" th:object="${Users}" method="post">
+							<div class="mb-3">
+									<label>Enter UUID</label>
+										<input type="text" name="id" class="form-control">
+								</div>
+								<div class="mb-3">
+									<label>Enter Full Name</label>
+										<input type="text" name="name" class="form-control">
+								</div>
+								<div class="mb-3">
+									<label>Enter Email</label>
+										<input type="email" name="userName" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+									<label>Enter Password</label>
+										<input type="password" name="password" class="form-control">
+								</div>
+						
+								
+								<div class="mb-3">
+							<label>Select Course</label> 
+							<select class="form-select"
+										aria-label="Default select example" name="role">
+
+										<option>ADMIN</option>
+										<option>CALLER</option>
+										<option>MANAGER</option>
+										<option>FIELDMANAGER</option>
+										<option>CLIENT</option>
+									</select>
+
+								</div>
+								<button class="btn btn-primary col-md-12">Create</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+</section>
+
+
+</body>
+</html>
