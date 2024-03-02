@@ -1,0 +1,22 @@
+/* Custom CSS for responsive card and styling */
+.total-leads-card {
+	border: 1px solid #ddd;
+	border-radius: 5px;
+	padding: 20px;
+	text-align: center;
+	margin: 0 auto;
+	width: 50%; /* Initial width, adjusts responsively */
+}
+
+.total-leads-number {
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 768px) {
+	/* For smaller screens, make the card full-width */
+	.total-leads-card {
+		width: 100%;
+	}
+}

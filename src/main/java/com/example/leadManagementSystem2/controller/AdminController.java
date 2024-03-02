@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +30,9 @@ import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 import com.example.leadManagementSystem2.Service.DataFetchingService;
 import com.example.leadManagementSystem2.Service.EmployeeService;
 import com.example.leadManagementSystem2.Service.UserService;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/Admin")
@@ -63,7 +68,8 @@ public class AdminController {
 	}
 	
 	@GetMapping("/registration")
-	public String getAccountRegistrationPage() {
+	public String getAccountRegistrationPage(Model model) {
+		model.addAttribute("employeeDetails", new EmployeeDetails());
 		return "Admin/AddEmployeeForm";
 	}
 	
@@ -78,13 +84,31 @@ public class AdminController {
 	
 	
 	@PostMapping("/saveUser")
-	public String CreateAccount(@ModelAttribute EmployeeDetails employeeDetails) {
+	public String CreateAccount(@Valid @ModelAttribute EmployeeDetails employeeDetails, BindingResult result, HttpSession session) {
 		
 		/* Users_Credentials users_Credentials1 =  userService.saveUser(Users_credentials);*/
 		
-		employeeService.saveEmployeeDetails(employeeDetails);
-
+		if (result.hasErrors()) {
+			System.out.println(result);
+			return "Admin/AddEmployeeForm";
+		}
 		
+		System.out.println(employeeDetails);
+		
+		employeeService.saveEmployeeDetails(employeeDetails);
+		
+		try {
+			EmployeeDetails emp = employeeService.saveEmployeeDetails(employeeDetails);
+			session.setAttribute("msg", "Saved Successfully");
+		} catch (DataIntegrityViolationException e) {
+			// Handle the exception for duplicate username
+			session.setAttribute("msg", "Email already exists");
+
+			return "Admin/AddEmployeeForm";
+		} catch (Exception e) {
+			session.setAttribute("msg", "Something went wrong!");
+		}
+
 		return "redirect:/Admin/registration";
 	}
 	

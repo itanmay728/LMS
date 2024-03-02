@@ -9,6 +9,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
@@ -146,8 +148,14 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
 
 	    return true; // Indicate successful rejection
 	}
-	
-	
-	
 
+	@Override
+	public void removeSessionMessage() {
+		HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest()
+				.getSession();
+
+		session.removeAttribute("msg");
+		
+	}
+	
 }

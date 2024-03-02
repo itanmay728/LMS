@@ -10,6 +10,10 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class BusinessAssociate {
@@ -18,26 +22,45 @@ public class BusinessAssociate {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotBlank(message="name cannot be empty!!")
 	private String name;
 	
+	@NotBlank(message="Email cannot be empty!!")
+	@Email(message="Invalid email format!")
 	@Column(unique = true)
 	private String userName;
 	
+	@NotBlank(message="Phone cannot be empty!!")
 	private String phone;
 	
+	@NotBlank(message="Address cannot be empty!!")
 	private String address;
 	
+	@NotBlank(message="Business name cannot be empty!!")
 	private String businessName;
 	
+	@NotBlank(message="Pan number cannot be empty!!")
+	@Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message="Invalid PAN number")
 	private String panNumber;
 	
+	@NotBlank(message="Aadhaar number cannot be empty!!")
+	@Pattern(regexp = "[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", message="Invalid Aadhaar number")
 	private String aadhaarNumber;
 	
+	@NotBlank(message="Account number cannot be empty!!")
 	private String accountNumber;
+	
+	@NotBlank(message="Account holder name cannot be empty!!")
 	private String accountHolderName;
+	
+	@NotBlank(message="IFSC code cannot be empty!!")
+	@Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message="Invalid IFSC Code")
 	private String ifscCode;
+	
+	@NotBlank(message="Branch Address cannot be empty!!")
 	private String branchAddress;
 	
+	//@NotBlank(message="name cannot be empty!!")
 	private String password;
 	
 	private boolean approval;

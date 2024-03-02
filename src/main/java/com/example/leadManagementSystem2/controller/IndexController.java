@@ -6,19 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
+import com.example.leadManagementSystem2.Entity.FormData;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
-import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.UserService;
+
+import jakarta.validation.Valid;
 
 @Controller
 @RequestMapping("/")
@@ -40,15 +43,13 @@ public class IndexController {
 	@Autowired
 	BusinessAssociateRepository businessAssociateRepository;
 	
-	@GetMapping()
+	@GetMapping("/")
 	public String getIndexPage() {
 		
 		return "Index";
 		
 	}
-	
 
-	
 	
 	@GetMapping("/login")
 	public String getLoginPage() {
@@ -94,6 +95,5 @@ public class IndexController {
 		
 		return "redirect:/addAdmin";
 	}
-	
 	
 }

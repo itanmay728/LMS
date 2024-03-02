@@ -1,10 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org "
+	th:replace="/FieldManager/FieldManagerBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
 </head>
 <body>
+
+	<section>
+	<div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="total-leads-card">
+                <h2 class="total-leads-number">Number of Leads</h2>
+                <p>Total Leads: <span th:text="${numberOfLeads}"></span></p>
+            </div>
+        </div>
+    </div>
+	</section>
 
 </body>
 </html>
