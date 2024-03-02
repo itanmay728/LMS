@@ -10,4 +10,5 @@ public interface BusinessAssociateService {
 	public BusinessAssociate saveBusinessAssociate(BusinessAssociate businessAssociate);
 	public BusinessAssociate approveBusinessAssociate(Long businessAssociateId);
 	boolean rejectBusinessAssociate(Long businessAssociateId, BusinessAssociateHistory businessAssociateHistory);
+	public void removeSessionMessage();
 }

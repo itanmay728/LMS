@@ -108,7 +108,7 @@ public class Users_Credentials {
 		this.userName = userName;
 		this.password = password;
 		this.role = role;
-		this.employeeDetails = employeeDetails;
+		//this.employeeDetails = employeeDetails;
 		this.businessAssociate = businessAssociate;
 	}
 
@@ -119,13 +119,4 @@ public class Users_Credentials {
 				+ "]";
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

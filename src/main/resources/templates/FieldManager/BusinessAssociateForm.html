@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org "  th:replace="/FieldManager/FieldManagerBase::layout(~{::section})">
+<html xmlns:th="http://www.thymeleaf.org "
+	th:replace="/FieldManager/FieldManagerBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Business Associate Form</title>
@@ -8,70 +9,141 @@
 
 
 
-<section>
+	<section>
 
-	<div class="container p-2"></div>
+		<div class="container p-2"></div>
 		<div class="row">
 			<div class="col-md-6 offset-md-3">
 				<div class="card">
 					<div class="card-header text-center fs-4">Business Associate
 						Details</div>
-					<!-- <th:block th:if="${session.msg}">
-						<p class="text-center text-success">[[${session.msg}]]</p>
-						<th:block th:text="${@userServiceImpl.removeSessionMessage()}"></th:block>
-					</th:block> -->
+					<th:block th:if="${session.msg}">
+						<p th:if="${session.msg == 'Email already exists'}"
+							class="text-center text-danger">[[${session.msg}]]</p>
+						<p th:if="${session.msg == 'Something went wrong!'}"
+							class="text-center text-danger" style="color: red;">[[${session.msg}]]</p>
+						<th:block
+							th:text="${@businessAssociateServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
 					<div class="card-body">
-						<form action="/fieldManager/saveBA" method="post">
+						<form action="/fieldManager/saveBA" method="post"
+							th:object="${businessAssociate}">
 							<div class="mb-3">
 								<label>Enter Full Name</label> <input type="text" name="name"
-									class="form-control">
+									class="form-control" th:value="${businessAssociate.name}"
+									th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback">
+								</div>
+
 							</div>
 							<div class="mb-3">
 								<label>Enter Email</label> <input type="email" name="userName"
-									class="form-control">
+									class="form-control" th:value="${businessAssociate.userName}"
+									th:classappend="${#fields.hasErrors('userName')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('userName')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback">
+								</div>
+
 							</div>
+
 							<div class="mb-3">
-								<label>Enter Phone Number</label> <input type="text" name="phone"
-									class="form-control">
+								<label>Enter Phone Number</label> <input type="text"
+									name="phone" class="form-control"
+									th:value="${businessAssociate.phone}"
+									th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback">
+								</div>
+
 							</div>
 							<div class="mb-3">
 								<label>Enter Address</label> <input type="text" name="address"
-									class="form-control">
+									class="form-control" th:value="${businessAssociate.address}"
+									th:classappend="${#fields.hasErrors('address')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('address')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback">
+								</div>
 							</div>
 							<div class="mb-3">
-								<label>Enter Business Name</label> <input type="text" name="businessName"
-									class="form-control">
+								<label>Enter Business Name</label> <input type="text"
+									name="businessName" class="form-control"
+									th:value="${businessAssociate.businessName}"
+									th:classappend="${#fields.hasErrors('businessName')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('businessName')}"
+									th:text="${e}" id="validationServer03Feedback"
+									class="invalid-feedback"></div>
 							</div>
 							<div class="mb-3">
-								<label>Enter PAN Number</label> <input type="text" name="panNumber"
-									class="form-control">
+								<label>Enter PAN Number</label> <input type="text"
+									name="panNumber" class="form-control"
+									th:value="${businessAssociate.panNumber}"
+									th:classappend="${#fields.hasErrors('panNumber')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('panNumber')}" th:text="${e}"
+									id="validationServer03Feedback" class="invalid-feedback">
+								</div>
 							</div>
 							<div class="mb-3">
-								<label>Enter Aadhaar Number</label> <input type="text" name="aadhaarNumber"
-									class="form-control">
+								<label>Enter Aadhaar Number</label> <input type="text"
+									name="aadhaarNumber" class="form-control"
+									th:value="${businessAssociate.aadhaarNumber}"
+									th:classappend="${#fields.hasErrors('aadhaarNumber')?'is-invalid':''}">
+
+								<div th:each="e : ${#fields.errors('aadhaarNumber')}"
+									th:text="${e}" id="validationServer03Feedback"
+									class="invalid-feedback"></div>
 							</div>
-							
+
 							<fieldset>
 								<legend>Bank Details</legend>
 								<div class="mb-3">
 									<label>Account Holder Name</label> <input type="text"
-										name="accountHolderName" class="form-control">
+										name="accountHolderName" class="form-control"
+										th:value="${businessAssociate.accountHolderName}"
+										th:classappend="${#fields.hasErrors('accountHolderName')?'is-invalid':''}">
+
+									<div th:each="e : ${#fields.errors('accountHolderName')}"
+										th:text="${e}" id="validationServer03Feedback"
+										class="invalid-feedback"></div>
 								</div>
 								<div class="mb-3">
 									<label>Account Number</label> <input type="text"
-										name="accountNumber" class="form-control">
+										name="accountNumber" class="form-control"
+										th:value="${businessAssociate.accountNumber}"
+										th:classappend="${#fields.hasErrors('accountNumber')?'is-invalid':''}">
+
+									<div th:each="e : ${#fields.errors('accountNumber')}"
+										th:text="${e}" id="validationServer03Feedback"
+										class="invalid-feedback"></div>
 								</div>
 								<div class="mb-3">
 									<label>IFSC Code</label> <input type="text" name="ifscCode"
-										class="form-control">
+										class="form-control" th:value="${businessAssociate.ifscCode}"
+										th:classappend="${#fields.hasErrors('ifscCode')?'is-invalid':''}">
+
+									<div th:each="e : ${#fields.errors('ifscCode')}" th:text="${e}"
+										id="validationServer03Feedback" class="invalid-feedback">
+									</div>
 								</div>
 								<div class="mb-3">
 									<label>Branch Address</label> <input type="text"
-										name="branchAddress" class="form-control">
+										name="branchAddress" class="form-control"
+										th:value="${businessAssociate.branchAddress}"
+										th:classappend="${#fields.hasErrors('branchAddress')?'is-invalid':''}">
+
+									<div th:each="e : ${#fields.errors('branchAddress')}"
+										th:text="${e}" id="validationServer03Feedback"
+										class="invalid-feedback"></div>
 								</div>
 							</fieldset>
-							
-							
+
+
 							<button type="submit" class="btn btn-primary col-md-12">Create</button>
 						</form>
 					</div>
@@ -79,9 +151,8 @@
 			</div>
 		</div>
 
-<br>
-<br>
-</section>
+		<br> <br>
+	</section>
 
 </body>
 </html>

@@ -6,5 +6,7 @@ import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 public interface EmployeeService {
 
 	public EmployeeDetails saveEmployeeDetails(EmployeeDetails employeeDetails);
+
+	public void removeSessionMessage();
 	
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin | AddEmployee</title>
@@ -8,91 +9,162 @@
 <body>
 
 
-<section>
+	<section>
 
-					<div class="card">
-						<div class="card-header text-center fs-4">Add Employee</div>
+		<div class="card">
+			<div class="card-header text-center fs-4">Add Employee</div>
 
-						<div class="card-body">
-							<form th:action="@{/Admin/saveUser}" th:object="${Users}" method="post">
-								<div class="mb-3">
-									<label>Enter Full Name</label>
-										<input type="text" name="name" class="form-control" placeholder="Full Name">
-								</div>
-								
-								
-								<div class="mb-3">
-									<label>Enter Address</label>
-										<input type="text" name="address" class="form-control"  placeholder="Full Address">
-								</div>
-								
-								<div class="mb-3">
-									<label>Enter Phone Number</label>
-										<input type="text" name="phone" class="form-control"  placeholder="Phone number">
-								</div>
-								
-								<div class="mb-3">
-									<label>Enter Pan Number</label>
-										<input type="text" name="panNumber" class="form-control"  placeholder="Pan Number">
-								</div>
-								
-								<div class="mb-3">
-									<label>Enter Aadhaar</label>
-										<input type="text" name="aadhaar" class="form-control"  placeholder="Aadhaar Number">
-								</div>
+			<th:block th:if="${session.msg}">
+				<p th:if="${session.msg == 'Saved Successfully'}"
+					class="text-center text-success">[[${session.msg}]]</p>
+				<p th:if="${session.msg == 'Email already exists'}"
+					class="text-center text-danger">[[${session.msg}]]</p>
+				<p th:if="${session.msg == 'Something went wrong!'}"
+					class="text-center text-danger" style="color: red;">[[${session.msg}]]</p>
+				<th:block th:text="${@employeeServiceImpl.removeSessionMessage()}"></th:block>
+			</th:block>
 
-								
-							<fieldset class="bg-success p-2 text-white ">
-								<legend class = "text-center">Employee Bank Details</legend>
-								<div class="mb-3">
-									<label>Account Holder Name</label> <input type="text"
-										name="accountHolderName" class="form-control"  placeholder="Full Name">
-								</div>
-								<div class="mb-3">
-									<label>Account Number</label> <input type="text"
-										name="accountNumber" class="form-control"  placeholder="Full Name">
-								</div>
-								<div class="mb-3">
-									<label>IFSC Code</label> <input type="text" name="ifscCode"
-										class="form-control"  placeholder="Full Name">
-								</div>
-								<div class="mb-3">
-									<label>Branch Address</label> <input type="text"
-										name="branchAddress" class="form-control"  placeholder="Full Name">
-								</div>
-							</fieldset>
-								
-								<br>
-								<br>
-								
-								<div class="mb-3">
-									<label>Enter Email</label>
-										<input type="email" name="userName" class="form-control"  placeholder="@example.com">
-								</div>
-								
-								<div class="mb-3">
-									<label>Enter Password</label>
-										<input type="password" name="password" class="form-control"  placeholder="Enter a strong password">
-								</div>
-								<div class="mb-3">
-							<label>Select role</label> 
-							<select class="form-select"
-										aria-label="Default select example" name="role">
+			<div class="card-body">
+				<form th:action="@{/Admin/saveUser}" th:object="${employeeDetails}"
+					method="post">
+					<div class="mb-3">
+						<label>Enter Full Name</label> <input type="text" name="name"
+							class="form-control" placeholder="Full Name"
+							th:value="${employeeDetails.name}"
+							th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
 
-										<option>ADMIN</option>
-										<option>CALLER</option>
-										<option>MANAGER</option>
-										<option>FIELDMANAGER</option>
-										<option>CLIENT</option>
-									</select>
-
-								</div>
-								<button class="btn btn-primary col-md-12">Create</button>
-							</form>
-						</div>
+						<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
 					</div>
-<br>
-</section>
+
+
+					<div class="mb-3">
+						<label>Enter Address</label> <input type="text" name="address"
+							class="form-control" placeholder="Full Address"
+							th:value="${employeeDetails.address}"
+							th:classappend="${#fields.hasErrors('address')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('address')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+
+					<div class="mb-3">
+						<label>Enter Phone Number</label> <input type="text" name="phone"
+							class="form-control" placeholder="Phone number"
+							th:value="${employeeDetails.phone}"
+							th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+
+					<div class="mb-3">
+						<label>Enter Pan Number</label> <input type="text"
+							name="panNumber" class="form-control" placeholder="Pan Number"
+							th:value="${employeeDetails.panNumber}"
+							th:classappend="${#fields.hasErrors('panNumber')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('panNumber')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+
+					<div class="mb-3">
+						<label>Enter Aadhaar</label> <input type="text" name="aadhaar"
+							class="form-control" placeholder="Aadhaar Number"
+							th:value="${employeeDetails.aadhaar}"
+							th:classappend="${#fields.hasErrors('aadhaar')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('aadhaar')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+
+
+					<fieldset class="bg-success p-2 text-white ">
+						<legend class="text-center">Employee Bank Details</legend>
+						<div class="mb-3">
+							<label>Account Holder Name</label> <input type="text"
+								name="accountHolderName" class="form-control"
+								placeholder="Full Name"
+								th:value="${employeeDetails.accountHolderName}"
+								th:classappend="${#fields.hasErrors('accountHolderName')?'is-invalid':''}">
+
+							<div th:each="e : ${#fields.errors('accountHolderName')}"
+								th:text="${e}" id="validationServer03Feedback"
+								class="invalid-feedback"></div>
+						</div>
+						<div class="mb-3">
+							<label>Account Number</label> <input type="text"
+								name="accountNumber" class="form-control"
+								placeholder="Full Name"
+								th:value="${employeeDetails.accountNumber}"
+								th:classappend="${#fields.hasErrors('accountNumber')?'is-invalid':''}">
+
+							<div th:each="e : ${#fields.errors('accountNumber')}"
+								th:text="${e}" id="validationServer03Feedback"
+								class="invalid-feedback"></div>
+						</div>
+						<div class="mb-3">
+							<label>IFSC Code</label> <input type="text" name="ifscCode"
+								class="form-control" placeholder="Full Name"
+								th:value="${employeeDetails.ifscCode}"
+								th:classappend="${#fields.hasErrors('ifscCode')?'is-invalid':''}">
+
+							<div th:each="e : ${#fields.errors('ifscCode')}" th:text="${e}"
+								id="validationServer03Feedback" class="invalid-feedback"></div>
+						</div>
+						<div class="mb-3">
+							<label>Branch Address</label> <input type="text"
+								name="branchAddress" class="form-control"
+								placeholder="Full Name"
+								th:value="${employeeDetails.branchAddress}"
+								th:classappend="${#fields.hasErrors('branchAddress')?'is-invalid':''}">
+
+							<div th:each="e : ${#fields.errors('branchAddress')}"
+								th:text="${e}" id="validationServer03Feedback"
+								class="invalid-feedback"></div>
+						</div>
+					</fieldset>
+
+					<br> <br>
+
+					<div class="mb-3">
+						<label>Enter Email</label> <input type="email" name="userName"
+							class="form-control" placeholder="@example.com"
+							th:value="${employeeDetails.userName}"
+							th:classappend="${#fields.hasErrors('userName')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('userName')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+
+					<div class="mb-3">
+						<label>Enter Password</label> <input type="password"
+							name="password" class="form-control"
+							placeholder="Enter a strong password"
+							th:value="${employeeDetails.password}"
+							th:classappend="${#fields.hasErrors('password')?'is-invalid':''}">
+
+						<div th:each="e : ${#fields.errors('password')}" th:text="${e}"
+							id="validationServer03Feedback" class="invalid-feedback"></div>
+					</div>
+					<div class="mb-3">
+						<label>Select role</label> <select class="form-select"
+							aria-label="Default select example" name="role">
+
+							<option>ADMIN</option>
+							<option>CALLER</option>
+							<option>MANAGER</option>
+							<option>FIELDMANAGER</option>
+							<option>CLIENT</option>
+						</select>
+
+					</div>
+					<button class="btn btn-primary col-md-12">Create</button>
+				</form>
+			</div>
+		</div>
+		<br>
+	</section>
 
 </body>
 </html>
