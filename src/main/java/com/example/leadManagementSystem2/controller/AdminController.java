@@ -62,8 +62,18 @@ public class AdminController {
 	private EmployeeDetailsRepository employeeDetailsRepository;
 	
 	@GetMapping("/admin_Dashboard")
-	public String getAdminDashboard(ModelMap model ) {
-		model.put("userName", "Tanmay");
+	public String getAdminDashboard(Model model, Principal principal ) {
+		
+		
+		String username = principal.getName();
+		System.out.println(username);
+		
+		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
+		
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+	
+		model.addAttribute("employeeDetails", employeeDetails);
+		
 		return "Admin/Admin_Dashboard";
 	}
 	
@@ -193,16 +203,13 @@ public class AdminController {
 	@GetMapping("/profile")
 	public String getProfile(Model model, Principal principal) {
 		
-		String Usename = principal.getName();
-		System.out.println(Usename);
+		String username = principal.getName();
+		System.out.println(username);
 		
-		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(Usename);
-		Long id = user.getId();
+		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
 		
-		EmployeeDetails employeeDetails =   employeeDetailsRepository.getEmployeeDetailsByid(id);
-		
-		
-		System.out.println(employeeDetails);
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+	
 		model.addAttribute("employeeDetails", employeeDetails);
 		
 		return "Admin/AdminProfile";
