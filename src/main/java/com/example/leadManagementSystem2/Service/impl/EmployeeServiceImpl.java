@@ -35,8 +35,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 		employeeDetails.setRole("ROLE_" + employeeDetails.getRole());
 
-		// Save EmployeeDetails first
-		EmployeeDetails newEmployee = employeeDetailsRepository.save(employeeDetails);
 
 		Users_Credentials users_Credentials = new Users_Credentials();
 		users_Credentials.setName(employeeDetails.getName());
@@ -47,11 +45,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 		users_Credentials.setUserName(employeeDetails.getUserName());
 		users_Credentials.setRole(employeeDetails.getRole());
 
-		users_Credentials.setEmployeeDetails(newEmployee); // Set employee after saving
+		users_Credentials.setEmployeeDetails(employeeDetails);
 
 		employeeDetails.setUsers_Credentials(users_Credentials);
 
-		return newEmployee;
+		return employeeDetailsRepository.save(employeeDetails);
 	}
 
 	@Override
