@@ -12,7 +12,8 @@
 
 		 <nav class="navbar navbar-expand-lg bg-light ">
 			<div class="container-fluid d-flex">
-				<a class="navbar-brand" href="#" th:text="${employeeDetails.name}">Navbar
+					
+					<a class="navbar-brand" href="#" th:text="${session.employeeDetails.name}">Navbar
 					w/ text</a>
 				<button class="navbar-toggler" type="button"
 					data-bs-toggle="collapse" data-bs-target="#navbarText"
@@ -24,9 +25,17 @@
 				<span class="text-danger"
 					th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy HH:mm')}">Home</span>
 
+				 <!-- <div>
+					All ok.
+				</div> -->
+				
+				 <div>
+				   not ok.
+				</div> 
+				 
 				<div>
 					Login as Role : - <span class="navbar-text ms-auto text-info"
-						th:text="${employeeDetails.role}"></span>
+						th:text="${session.employeeDetails.role}"></span>
 				</div>
 			</div>
 		</nav>

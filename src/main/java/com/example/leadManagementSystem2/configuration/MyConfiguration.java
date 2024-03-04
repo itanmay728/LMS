@@ -46,7 +46,7 @@ public class MyConfiguration {
 		httpSecurity.csrf(AbstractHttpConfigurer::disable);
 		
 		httpSecurity.authorizeHttpRequests(request->{
-	            request.requestMatchers("/", "/login", "/CustomersForm" ,"/saveLeads" , "/css/**" ,  "/addAdmin", "/SaveAdmin","/form","/process","/img/Suprams_logo.jpg", "/img/Bg.jpeg", "/img/**").permitAll();
+	            request.requestMatchers("/", "/login", "/CustomersForm" ,"/Admin/registration","/saveLeads" , "/css/**" ,  "/addAdmin", "/SaveAdmin","/form","/process","/img/Suprams_logo.jpg", "/img/Bg.jpeg", "/img/**").permitAll();
 	            request.requestMatchers("/user/**").hasRole("USER");
 	            request.requestMatchers("/Admin/**").hasRole("ADMIN");
 	            request.requestMatchers("/Caller/**").hasRole("CALLER");

@@ -20,9 +20,13 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 			Authentication authentication) throws IOException, ServletException {
 
 		Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+		String username = authentication.getName();
+	    request.getSession().setAttribute("username", username);
 
 		if (roles.contains("ROLE_ADMIN")) {
-			response.sendRedirect("/Admin/admin_Dashboard");
+//			String username = authentication.getName();
+//		    request.getSession().setAttribute("username", username);
+		    response.sendRedirect("/Admin/admin_Dashboard");
 		} 
 		else if (roles.contains("ROLE_CALLER")) {
 			response.sendRedirect("/Caller/Caller_Dashboard");
@@ -31,6 +35,7 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 			response.sendRedirect("/fieldManager/fieldManagerDashboard");
 		}
 		else if (roles.contains("ROLE_BUSINESSASSOCIATE")) {
+			
 			response.sendRedirect("/businessAssociate/businessAssociateDashboard");
 		}
 		else {

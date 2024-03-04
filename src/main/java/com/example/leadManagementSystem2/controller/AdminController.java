@@ -62,24 +62,30 @@ public class AdminController {
 	private EmployeeDetailsRepository employeeDetailsRepository;
 	
 	@GetMapping("/admin_Dashboard")
-	public String getAdminDashboard(Model model, Principal principal ) {
+	public String getAdminDashboard(Model model,HttpSession session) {
 		
 		
-		String username = principal.getName();
+		String username = (String) session.getAttribute("username");
 		System.out.println(username);
+	    if (username == null) {
+	        // Handle the case where username is not found in the session
+	        return "redirect:/login"; // Redirect to login page or handle appropriately
+	    }
+
+	    Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+	    
+	    EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		session.setAttribute("employeeDetails", employeeDetails);
 		
-		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
-		
-		EmployeeDetails employeeDetails = user.getEmployeeDetails();
-	
-		model.addAttribute("employeeDetails", employeeDetails);
 		
 		return "Admin/Admin_Dashboard";
 	}
 	
 	@GetMapping("/registration")
-	public String getAccountRegistrationPage(Model model) {
+	public String getAccountRegistrationPage(Model model, HttpSession session) {
 		model.addAttribute("employeeDetails", new EmployeeDetails());
+		String username = (String) session.getAttribute("username");
+		 session.setAttribute("name", username);
 		return "Admin/AddEmployeeForm";
 	}
 	
@@ -96,7 +102,6 @@ public class AdminController {
 	@PostMapping("/saveUser")
 	public String CreateAccount(@Valid @ModelAttribute EmployeeDetails employeeDetails, BindingResult result, HttpSession session) {
 		
-		/* Users_Credentials users_Credentials1 =  userService.saveUser(Users_credentials);*/
 		
 		if (result.hasErrors()) {
 			System.out.println(result);
