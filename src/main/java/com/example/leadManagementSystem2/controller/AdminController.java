@@ -105,8 +105,6 @@ public class AdminController {
 		
 		System.out.println(employeeDetails);
 		
-		employeeService.saveEmployeeDetails(employeeDetails);
-		
 		try {
 			EmployeeDetails emp = employeeService.saveEmployeeDetails(employeeDetails);
 			session.setAttribute("msg", "Saved Successfully");
