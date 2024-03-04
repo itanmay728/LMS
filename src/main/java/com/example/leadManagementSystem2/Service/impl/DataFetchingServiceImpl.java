@@ -29,10 +29,7 @@ public class DataFetchingServiceImpl implements DataFetchingService {
 
 	@Override
 	public List<BusinessAssociate> getBusinessAssociateByApprove() {
-		
-		
-		
-		
+	
 		return businessAssociateRepository.findAll();
 	}
 

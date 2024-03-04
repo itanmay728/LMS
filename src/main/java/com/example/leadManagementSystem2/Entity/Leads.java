@@ -8,6 +8,8 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Leads {
@@ -16,12 +18,18 @@ public class Leads {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
 	
+	@NotBlank(message="name cannot be empty!!")
 	private String name;	
 	
+	@NotBlank(message="Email cannot be empty!!")
+	@Email(message="Invalid email format!")
+	@Column(unique = true)
 	private String email;
 	
+	@NotBlank(message="Phone cannot be empty!!")
 	private String phone;
-	
+
+	@NotBlank(message="Address cannot be empty!!")
 	private String address;
 	
 	private String course;
