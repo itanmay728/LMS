@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org ">
 <head>
 <meta charset="ISO-8859-1">
 <title>Entry Form</title>
@@ -9,126 +9,175 @@
 </head>
 <body>
 
-	
-	<div class="container">
-        <div class=" text-center mt-5 ">
+	<section>
+		<div class="container">
+			<div class=" text-center mt-5 ">
 
-            <h1 >Entry Form</h1>
-                
-            
-        </div>
-
-    
-    <div class="row ">
-      <div class="col-lg-7 mx-auto">
-        <div class="card mt-2 mx-auto p-4 bg-light">
-            <div class="card-body bg-light">
-       
-            <div class = "container">
-             <form id="contact-form" role="form" action="saveLeads" method="post">
-
-            
-
-            <div class="controls">
-            
-            <div class="col-md-12 text-center">
-                        <div class="form-group ">
-                            <label for="form_name">Referral Name *</label>
-                            <input id="form_name" type="text" th:value="${businessAssociate.name}" class="form-control text-center"  required="required" data-error="Firstname is required." readonly>
-                            
-                        </div>
-                    </div>
+				<h1>Entry Form</h1>
 
 
-
-                <div class="row">
-                
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_name">Fullname *</label>
-                            <input id="form_name" type="text" name="name" class="form-control" placeholder="Please enter your firstname *" required="required" data-error="Firstname is required.">
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_lastname">Email *</label>
-                            <input id="form_lastname" type="email" name="email" class="form-control" placeholder="Please enter your email *" required="required" data-error="Lastname is required.">
-                         </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_email">PhoneNumber *</label>
-                            <input id="form_email" type="text" name="phone" class="form-control" placeholder="Please enter your phone number *" required="required" data-error="Valid email is required.">
-                            
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="form_need">Please specify your Course *</label>
-                            <select id="form_need" name="course" class="form-control" required="required" data-error="Please specify your need.">
-                                <option value="" selected disabled>--Select Your Course--</option>
-                                <option >9th / 10th Foundation Course </option>
-                                <option >One year Course (Medical/ Engineering) 12th</option>
-                                <option >One year Course (Medical/ Engineering) after 12th</option>
-                                <option >B.tech</option>
-                                 <option >MCA</option>
-                            </select>
-                            
-                        </div>
-                    </div>
-                </div>
-                
-                
-                
-                <div class="row">
-                
-                <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="form_name">Full Address *</label>
-                            <input id="form_name" type="text" name="address" class="form-control" placeholder="Please enter your address *" required="required" data-error="Firstname is required.">
-                            
-                        </div>
-                    </div>
-                
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="form_message">Message *</label>
-                            <textarea id="form_message" name="message" class="form-control" placeholder="Write your message here." rows="4" required="required" data-error="Please, leave us a message."></textarea>
-                            </div>
-
-                        </div>
+			</div>
 
 
-                    <div class="col-md-12">
-                        
-                        <input type="submit" class="btn btn-success btn-send  pt-2 btn-block
-                            " value="Send Message" >
-                    
-                </div>
-          
-                </div>
+			<div class="row ">
+				<div class="col-lg-7 mx-auto">
+					<div class="card mt-2 mx-auto p-4 bg-light">
+						<div class="card-body bg-light">
+
+							<div class="container">
+
+								<div class="col-md-12 text-center">
+									<div class="form-group ">
+										<label for="form_name">Referral Name *</label> <input
+											id="form_name" type="text"
+											th:value="${session.businessAssociate.name}"
+											class="form-control text-center" readonly>
+
+									</div>
+								</div>
+								<form id="contact-form" role="form" action="saveLeads"
+									method="post" th:object="${leads}">
 
 
-        </div>
-         </form>
-        </div>
-            </div>
+
+									<div class="controls">
+
+										<th:block th:if="${session.msg}">
+											<p th:if="${session.msg == 'Saved Successfully'}"
+												class="text-center text-success">[[${session.msg}]]</p>
+											<p th:if="${session.msg == 'Something went wrong!'}"
+												class="text-center text-danger">[[${session.msg}]]</p>
+											<th:block
+												th:text="${@leadServiceImpl.removeSessionMessage()}"></th:block>
+										</th:block>
 
 
-    </div>
-        <!-- /.8 -->
 
-    </div>
-    <!-- /.row-->
+										<div class="row">
 
-</div>
-</div>
-<br>
-<br>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="form_name">Fullname *</label> <input
+														id="form_name" type="text" name="name"
+														class="form-control"
+														placeholder="Please enter your firstname *"
+														th:value="${leads.name}"
+														th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
 
+													<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
+														id="validationServer03Feedback" class="invalid-feedback"></div>
+
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="form_lastname">Email *</label> <input
+														id="form_lastname" type="email" name="email"
+														class="form-control"
+														placeholder="Please enter your email *"
+														th:value="${leads.email}"
+														th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
+
+													<div th:each="e : ${#fields.errors('email')}"
+														th:text="${e}" id="validationServer03Feedback"
+														class="invalid-feedback"></div>
+
+												</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="form_email">PhoneNumber *</label> <input
+														id="form_email" type="text" name="phone"
+														class="form-control"
+														placeholder="Please enter your phone number *"
+														th:value="${leads.phone}"
+														th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}">
+
+													<div th:each="e : ${#fields.errors('phone')}"
+														th:text="${e}" id="validationServer03Feedback"
+														class="invalid-feedback"></div>
+												</div>
+											</div>
+											<div class="col-md-6">
+												<div class="form-group">
+													<label for="form_need">Please specify your Course *</label>
+													<select id="form_need" name="course" class="form-control">
+														<option value="" selected disabled>--Select Your
+															Course--</option>
+														<option>9th / 10th Foundation Course</option>
+														<option>One year Course (Medical/ Engineering)
+															12th</option>
+														<option>One year Course (Medical/ Engineering)
+															after 12th</option>
+														<option>B.tech</option>
+														<option>MCA</option>
+													</select>
+
+												</div>
+											</div>
+										</div>
+
+
+
+										<div class="row">
+
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="form_name">Full Address *</label> <input
+														id="form_name" type="text" name="address"
+														class="form-control"
+														placeholder="Please enter your address *"
+														th:value="${leads.address}"
+														th:classappend="${#fields.hasErrors('address')?'is-invalid':''}">
+
+
+													<div th:each="e : ${#fields.errors('address')}"
+														th:text="${e}" id="validationServer03Feedback"
+														class="invalid-feedback"></div>
+												</div>
+											</div>
+
+											<!-- removed required from message as it is optional -->
+											<div class="col-md-12">
+												<div class="form-group">
+													<label for="form_message">Message *</label>
+													<textarea id="form_message" name="message"
+														class="form-control"
+														placeholder="Write your message here." rows="4"
+														data-error="Please, leave us a message."></textarea>
+												</div>
+
+											</div>
+
+
+											<div class="col-md-12">
+
+												<input type="submit"
+													class="btn btn-success btn-send  pt-2 btn-block">
+
+											</div>
+
+										</div>
+
+
+									</div>
+								</form>
+							</div>
+						</div>
+
+
+					</div>
+					<!-- /.8 -->
+
+				</div>
+				<!-- /.row-->
+
+			</div>
+		</div>
+		<br> <br>
+	</section>
 	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
 		integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
 		crossorigin="anonymous">

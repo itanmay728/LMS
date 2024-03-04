@@ -3,6 +3,7 @@ package com.example.leadManagementSystem2.controller;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
-import com.example.leadManagementSystem2.Entity.FormData;
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
@@ -21,6 +22,7 @@ import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 @Controller
@@ -43,7 +45,7 @@ public class IndexController {
 	@Autowired
 	BusinessAssociateRepository businessAssociateRepository;
 	
-	@GetMapping("/")
+	@GetMapping("")
 	public String getIndexPage() {
 		
 		return "Index";
@@ -58,28 +60,51 @@ public class IndexController {
 	
 	
 	@GetMapping("/CustomersForm")
-	public String getCustomersForm(Model model, Principal principal) {
-		String Username = principal.getName();
+	public String getCustomersForm(Model model, HttpSession session) {
+		String Username = (String) session.getAttribute("username");
 		System.out.println(Username);
 		
-		BusinessAssociate businessAssociate =   businessAssociateRepository.getBusinessAssociateByUserName(Username);
+		if (Username == null) {
+	        // Handle the case where username is not found in the session
+	        return "redirect:/login"; // Redirect to login page or handle appropriately
+	    }
+
+	    Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(Username);
+	    
+	    BusinessAssociate businessAssociate = user.getBusinessAssociate();
+		 session.setAttribute("businessAssociate", businessAssociate);
 		
-		model.addAttribute("businessAssociate", businessAssociate);
+		//BusinessAssociate businessAssociate =   businessAssociateRepository.getBusinessAssociateByUserName(Username);
+		//System.out.println(businessAssociate);
+		//model.addAttribute("businessAssociate", businessAssociate);
+		model.addAttribute("leads", new Leads());
 		return "BusinessAssociate/CustomersForm";
 	}
 	
 	@PostMapping("/saveLeads")
-	public String saveLeads(@ModelAttribute Leads leads) {
+	public String saveLeads(@Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session) {
 		
+		//System.out.println(leads);
+		//leads.setLeadStatus("New");
+		//leadsRepository.save(leads);
+		
+		if (result.hasErrors()) {
+			System.out.println(result);
+			return "BusinessAssociate/CustomersForm";
+		}
+
 		System.out.println(leads);
-		leads.setLeadStatus("New");
-		leadsRepository.save(leads);
+
+		try {
+			leads.setLeadStatus("New");
+			Leads lead = leadsRepository.save(leads);
+			session.setAttribute("msg", "Saved Successfully");
+		} catch (Exception e) {
+			session.setAttribute("msg", "Something went wrong!");
+		}
 		
 		return "redirect:/CustomersForm";
 	}
-	
-	
-	  
 	
 	  
 	@GetMapping("/addAdmin")

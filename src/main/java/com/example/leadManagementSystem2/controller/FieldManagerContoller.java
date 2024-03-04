@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
-import com.example.leadManagementSystem2.Entity.FormData;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 
