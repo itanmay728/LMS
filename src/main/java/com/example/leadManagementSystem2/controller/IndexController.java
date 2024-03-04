@@ -43,7 +43,7 @@ public class IndexController {
 	@Autowired
 	BusinessAssociateRepository businessAssociateRepository;
 	
-	@GetMapping("/")
+	@GetMapping()
 	public String getIndexPage() {
 		
 		return "Index";
@@ -77,9 +77,6 @@ public class IndexController {
 		
 		return "redirect:/CustomersForm";
 	}
-	
-	
-	  
 	
 	  
 	@GetMapping("/addAdmin")
