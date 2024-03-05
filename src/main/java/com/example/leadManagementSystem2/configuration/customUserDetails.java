@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 
-public class customUserDetails implements UserDetails {
+public class CustomUserDetails implements UserDetails {
 
 	private Users_Credentials users_Credentials;
 	
 	
-	public customUserDetails(Users_Credentials users_Credentials) {
+	public CustomUserDetails(Users_Credentials users_Credentials) {
 		super();
 		this.users_Credentials = users_Credentials;
 	}

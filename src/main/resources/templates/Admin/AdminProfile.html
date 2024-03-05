@@ -15,7 +15,7 @@
 					class="d-flex flex-column align-items-center text-center p-3 py-5">
 					<img class="rounded-circle mt-5" width="150px"
 						src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span
-						class="font-weight-bold" th:text="${employeeDetails.name}"></span><span class="text-black-50" th:text="${employeeDetails.userName}"></span><span>
+						class="font-weight-bold" th:text="${session.employeeDetails.name}"></span><span class="text-black-50" th:text="${session.employeeDetails.userName}"></span><span>
 					</span>
 				</div>
 			</div>
@@ -28,14 +28,14 @@
                     
                 </div>
                 <div class="row column mt-3 ms-3">
-                     <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" th:value="${employeeDetails.name}"></div>
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:value="${employeeDetails.phone}" ></div>
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" th:value="${employeeDetails.address}"></div>
+                     <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" th:value="${session.employeeDetails.name}"></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:value="${session.employeeDetails.phone}" ></div>
+                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" th:value="${session.employeeDetails.address}"></div>
                     <!-- <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div> -->
-                    <div class="col-md-12"><label class="labels">Aadhaar</label><input type="text" class="form-control" placeholder="enter address line 2" value="" th:value="${employeeDetails.aadhaar}"></div>
-                    <div class="col-md-12"><label class="labels">PanNumber</label><input type="text" class="form-control" placeholder="enter address line 2" value="" th:value="${employeeDetails.panNumber}"></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="" th:value="${employeeDetails.userName}"></div>
-                    <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="enter address line 2" value="" th:value="${employeeDetails.password}"></div>
+                    <div class="col-md-12"><label class="labels">Aadhaar</label><input type="text" class="form-control" placeholder="enter address line 2" value="" th:value="${session.employeeDetails.aadhaar}"></div>
+                    <div class="col-md-12"><label class="labels">PanNumber</label><input type="text" class="form-control" placeholder="enter address line 2" value="" th:value="${session.employeeDetails.panNumber}"></div>
+                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value="" th:value="${session.employeeDetails.userName}"></div>
+                    <div class="col-md-12"><label class="labels">Password</label><input type="password" class="form-control" placeholder="enter address line 2" value="" th:value="${session.employeeDetails.password}"></div>
                    
                 </div>
                 
@@ -43,13 +43,13 @@
                 <div class="row column mt-3 ms-3 bg-secondary text-white rounded-3">
                 	<div class="text-center mt-2">Bank Details</div>
                 	
-                     <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" th:value="${employeeDetails.accountHolderName}"></div>
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:value="${employeeDetails.branchAddress}" ></div>
+                     <div class="col-md-12"><label class="labels">Name</label><input type="text" class="form-control" th:value="${session.employeeDetails.accountHolderName}"></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" th:value="${session.employeeDetails.branchAddress}" ></div>
                     
                    
                  <div class="row mb-3">
-                    <div class="col-md-6"><label class="labels">Account Number</label><input type="text" class="form-control" placeholder="country" value="" th:value="${employeeDetails.accountNumber}"></div>
-                    <div class="col-md-6"><label class="labels">IFSC Code</label><input type="text" class="form-control" value="" placeholder="state" th:value="${employeeDetails.ifscCode}"></div>
+                    <div class="col-md-6"><label class="labels">Account Number</label><input type="text" class="form-control" placeholder="country" value="" th:value="${session.employeeDetails.accountNumber}"></div>
+                    <div class="col-md-6"><label class="labels">IFSC Code</label><input type="text" class="form-control" value="" placeholder="state" th:value="${session.employeeDetails.ifscCode}"></div>
                 </div>
             
                 </div>

@@ -26,9 +26,9 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 			throw new UsernameNotFoundException("user not found !!");
 		}
 		
-		customUserDetails customUserDetails = new customUserDetails(users_Credentials);
+		CustomUserDetails CustomUserDetails = new CustomUserDetails(users_Credentials);
 		
-		return customUserDetails;
+		return CustomUserDetails;
 	}
 
 

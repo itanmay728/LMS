@@ -15,19 +15,25 @@
 			<div class="card-header text-center fs-4">Add Employee</div>
 
 			<th:block th:if="${session.msg}">
+			
 				<p th:if="${session.msg == 'Saved Successfully'}"
 					class="text-center text-success">[[${session.msg}]]</p>
+					
 				<p th:if="${session.msg == 'Email already exists'}"
 					class="text-center text-danger">[[${session.msg}]]</p>
+					
 				<p th:if="${session.msg == 'Something went wrong!'}"
 					class="text-center text-danger" style="color: red;">[[${session.msg}]]</p>
+					
 				<th:block th:text="${@employeeServiceImpl.removeSessionMessage()}"></th:block>
+				
 			</th:block>
 
 			<div class="card-body">
-				<form th:action="@{/Admin/saveUser}" th:object="${employeeDetails}"
-					method="post">
+				<form th:action="@{/Admin/saveUser}" th:object="${employeeDetails}" method="post">
+				
 					<div class="mb-3">
+					
 						<label>Enter Full Name</label> <input type="text" name="name"
 							class="form-control" placeholder="Full Name"
 							th:value="${employeeDetails.name}"

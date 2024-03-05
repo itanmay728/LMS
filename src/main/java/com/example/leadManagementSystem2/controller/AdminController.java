@@ -1,8 +1,6 @@
 package com.example.leadManagementSystem2.controller;
 
-import java.security.Principal;
 import java.util.List;
-import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -84,8 +82,10 @@ public class AdminController {
 	@GetMapping("/registration")
 	public String getAccountRegistrationPage(Model model, HttpSession session) {
 		model.addAttribute("employeeDetails", new EmployeeDetails());
+		
 		String username = (String) session.getAttribute("username");
 		 session.setAttribute("name", username);
+		 
 		return "Admin/AddEmployeeForm";
 	}
 	
@@ -204,16 +204,17 @@ public class AdminController {
 	
 	
 	@GetMapping("/profile")
-	public String getProfile(Model model, Principal principal) {
+	public String getProfile(Model model) {
 		
-		String username = principal.getName();
-		System.out.println(username);
+		//, Principal principal
+		//String username = principal.getName();
+		//System.out.println(username);
 		
-		Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
+		//Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
 		
-		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		//EmployeeDetails employeeDetails = user.getEmployeeDetails();
 	
-		model.addAttribute("employeeDetails", employeeDetails);
+		//model.addAttribute("employeeDetails", employeeDetails);
 		
 		return "Admin/AdminProfile";
 		
