@@ -27,10 +27,18 @@
 							<div class="container">
 
 								<div class="col-md-12 text-center">
-									<div class="form-group ">
+									<!-- <div class="form-group ">
 										<label for="form_name">Referral Name *</label> <input
 											id="form_name" type="text"
 											th:value="${session.businessAssociate.name}"
+											class="form-control text-center" readonly>
+
+									</div> -->
+									
+									<div class="form-group ">
+										<label for="form_name">Referral Name *</label> <input
+											id="form_name" type="text"
+											th:value="${businessAssociate.name}"
 											class="form-control text-center" readonly>
 
 									</div>
