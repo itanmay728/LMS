@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:fragment="layout(content)">
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin</title>
@@ -16,202 +17,189 @@
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 	integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ=="
 	crossorigin="anonymous" referrerpolicy="no-referrer" />
-	
+
 </head>
- <body>
-	 
+<body>
 
 
-<!--Main Navigation-->
-<header th:fragment="navBarSideBar">
-  <!-- Sidebar -->
-  <nav
-       id="sidebarMenu"
-       class="collapse d-lg-block sidebar collapse bg-white"
-       >
-    <div class="position-sticky mt-4">
-      <div class="list-group list-group-flush mx-3 mt-4">
-      
-      <a          
-         class="list-group-item list-group-item-action py-2 ripple"
-         aria-current="true"
-           >
-          <img
-             th:src="@{/img/sideBarLogo.png}"
-             height="50"
-             alt=""
-             loading="lazy"
-             />
-        </a>
-        
-        
-        
-      
-        <a
-           href="#" th:href="@{/Admin/admin_Dashboard}"
-           class="list-group-item list-group-item-action py-2 ripple"
-           aria-current="true"
-           >
-          <i class="fas fa-tachometer-alt fa-fw me-3"></i
-            ><span> Dashboard</span>
-        </a>
-        
-           <a 
-        class="btn btn-primary list-group-item list-group-item-action py-2 ripple" 
-        data-bs-toggle="collapse"
-		href="#multiCollapseExample1" role="button" 
-		aria-expanded="false"
-		aria-controls="multiCollapseExample1"> <i class="fas fa-chart-area fa-fw me-3"></i> <span>Leads</span></a> 
-		
-		<div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
-      <div class="card card-body">
-        
-<div class="list-group list-group-light">
-  <!-- <a href="#" class="list-group-item list-group-item-action px-3 border-0 active" aria-current="true">
+
+	<!--Main Navigation-->
+	<header th:fragment="navBarSideBar">
+		<!-- Sidebar -->
+		<nav id="sidebarMenu"
+			class="collapse d-lg-block sidebar collapse bg-white">
+			<div class="position-sticky mt-4">
+				<div class="list-group list-group-flush mx-3 mt-4">
+
+					<a class="list-group-item list-group-item-action py-2 ripple"
+						aria-current="true"> <img
+						th:src="@{/img/sideBarLogo.png}" height="50" alt="" loading="lazy" />
+					</a> <a href="#" th:href="@{/Admin/admin_Dashboard}"
+						class="list-group-item list-group-item-action py-2 ripple"
+						aria-current="true"> <i
+						class="fas fa-tachometer-alt fa-fw me-3"></i><span>
+							Dashboard</span>
+					</a> <a
+						class="btn btn-primary list-group-item list-group-item-action py-2 ripple"
+						data-bs-toggle="collapse" href="#multiCollapseExample1"
+						role="button" aria-expanded="false"
+						aria-controls="multiCollapseExample1"> <i
+						class="fas fa-chart-area fa-fw me-3"></i> <span>Leads</span></a>
+
+					<div class="col">
+						<div class="collapse multi-collapse" id="multiCollapseExample1">
+							<div class="card card-body">
+
+								<div class="list-group list-group-light">
+									<!-- <a href="#" class="list-group-item list-group-item-action px-3 border-0 active" aria-current="true">
     The current link item</a> -->
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0">Fresh Leads</a>
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0">Follow UP </a>
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0 ">Success Leads</a>
-  <a href="#" th:href="@{/Admin/admin_Dashboard/Leads}" class="list-group-item list-group-item-action px-3 border-0">All Leads</a>
-  
-</div>
-        
-        
-      </div>
-    </div>
-  </div>
-  
-  
-           
-        
-        <a
-           href="#" th:href="@{/Admin/registration }"
-           class="list-group-item list-group-item-action py-2 ripple"
-           >
-          <i class="fas fa-user-circle me-3"></i><span> Add Employee</span>
-        </a>
-        
-        
-        
-        <a
+									<a href="#"
+										class="list-group-item list-group-item-action px-3 border-0">Fresh
+										Leads</a> <a href="#"
+										class="list-group-item list-group-item-action px-3 border-0">Follow
+										UP </a> <a href="#"
+										class="list-group-item list-group-item-action px-3 border-0 ">Success
+										Leads</a> <a href="#" th:href="@{/Admin/admin_Dashboard/Leads}"
+										class="list-group-item list-group-item-action px-3 border-0">All
+										Leads</a>
+
+								</div>
+
+
+							</div>
+						</div>
+					</div>
+
+
+
+
+					<a href="#" th:href="@{/Admin/admin_Dashboard/registration }"
+						class="list-group-item list-group-item-action py-2 ripple">
+						<i class="fas fa-user-circle me-3"></i><span> Add Employee</span>
+					</a>
+
+
+					<!--  <a
            href="#" th:href="@{/Admin/admin_Dashboard/ApproveBusinessAssociate}"
            class="list-group-item list-group-item-action py-2 ripple"
            ><i class="fas fa-chart-bar fa-fw me-3"></i><span>Business Associate</span></a
-          >
-          
-          <a
-           href="#" th:href="@{/Admin/admin_Dashboard/users}"
-           class="list-group-item list-group-item-action py-2 ripple"
-           ><i class="fas fa-users fa-fw me-3"></i><span>Users</span>
-           
-           </a>
-             
-           
-           <hr>
-           
-           
-           
-        
-      
-        
-           
+          > -->
 
-  
-      </div>
-     
-      
+					<!-- Business Associate dropdown -->
+					<a href="#"
+						class="list-group-item list-group-item-action py-2 ripple"
+						data-bs-toggle="collapse" data-bs-target="#businessAssociateMenu"
+						aria-expanded="false" aria-controls="businessAssociateMenu">
+						<i class="fas fa-chart-bar fa-fw me-3"></i><span>Business
+							Associate</span>
+					</a>
 
-  
-    </div>
-    
-    
-       <!-- Avatar   -->
-         <a 
-        class=" list-group-item list-group-item-action py-2 ripple mt-3" 
-        data-bs-toggle="collapse"
-		href="#multiCollapseExample2" role="button" 
-		aria-expanded="false"
-		aria-controls="multiCollapseExample2"> <i class="fas fa-cog me-4"></i> <span>Settings</span>
-		
-		  <img
-                
-                 src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
-                 class="rounded-circle ms-5"
-                 height="22"
-                 alt=""
-                 loading="lazy"
-                 />
-		</a> 
-		
-		<div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample2">
-      <div class="card card-body">
-        
-<div class="list-group list-group-light">
-
-
-<a href="#" th:href="@{/Admin/profile}" class="list-group-item list-group-item-action px-3 border-0">
-<i class="fas fa-address-card me-3"></i> <span>My profile</span>
-</a>
-
-<a href="#" th:href="@{/logout}" class="list-group-item list-group-item-action px-3 border-0">
-<i class="fas fa-sign-out-alt me-3"></i> <span>Logout</span>
-</a>
-  
-</div>   
-</div>
-</div>
-</div>
-    
-    
-    
-    
-    
-  </nav>
-  <!-- Sidebar -->
+					<!-- Business Associate dropdown menu -->
+					<div class="collapse" id="businessAssociateMenu">
+						<div class="card card-body">
+							<a href="#"
+								th:href="@{/Admin/admin_Dashboard/ApproveBusinessAssociate}"
+								class="list-group-item list-group-item-action px-3 border-0">
+								Verify </a>
+								
+								<a href="#"
+								th:href="@{/Admin/admin_Dashboard/businessAssociatePage}"
+								class="list-group-item list-group-item-action px-3 border-0">
+								Approved </a>
+								
+								<a href="#"
+								th:href="@{/Admin/admin_Dashboard/rejectedBusinessAssociate}"
+								class="list-group-item list-group-item-action px-3 border-0">
+								Rejected </a>
+							<!-- Add more dropdown items here if needed -->
+						</div>
+					</div>
 
 
 
 
+					<a href="#" th:href="@{/Admin/admin_Dashboard/users}"
+						class="list-group-item list-group-item-action py-2 ripple"><i
+						class="fas fa-users fa-fw me-3"></i><span>Users</span> </a>
 
-  <!-- Navbar -->
-  <nav
-       id="main-navbar"
-       class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm "
- 
-       >
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse" 
-              data-bs-target="#sidebarMenu"
-              aria-controls="sidebarMenu"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-              >
-        <i class="fas fa-bars"></i>
-      </button>
 
-      <!-- Brand -->
-      <a class="navbar-brand ms-5" href="#">
-        <img
-             th:src="@{/img/Suprams_logo.jpg}"
-             height="50"
-             alt=""
-             loading="lazy"
-             />
-      </a>
-      
+					<hr>
 
-      
-      <!-- Right links -->
-      <ul class="navbar-nav ms-auto d-flex flex-row">
-      
-        <!-- Notification dropdown 
+
+
+				</div>
+
+
+
+
+			</div>
+
+
+			<!-- Avatar   -->
+			<a class=" list-group-item list-group-item-action py-2 ripple mt-3"
+				data-bs-toggle="collapse" href="#multiCollapseExample2"
+				role="button" aria-expanded="false"
+				aria-controls="multiCollapseExample2"> <i
+				class="fas fa-cog me-4"></i> <span>Settings</span> <img
+				src="https://mdbootstrap.com/img/Photos/Avatars/img (31).jpg"
+				class="rounded-circle ms-5" height="22" alt="" loading="lazy" />
+			</a>
+
+			<div class="col">
+				<div class="collapse multi-collapse" id="multiCollapseExample2">
+					<div class="card card-body">
+
+						<div class="list-group list-group-light">
+
+
+							<a href="#" th:href="@{/Admin/profile}"
+								class="list-group-item list-group-item-action px-3 border-0">
+								<i class="fas fa-address-card me-3"></i> <span>My profile</span>
+							</a> <a href="#" th:href="@{/logout}"
+								class="list-group-item list-group-item-action px-3 border-0">
+								<i class="fas fa-sign-out-alt me-3"></i> <span>Logout</span>
+							</a>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+
+
+		</nav>
+		<!-- Sidebar -->
+
+
+
+
+
+		<!-- Navbar -->
+		<nav id="main-navbar"
+			class="navbar navbar-expand-lg navbar-light bg-white fixed-top shadow-sm ">
+			<!-- Container wrapper -->
+			<div class="container-fluid">
+				<!-- Toggle button -->
+				<button class="navbar-toggler" type="button"
+					data-bs-toggle="collapse" data-bs-target="#sidebarMenu"
+					aria-controls="sidebarMenu" aria-expanded="false"
+					aria-label="Toggle navigation">
+					<i class="fas fa-bars"></i>
+				</button>
+
+				<!-- Brand -->
+				<a class="navbar-brand ms-5" href="#"> <img
+					th:src="@{/img/Suprams_logo.jpg}" height="50" alt="" loading="lazy" />
+				</a>
+
+
+
+				<!-- Right links -->
+				<ul class="navbar-nav ms-auto d-flex flex-row">
+
+					<!-- Notification dropdown 
         <li class="nav-item dropdown me-2">
         
         				<a
@@ -229,50 +217,45 @@
 							<li><a class="dropdown-item" href="#">Something else
 									here</a></li>
 						</ul>
-			</li> -->      
-
-        
-      </ul>
-      
-      <!-- Search form -->
-      <form class="d-none d-md-flex input-group w-auto my-auto me-5">
-        <input
-               autocomplete="off"
-               type="search"
-               class="form-control rounded"
-               placeholder='Search'
-               style="min-width: 225px"
-               />
-        <span class="input-group-text border-0"
-              ><i class="fas fa-search"></i
-          ></span>
-      </form>
-      
-      
-    </div>
-    <!-- Container wrapper -->
-  </nav>
-  <!-- Navbar -->
-
-</header>
+			</li> -->
 
 
-<!--Main Navigation-->
-<!--Main layout-->
-<main style="margin-top: 58px">
-  <div class="container pt-5">
-  
+				</ul>
 
- 
- 
-<div th:replace="${content}"></div> 
+				<!-- Search form -->
+				<form class="d-none d-md-flex input-group w-auto my-auto me-5">
+					<input autocomplete="off" type="search"
+						class="form-control rounded" placeholder='Search'
+						style="min-width: 225px" /> <span
+						class="input-group-text border-0"><i
+						class="fas fa-search"></i></span>
+				</form>
+
+
+			</div>
+			<!-- Container wrapper -->
+		</nav>
+		<!-- Navbar -->
+
+	</header>
+
+
+	<!--Main Navigation-->
+	<!--Main layout-->
+	<main style="margin-top: 58px">
+		<div class="container pt-5">
 
 
 
 
-</div>
-</main>
-<!--Main layout-->
+			<div th:replace="${content}"></div>
+
+
+
+
+		</div>
+	</main>
+	<!--Main layout-->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
@@ -280,4 +263,4 @@
 
 	<script type="text/javascript" th:src="@{/css/Admin/admin.js}"></script>
 </body>
-</html> 
+</html>

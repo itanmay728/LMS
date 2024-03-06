@@ -24,8 +24,6 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 	    request.getSession().setAttribute("username", username);
 
 		if (roles.contains("ROLE_ADMIN")) {
-//			String username = authentication.getName();
-//		    request.getSession().setAttribute("username", username);
 		    response.sendRedirect("/Admin/admin_Dashboard");
 		} 
 		else if (roles.contains("ROLE_CALLER")) {

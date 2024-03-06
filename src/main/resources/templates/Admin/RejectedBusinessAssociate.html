@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Rejected Business Associates</title>
+</head>
+<body>
+
+	<section>
+		<div class="card text-center mt-3">
+			<h2>Rejected Business Associates</h2>
+		</div>
+
+		<div class="card text-center mt-4"
+			th:each="rejectedBADetail : ${rejectedBusinessAssociates}">
+			<div class="card-header">
+				<div class="card-header text-center">
+					<span class="float-sm-start fw-bold">ID :- </span> <span
+						class="float-sm-start" th:text="${rejectedBADetail.baId}"></span> <span
+						class="fw-bold mr-2">Name :- </span> <span
+						th:text="${rejectedBADetail.name}"></span> <span
+						class="float-sm-end"> <span class="fw-bold">Business Name :- </span>
+						<span th:text="${rejectedBADetail.businessName}"></span>
+					</span>
+				</div>
+			</div>
+
+			<div class="card-body">
+
+				<table class="table table-bordered table-hover">
+					<thead class="table-primary table-sm">
+						<tr>
+							<th>Email</th>
+							<th>Phone Number</th>
+							<th>Address</th>
+							<th>PAN Number</th>
+							<th>Aadhaar Number</th>
+							<th>Rejection Reason</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td th:text="${rejectedBADetail.email}"></td>
+							<td th:text="${rejectedBADetail.phone}"></td>
+							<td th:text="${rejectedBADetail.address}"></td>
+							<td th:text="${rejectedBADetail.panNumber}"></td>
+							<td th:text="${rejectedBADetail.aadhaarNumber}"></td>
+							<td th:text="${rejectedBADetail.rejectionReason}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+				<h5 class="fw-bold bg-danger text-white mt-4">Bank Details</h5>
+
+				<table class="table table-bordered table-hover">
+					<thead class="table-primary table-sm">
+						<tr>
+							<th>Account Number</th>
+							<th>Account Holder Name</th>
+							<th>IFSC Code</th>
+							<th>Branch Address</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td th:text="${rejectedBADetail.accountNumber}"></td>
+							<td th:text="${rejectedBADetail.accountHolderName}"></td>
+							<td th:text="${rejectedBADetail.ifscCode}"></td>
+							<td th:text="${rejectedBADetail.branchAddress}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+	</section>
+
+</body>
+</html>

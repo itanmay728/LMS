@@ -20,6 +20,7 @@ import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
@@ -51,6 +52,9 @@ public class AdminController {
 	BusinessAssociateRepository businessAssociateRepository;
 	
 	@Autowired
+	BusinessAssociateHistoryRepo businessAssociateHistoryRepo;
+	
+	@Autowired
 	BusinessAssociateService businessAssociateService;
 	
 	@Autowired
@@ -79,7 +83,7 @@ public class AdminController {
 		return "Admin/Admin_Dashboard";
 	}
 	
-	@GetMapping("/registration")
+	@GetMapping("/admin_Dashboard/registration")
 	public String getAccountRegistrationPage(Model model, HttpSession session) {
 		model.addAttribute("employeeDetails", new EmployeeDetails());
 		
@@ -180,28 +184,38 @@ public class AdminController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String rejectBusinessAssociate(@PathVariable Long id, @ModelAttribute BusinessAssociateHistory businessAssociateHistory ) {
 
-		
 		businessAssociateService.rejectBusinessAssociate(id, businessAssociateHistory);
-		
-		
-		
+	
 		return "redirect:/Admin/admin_Dashboard/ApproveBusinessAssociate";
 	}
-	
-	
 	
 	@PostMapping("/admin_Dashboard/reject/{id}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String rejectBA(@PathVariable Long id, @ModelAttribute BusinessAssociateHistory businessAssociateHistory ) {
 
-		
 		businessAssociateService.rejectBusinessAssociate(id, businessAssociateHistory);
-		
-		
 		
 		return "redirect:/Admin/admin_Dashboard/ApproveBusinessAssociate";
 	}
 	
+	
+	@GetMapping("/admin_Dashboard/businessAssociatePage")
+	public String getBusinessAssociatePage(ModelMap model) {
+		
+		List<BusinessAssociate> businessAssociate = businessAssociateRepository.findByApproval(true);
+		model.addAttribute("approvedBusinessAssociates", businessAssociate);
+		
+		return "Admin/BusinessAssociate";
+	}
+	
+	@GetMapping("/admin_Dashboard/rejectedBusinessAssociate")
+	public String getRejectedBusinessAssociatePage(ModelMap model) {
+		
+		List<BusinessAssociateHistory> rejectedBAs = businessAssociateHistoryRepo.findAll();
+		model.addAttribute("rejectedBusinessAssociates", rejectedBAs);
+		
+		return "Admin/RejectedBusinessAssociate";
+	}
 	
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
@@ -219,6 +233,7 @@ public class AdminController {
 		return "Admin/AdminProfile";
 		
 	}
+
 	
 	
 	

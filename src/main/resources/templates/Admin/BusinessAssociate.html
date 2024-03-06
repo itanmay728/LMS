@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Approved Business Associate</title>
+</head>
+<body>
+
+<section>
+Current Business Associates
+
+<section>
+		<div class="card text-center mt-3">
+			<h2>Approved Business Associates</h2>
+		</div>
+
+		<div class="card text-center mt-4"
+			th:each="BADetail : ${approvedBusinessAssociates}">
+			<div class="card-header">
+				<div class="card-header text-center">
+					<span class="float-sm-start fw-bold">ID :- </span> <span
+						class="float-sm-start" th:text="${BADetail.Id}"></span> <span
+						class="fw-bold mr-2">Name :- </span> <span
+						th:text="${BADetail.name}"></span> <span
+						class="float-sm-end"> <span class="fw-bold">Business Name :- </span>
+						<span th:text="${BADetail.businessName}"></span>
+					</span>
+				</div>
+			</div>
+
+			<div class="card-body">
+
+				<table class="table table-bordered table-hover">
+					<thead class="table-primary table-sm">
+						<tr>
+							<th>Phone Number</th>
+							<th>Email</th>
+							<th>Address</th>
+							<th>PAN Number</th>
+							<th>Aadhaar Number</th>
+							
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td th:text="${BADetail.phone}"></td>
+							<td th:text="${BADetail.userName}"></td>
+							<td th:text="${BADetail.address}"></td>
+							<td th:text="${BADetail.panNumber}"></td>
+							<td th:text="${BADetail.aadhaarNumber}"></td>
+							
+						</tr>
+					</tbody>
+
+				</table>
+
+				<h5 class="fw-bold bg-success text-white mt-4">Bank Details</h5>
+
+				<table class="table table-bordered table-hover">
+					<thead class="table-primary table-sm">
+						<tr>
+							<th>Account Number</th>
+							<th>Account Holder Name</th>
+							<th>IFSC Code</th>
+							<th>Branch Address</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr>
+							<td th:text="${BADetail.accountNumber}"></td>
+							<td th:text="${BADetail.accountHolderName}"></td>
+							<td th:text="${BADetail.ifscCode}"></td>
+							<td th:text="${BADetail.branchAddress}"></td>
+						</tr>
+					</tbody>
+
+				</table>
+
+			</div>
+
+		</div>
+	</section>
+</section>
+
+</body>
+</html>
