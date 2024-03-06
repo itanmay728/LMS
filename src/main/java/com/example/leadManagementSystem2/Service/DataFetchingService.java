@@ -11,6 +11,8 @@ public interface DataFetchingService {
 
 	List<Leads> getAllLeadsDetails();
 	
-	List<BusinessAssociate> getBusinessAssociateByApprove();
+	List<Leads> getFreshLeadsDetails(String status);
+	
+	List<BusinessAssociate> getBusinessAssociateByApprove(boolean flag);
 
 }

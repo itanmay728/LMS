@@ -13,7 +13,7 @@
 	<div class="row">
 		<div class="col-md-6 offset-md-3 mt-2">
 			<div class="card">
-				<div class="card-header text-center fs-4 font-weight-bold ">Update Your Details</div>
+				<div class="card-header text-center fs-4 font-weight-bold ">Update Lead Details</div>
 					
 				<div class="card-body">
 					<form th:action="@{/Admin/admin_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
@@ -59,21 +59,31 @@
 									</select>
 
 								</div>
-						
-						
-	
-						
-						
-						<div class="mb-3">
+								
+								
+
+							<div class="col-md-12 mb-3">
+								<div class="form-group fw-bold">
+									<label for="form_message">Caller Follow Up Message</label>
+									<textarea id="form_message" name="message" class="form-control"
+										placeholder="Write your message here." rows="4"
+										data-error="Please, leave us a message."></textarea>
+								</div>
+							</div>
+
+
+							<div class="mb-3">
 							<label>Lead Status</label> 
 							
 							<select class="form-select"
 										aria-label="Default select example" name="leadStatus">
-
+										
+				
 										<option th:text="${Leads.leadStatus}"></option>
-										<option>Ringed</option>
-								        <option>not received</option>
-										<option>not connected</option>
+										<option>New</option>
+										<option>Follow up</option>
+								        <option>Success</option>
+										<option>Dead</option>
 									</select>
 						</div> 
 						

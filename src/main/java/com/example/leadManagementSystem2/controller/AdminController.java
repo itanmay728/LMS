@@ -90,15 +90,6 @@ public class AdminController {
 	}
 	
 	
-	@GetMapping("/admin_Dashboard/Leads")
-	public String getAllLeads(ModelMap model) {
-		
-		model.addAttribute("Leads", dataFetchingService.getAllLeadsDetails());
-		return "Admin/Leads";
-	}
-	
-	
-	
 	@PostMapping("/saveUser")
 	public String CreateAccount(@Valid @ModelAttribute EmployeeDetails employeeDetails, BindingResult result, HttpSession session) {
 		
@@ -125,13 +116,48 @@ public class AdminController {
 		return "redirect:/Admin/registration";
 	}
 	
+	
+	/* Leads Start*/
+	
+	//Fresh Leads
+	@GetMapping("/admin_Dashboard/freshleads")
+	public String getFreshLeads(Model model) {
+		
+		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("New"));
+		return "Admin/freshLeads";
+	}
+	
+	// Follow Up Leads
+	@GetMapping("/admin_Dashboard/followupleads")
+	public String getFollowUpLeads(Model model) {
+		
+		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("Follow up"));
+		return "Admin/followUp";
+	}
+	
+	// Success Leads
+	@GetMapping("/admin_Dashboard/successleads")
+	public String getSuccessLeads(Model model) {
+		
+		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("Success"));
+		return "Admin/successLeads";
+	}
+	
+	@GetMapping("/admin_Dashboard/Leads")
+	public String getAllLeads(ModelMap model) {
+		
+		model.addAttribute("Leads", dataFetchingService.getAllLeadsDetails());
+		return "Admin/allLeads";
+	}
+	
+	//Editing lead 
 	@GetMapping("/admin_Dashboard/Leads/edit/{id}")
 	public String getEditLeadsPage(@PathVariable Long id, Model model) {
 		
 		model.addAttribute("Leads", leadsRepository.findById(id).get());
 		return "Admin/edit_Leads";
 	}
-	
+	//Saving edited lead
 	@PostMapping("/admin_Dashboard/Leads/edit/{id}")
 	public String updateLead(@PathVariable Long id, @ModelAttribute Leads leads ) {
 		
@@ -146,21 +172,27 @@ public class AdminController {
 		existingLead.setLeadStatus(leads.getLeadStatus());
 		
 		leadsRepository.save(existingLead);
-		return "redirect:/Admin/admin_Dashboard/Leads";
+		//redirect:/Admin/admin_Dashboard/Leads
+		return "redirect:/Admin/admin_Dashboard/Leads/edit/{id}";
 	}
 	
+	//deleting Lead by id
 	@GetMapping("/admin_Dashboard/Leads/{id}")
 	public String deleteLead(@PathVariable Long id) {
 		leadsRepository.deleteById(id);
 		return "redirect:/Admin/admin_Dashboard/Leads";
 	}
 	
+	/* Leads End */
 	
+	
+	// BusinessAssociate start
 	
 	@GetMapping("/admin_Dashboard/ApproveBusinessAssociate")
 	public String getApproveBusinessAssociatePage(ModelMap model) {
 		
-		List<BusinessAssociate> approvedBAs = businessAssociateRepository.findByApproval(false);
+		List<BusinessAssociate> approvedBAs = businessAssociateRepository.findByApproval(false); //dataFetchingService.getBusinessAssociateByApprove(false);
+		
 		model.addAttribute("approvedBusinessAssociates", approvedBAs);
 		
 		return "Admin/ApproveBusinessAssociate";
@@ -202,26 +234,15 @@ public class AdminController {
 		return "redirect:/Admin/admin_Dashboard/ApproveBusinessAssociate";
 	}
 	
+	//BusinessAssociate End
+	
 	
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
 		
-		//, Principal principal
-		//String username = principal.getName();
-		//System.out.println(username);
-		
-		//Users_Credentials user =   user_Credentials_Repository.getUsersCredentialsByUserName(username);
-		
-		//EmployeeDetails employeeDetails = user.getEmployeeDetails();
-	
-		//model.addAttribute("employeeDetails", employeeDetails);
-		
 		return "Admin/AdminProfile";
 		
 	}
-	
-	
-	
 	
 	
 	@GetMapping("/admin_Dashboard/users")

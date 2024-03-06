@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
-import com.example.leadManagementSystem2.Entity.Users_Credentials;
 
 public interface BusinessAssociateRepository extends JpaRepository<BusinessAssociate, Long> {
 
