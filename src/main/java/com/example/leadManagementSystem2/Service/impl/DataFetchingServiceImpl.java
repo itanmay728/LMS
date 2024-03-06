@@ -26,12 +26,20 @@ public class DataFetchingServiceImpl implements DataFetchingService {
 		
 		return leadsRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
 	}
+	
+	@Override
+	public List<Leads> getFreshLeadsDetails(String status) {
+		
+		return leadsRepository.findByLeadStatus(status);
+	}
 
 	@Override
-	public List<BusinessAssociate> getBusinessAssociateByApprove() {
+	public List<BusinessAssociate> getBusinessAssociateByApprove(boolean flag) {
 	
-		return businessAssociateRepository.findAll();
+		return businessAssociateRepository.findByApproval(flag);
 	}
+
+	
 
 
 

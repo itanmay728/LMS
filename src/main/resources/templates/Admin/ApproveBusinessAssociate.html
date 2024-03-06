@@ -8,12 +8,98 @@
 <body>
 
 
+<<<<<<< HEAD
 	<section>
 		<div class="card text-center mt-3">
 			<h2>Verify Business Associate</h2>
 		</div>
 		<div class="card text-center mt-4"
 			th:each=" BADetail : ${approvedBusinessAssociates}">
+=======
+ <section>
+<div class="card text-center m-3">
+ <h2 >Verify Business Associate</h2>
+ </div>
+<div class="card text-center mt-4" th:each=" BADetail : ${approvedBusinessAssociates}">
+  
+  <div class="card-header " >
+  <div  class="card-header text-center ">
+  	 <span class = "float-sm-start fw-bold ">ID :- </span>
+     <span class = "float-sm-start" th:text="${BADetail.Id}"></span>
+     
+     <span class = "fw-bold mr-2">Name :- </span>
+   	 <span th:text="${BADetail.name}"></span>
+   	 
+   	 <span class = "float-sm-end">
+   	 <span class = "fw-bold ">Business Name :- </span>
+   	 <span  th:text="${BADetail.businessName}"></span>
+   	 </span>
+   </div>
+  </div>
+  
+  <div class="card-body">
+  
+  <table class="table table-bordered table-hover  ">
+  <thead class= "table-primary table-sm">
+ 					 <tr>
+  					
+						<th>email</th>
+						<th>Phone Number</th>
+						<th>Address</th>
+						<th>panNumber</th>
+						<th>aadhaarNumber</th>
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr>
+						<td th:text="${BADetail.userName}"></td>
+						<td th:text="${BADetail.phone}"></td>
+						<td th:text="${BADetail.address}"></td>
+						<td th:text="${BADetail.panNumber}"></td>
+						<td th:text="${BADetail.aadhaarNumber}"></td>
+					</tr>
+  </tbody>
+  
+  </table>
+    
+    
+    
+    <h5 class=" fw-bold bg-success  text-white mt-4 ">Bank Details</h5>
+    
+   <table class="table table-bordered table-hover  ">
+  <thead class= "table-primary table-sm">
+ 					 <tr>
+  					
+						<th>Account Number</th>
+						<th>Account HolderName</th>
+						<th>Ifsc Code</th>
+						<th>Branch Address</th>
+						
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr>
+						<td th:text="${BADetail.accountNumber}"></td>
+						<td th:text="${BADetail.accountHolderName}"></td>
+						<td th:text="${BADetail.ifscCode}"></td>
+						<td th:text="${BADetail.branchAddress}"></td>
+						
+					</tr>
+  </tbody>
+  
+  </table>
+    
+    
+    
+  </div>
+  
+  
+  <div class="card-footer text-muted">
+  
+    <a th:href="@{/Admin/admin_Dashboard/approve/{id} (id=${BADetail.Id})}"   class = "btn btn-primary"> Approve </a>
+>>>>>>> f48cb04c448cf3dd898dd3ac5d7c2f9635ed64ce
 
 			<div class="card-header ">
 				<div class="card-header text-center ">

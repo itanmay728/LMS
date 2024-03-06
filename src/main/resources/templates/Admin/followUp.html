@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<section>
+
+<div class="card text-center m-3">
+ <h2 >Follow Up Leads</h2>
+ </div>
+ 
+<div class="card text-center m-3" th:each="LeadsDetail: ${leads}">
+  <div class="card-header" >
+  
+  	 <span class = "float-sm-start fw-bold me-2">ID:-</span>
+     <span class = "float-sm-start" th:text="${LeadsDetail.Id}"></span>
+     
+   <span class = " fw-bold me-2">Name:-</span>  
+   <span th:text="${LeadsDetail.name}"></span>
+   
+   <span class = " float-sm-end">
+   <span class = "fw-bold me-2">Email:-</span>  
+   <span th:text="${LeadsDetail.email}"></span>
+   </span>
+   
+  </div>
+  
+  <div class="card-body">
+  
+  
+      <table class="table table-bordered table-hover  ">
+  <thead class= "table-primary table-sm">
+ 					 <tr>
+  					
+						
+						<th>Phone Number</th>
+						<th>Address</th>
+						<th>Course</th>
+						<th>Message</th>
+						<th>Lead Status</th>
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr>
+						<td th:text="${LeadsDetail.phone}"></td>
+						<td th:text="${LeadsDetail.address}"></td>
+						<td th:text="${LeadsDetail.course}"></td>
+						<td th:text="${LeadsDetail.message}"></td>
+						<td th:text="${LeadsDetail.leadStatus}"></td>
+					</tr>
+  </tbody>
+  
+  </table>
+    
+    
+  </div>
+
+			
+
+<div class="card-footer text-muted">
+
+<a
+	th:href="@{/Admin/admin_Dashboard/Leads/edit/{id} (id=${LeadsDetail.Id})}"
+class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit</span> </a> 
+
+<a
+th:href="@{/Admin/admin_Dashboard/Leads/{id} (id=${LeadsDetail.Id})}"
+class="btn btn-danger "> <i class="fas fa-trash-alt me-2"></i> <span>Delete</span> </a>
+
+	</div> 
+ 
+ </div>
+
+
+</section>
+
+</body>
+</html>

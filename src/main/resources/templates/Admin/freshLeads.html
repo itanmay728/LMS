@@ -1,21 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Admin | Leads</title>
-
+<title>Insert title here</title>
 </head>
 <body>
 
-
 <section>
 
-<div th:text="${session.employeeDetails.name}">
+<div class="card text-center m-3">
+ <h2 >Fresh Leads</h2>
+ </div>
 
-
-</div>
-
-<div class="card text-center m-3" th:each="LeadsDetail: ${Leads}">
+<div class="card text-center m-3" th:each="LeadsDetail: ${leads}">
   <div class="card-header" >
   
   	 <span class = "float-sm-start fw-bold me-2">ID:-</span>
@@ -76,7 +74,9 @@ class="btn btn-danger "> <i class="fas fa-trash-alt me-2"></i> <span>Delete</spa
  
  </div>
 
+
 </section>
+
 
 </body>
 </html>
