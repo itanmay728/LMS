@@ -136,7 +136,7 @@ public class AdminController {
 	public String getFollowUpLeads(Model model) {
 		
 		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("Follow up"));
-		return "Admin/followUp";
+		return "Admin/followUpLeads";
 	}
 	
 	// Success Leads
@@ -151,7 +151,7 @@ public class AdminController {
 	public String getAllLeads(ModelMap model) {
 		
 		model.addAttribute("Leads", dataFetchingService.getAllLeadsDetails());
-		return "Admin/allLeads";
+		return "Admin/AllLeads";
 	}
 	
 	//Editing lead 
@@ -199,7 +199,7 @@ public class AdminController {
 		
 		model.addAttribute("approvedBusinessAssociates", approvedBAs);
 		
-		return "Admin/ApproveBusinessAssociate";
+		return "Admin/VerifyBusinessAssociate";
 	}
 	
 	@GetMapping("/admin_Dashboard/approve/{id}")
@@ -230,8 +230,6 @@ public class AdminController {
 		return "redirect:/Admin/admin_Dashboard/ApproveBusinessAssociate";
 	}
 	
-	//BusinessAssociate End
-	
 	
 	@GetMapping("/admin_Dashboard/businessAssociatePage")
 	public String getBusinessAssociatePage(ModelMap model) {
@@ -239,7 +237,7 @@ public class AdminController {
 		List<BusinessAssociate> businessAssociate = businessAssociateRepository.findByApproval(true);
 		model.addAttribute("approvedBusinessAssociates", businessAssociate);
 		
-		return "Admin/BusinessAssociate";
+		return "Admin/ApprovedBusinessAssociate";
 	}
 	
 	@GetMapping("/admin_Dashboard/rejectedBusinessAssociate")
@@ -250,6 +248,8 @@ public class AdminController {
 		
 		return "Admin/RejectedBusinessAssociate";
 	}
+	
+	//BusinessAssociate End
 	
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
