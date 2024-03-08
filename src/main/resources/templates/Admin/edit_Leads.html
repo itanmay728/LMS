@@ -1,71 +1,86 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Update Leads</title>
-	
-	
+
+
 </head>
 <body>
 
 
-  <section>
-	<div class="row">
-		<div class="col-md-6 offset-md-3 mt-2">
-			<div class="card">
-				<div class="card-header text-center fs-4 font-weight-bold ">Update Lead Details</div>
-					
-				<div class="card-body">
-					<form th:action="@{/Admin/admin_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
-
-						<div class="mb-3">
-							<label>Enter Full Name</label> <input type="text" name="name" th:value="${Leads.name}" 
-								placeholder="Full Name" class="form-control" />
-						</div>
-
-						<div class="mb-3">
-							<label>Enter Email</label> <input type="email" name="email" th:value="${Leads.email}"
-								placeholder="email@example.com" class="form-control">
-						</div>
+	<section>
+		<div class="row">
+			<div class="col-md-6 offset-md-3 mt-2">
+				<div class="card">
+					<div class="card-header text-center fs-4 font-weight-bold ">Update
+						Lead Details</div>
 
 
-						<div class="mb-3">
-							<label>Enter Phone number</label> <input type="text" name="phone" th:value="${Leads.phone}"
-								placeholder="PhoneNumber" class="form-control">
-						</div>
+					<div class="card-body">
+					<th:block th:if="${session.msg}">
+						<p th:if="${session.msg == 'Updated Successfully'}"
+							class="text-center text-success">[[${session.msg}]]</p>
+						<p th:if="${session.msg == 'Something went wrong!'}"
+							class="text-center text-danger">[[${session.msg}]]</p>
+						<th:block th:text="${@leadServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block>
+						<form
+							th:action="@{/Admin/admin_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}"
+							method="post">
+
+							<div class="mb-3">
+								<label>Enter Full Name</label> <input type="text" name="name"
+									th:value="${Leads.name}" placeholder="Full Name"
+									class="form-control" />
+							</div>
+
+							<div class="mb-3">
+								<label>Enter Email</label> <input type="email" name="email"
+									th:value="${Leads.email}" placeholder="email@example.com"
+									class="form-control">
+							</div>
+
+
+							<div class="mb-3">
+								<label>Enter Phone number</label> <input type="text"
+									name="phone" th:value="${Leads.phone}"
+									placeholder="PhoneNumber" class="form-control">
+							</div>
 
 
 
-						<div class="mb-3">
-							<label>Enter Address</label> <input type="text" name="address" th:value="${Leads.address}"
-								placeholder="Full Address" class="form-control">
-						</div>
+							<div class="mb-3">
+								<label>Enter Address</label> <input type="text" name="address"
+									th:value="${Leads.address}" placeholder="Full Address"
+									class="form-control">
+							</div>
 
-						<div class="mb-3">
-							<label>Message</label>
-							<textarea class="form-control" name="message" 
-								placeholder="message" rows="3" th:inline="text">[[${Leads.message}]]	</textarea>
-						</div>
+							<div class="mb-3">
+								<label>Message</label>
+								<textarea class="form-control" name="message"
+									placeholder="message" rows="3" th:inline="text">[[${Leads.message}]]	</textarea>
+							</div>
 
-						 <div class="mb-3">
-							<label>Select Course</label> 
-							<select class="form-select"
-										aria-label="Default select example" name="course">
+							<div class="mb-3">
+								<label>Select Course</label> <select class="form-select"
+									aria-label="Default select example" name="course">
 
-										<option th:text="${Leads.course}"></option>
-										<option >9th</option>
-										<option >10th</option>
-										<option >12th</option>
-									</select>
+									<option th:text="${Leads.course}"></option>
+									<option>9th</option>
+									<option>10th</option>
+									<option>12th</option>
+								</select>
 
-								</div>
-								
-								
+							</div>
+
+
 
 							<div class="col-md-12 mb-3">
 								<div class="form-group fw-bold">
 									<label for="form_message">Caller Follow Up Message</label>
-									<textarea id="form_message" name="message" class="form-control"
+									<textarea id="form_message" name="" class="form-control"
 										placeholder="Write your message here." rows="4"
 										data-error="Please, leave us a message."></textarea>
 								</div>
@@ -73,29 +88,27 @@
 
 
 							<div class="mb-3">
-							<label>Lead Status</label> 
-							
-							<select class="form-select"
-										aria-label="Default select example" name="leadStatus">
-										
-				
-										<option th:text="${Leads.leadStatus}"></option>
-										<option>New</option>
-										<option>Follow up</option>
-								        <option>Success</option>
-										<option>Dead</option>
-									</select>
-						</div> 
-						
+								<label>Lead Status</label> <select class="form-select"
+									aria-label="Default select example" name="leadStatus">
 
-						<button type="submit" class="btn btn-primary col-md-12">Update</button>
-					</form>
+
+									<option th:text="${Leads.leadStatus}"></option>
+									<option>New</option>
+									<option>Follow up</option>
+									<option>Success</option>
+									<option>Dead</option>
+								</select>
+							</div>
+
+
+							<button type="submit" class="btn btn-primary col-md-12">Update</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-<br>
-</section>
+		<br>
+	</section>
 
 </body>
 </html>
