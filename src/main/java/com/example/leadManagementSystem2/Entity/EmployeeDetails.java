@@ -1,5 +1,7 @@
 package com.example.leadManagementSystem2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -64,6 +66,7 @@ public class EmployeeDetails {
 	private boolean approve;
 
 	@OneToOne(mappedBy = "employeeDetails",cascade = CascadeType.ALL)
+	@JsonIgnore
 	private Users_Credentials users_Credentials;
 
 	public Long getId() {

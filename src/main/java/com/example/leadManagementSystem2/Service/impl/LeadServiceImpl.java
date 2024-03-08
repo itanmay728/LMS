@@ -17,7 +17,7 @@ public class LeadServiceImpl implements LeadService {
 				.getSession();
 
 		session.removeAttribute("msg");
-		
+
 	}
 
 }
