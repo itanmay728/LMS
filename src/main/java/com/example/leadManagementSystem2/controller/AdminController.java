@@ -1,9 +1,11 @@
 package com.example.leadManagementSystem2.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +16,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
@@ -124,7 +128,7 @@ public class AdminController {
 	public String getFreshLeads(Model model) {
 
 		model.addAttribute("leads", dataFetchingService.getFreshLeadsDetails("New"));
-		return "Admin/freshLeads";
+		return "Admin/FreshLeads";
 	}
 
 	// Follow Up Leads
@@ -132,7 +136,7 @@ public class AdminController {
 	public String getFollowUpLeads(Model model) {
 		
 		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("Follow up"));
-		return "Admin/followUpLeads";
+		return "Admin/FollowUpLeads";
 
 	}
 
@@ -141,7 +145,7 @@ public class AdminController {
 	public String getSuccessLeads(Model model) {
 
 		model.addAttribute("leads", dataFetchingService.getFreshLeadsDetails("Success"));
-		return "Admin/successLeads";
+		return "Admin/SuccessLeads";
 	}
 
 	@GetMapping("/admin_Dashboard/Leads")
@@ -156,7 +160,7 @@ public class AdminController {
 	public String getEditLeadsPage(@PathVariable Long id, Model model) {
 
 		model.addAttribute("Leads", leadsRepository.findById(id).get());
-		return "Admin/edit_Leads";
+		return "Admin/Edit_Leads";
 	}
 
 	// Saving edited lead
@@ -264,6 +268,29 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/users")
 	public String getCallerDetails() {
 		return "Admin/UsersDetails";
+	}
+	
+	@GetMapping("/admin_Dashboard/users/{id}")
+	public String getSearchedEmployee(@PathVariable("id") Long id, Model model) {
+		
+		EmployeeDetails employeeDetails =   employeeDetailsRepository.findById(id).get();
+		
+		model.addAttribute("employee", employeeDetails);
+		
+		return "Admin/EmployeePage";
+	}
+	
+	
+	
+	@GetMapping("/admin_Dashboard/users/search/{query}")
+	@ResponseBody
+	public ResponseEntity<?> search(@PathVariable("query") String query){
+		
+		System.out.println(query);
+		
+		List<EmployeeDetails> employees=this.employeeDetailsRepository.findByUserNameContaining(query);
+		
+		return ResponseEntity.ok(employees);
 	}
 
 }

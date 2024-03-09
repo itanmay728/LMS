@@ -15,6 +15,6 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
 	public EmployeeDetails getEmployeeDetailsByid(@Param("id") Long id);
 
 	//search
-	public List<EmployeeDetails> findByNameContaining(String name);
+	public List<EmployeeDetails> findByUserNameContaining(String userName);
 
 }
