@@ -24,7 +24,7 @@ public class SearchController {
 		
 		System.out.println(query);
 		
-		List<EmployeeDetails> employees=this.employeeDetailsRepository.findByNameContaining(query);
+		List<EmployeeDetails> employees=this.employeeDetailsRepository.findByUserNameContaining(query);
 		
 		return ResponseEntity.ok(employees);
 	}

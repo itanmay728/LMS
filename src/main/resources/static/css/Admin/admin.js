@@ -16,7 +16,7 @@ const search = () => {
 
     //sending request to server
 
-    let url = `http://localhost:8080/search/${query}`;
+    let url = `http://localhost:8080/Admin/admin_Dashboard/users/search/${query}`;
 
     fetch(url).then(response=>{
 
@@ -24,13 +24,13 @@ const search = () => {
     }).then((data)=>{
       
       //data...
-     // console.log(data);
+     console.log(data);
 
       let text = `<div class = 'list-group'>`;
 
 
       data.forEach((employee) => {
-        text+=`<a href='#' class='list-group-item list-group-action'> ${employee.name} </a>`
+        text+=`<a href='/Admin/admin_Dashboard/users/${employee.id}'  class='list-group-item list-group-action'> ${employee.userName} <span class='float-end'> <b>Name:- </b> ${employee.name}  </span> </a>`
       });
 
       text += `</div>`;
