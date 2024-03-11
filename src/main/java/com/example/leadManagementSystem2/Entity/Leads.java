@@ -1,5 +1,7 @@
 package com.example.leadManagementSystem2.Entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -37,11 +39,17 @@ public class Leads {
 	@Column(length = 100)
 	private String message;
 	
+	private List<String> messageOfCaller;
+	
 	private String leadStatus;
 	
 	@ManyToOne
 	@JoinColumn(name = "businessAssociate_id")
 	private BusinessAssociate businessAssociate;
+	
+	@ManyToOne
+	@JoinColumn(name = "employee_id")
+	private EmployeeDetails employeeDetails;
 
 	public Long getId() {
 		return Id;
@@ -115,13 +123,33 @@ public class Leads {
 		this.businessAssociate = businessAssociate;
 	}
 
-	public Leads() {
-		super();
-		// TODO Auto-generated constructor stub
+	public EmployeeDetails getEmployeeDetails() {
+		return employeeDetails;
 	}
 
-	public Leads(Long id, String name, String email, String phone, String address, String course, String message,
-			String leadStatus, BusinessAssociate businessAssociate) {
+	public void setEmployeeDetails(EmployeeDetails employeeDetails) {
+		this.employeeDetails = employeeDetails;
+	}
+
+	public List<String> getMessageOfCaller() {
+		return messageOfCaller;
+	}
+
+	public void setMessageOfCaller(List<String> messageOfCaller) {
+		this.messageOfCaller = messageOfCaller;
+	}
+
+	public Leads() {
+		super();
+		// TODO Auto-generated constructor stub = messageOfCaller
+	}
+
+	public Leads(Long id, @NotBlank(message = "name cannot be empty!!") String name,
+			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String email,
+			@NotBlank(message = "Phone cannot be empty!!") String phone,
+			@NotBlank(message = "Address cannot be empty!!") String address, String course, String message,
+			List<String> messageOfCaller, String leadStatus, BusinessAssociate businessAssociate,
+			EmployeeDetails employeeDetails) {
 		super();
 		Id = id;
 		this.name = name;
@@ -130,16 +158,24 @@ public class Leads {
 		this.address = address;
 		this.course = course;
 		this.message = message;
+		this.messageOfCaller = messageOfCaller;
 		this.leadStatus = leadStatus;
 		this.businessAssociate = businessAssociate;
+		this.employeeDetails = employeeDetails;
 	}
 
 	@Override
 	public String toString() {
 		return "Leads [Id=" + Id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", address=" + address
-				+ ", course=" + course + ", message=" + message + ", leadStatus=" + leadStatus + ", businessAssociate="
-				+ businessAssociate + "]";
+				+ ", course=" + course + ", message=" + message + ", messageOfCaller=" + messageOfCaller
+				+ ", leadStatus=" + leadStatus + ", businessAssociate=" + businessAssociate + ", employeeDetails="
+				+ employeeDetails + "]";
 	}
+
+	
+
+	
+	
 	
 	
 	

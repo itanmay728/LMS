@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="/Caller/CallerBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-<div th:insert="Caller/Caller_Dashboard.html :: navBar"></div>
 
+<section>
 	<div class="row">
 		<div class="col-md-6 offset-md-3 mt-2">
 			<div class="card">
@@ -20,53 +18,85 @@
 
 						<div class="mb-3">
 							<label>Enter Full Name</label> <input type="text" name="name" th:value="${Leads.name}" 
-								placeholder="Full Name" class="form-control" />
+								placeholder="Full Name" class="form-control" readonly />
 						</div>
 
 						<div class="mb-3">
 							<label>Enter Email</label> <input type="email" name="email" th:value="${Leads.email}"
-								placeholder="email@example.com" class="form-control">
+								placeholder="email@example.com" class="form-control" readonly>
 						</div>
 
 
 						<div class="mb-3">
 							<label>Enter Phone number</label> <input type="text" name="phone" th:value="${Leads.phone}"
-								placeholder="PhoneNumber" class="form-control">
+								placeholder="PhoneNumber" class="form-control" readonly>
 						</div>
 
 
 
 						<div class="mb-3">
 							<label>Enter Address</label> <input type="text" name="address" th:value="${Leads.address}"
-								placeholder="Full Address" class="form-control">
+								placeholder="Full Address" class="form-control" readonly>
 						</div>
 
 						<div class="mb-3">
 							<label>Message</label>
-							<textarea class="form-control" name="message" 
-								placeholder="message" rows="3" th:inline="text">[[${Leads.message}]]	</textarea>
+							
+							<input type="text" name="message" th:value="${Leads.message}"
+								placeholder="message" class="form-control" readonly>
+							
+							
+							<!-- <textarea class="form-control" name="message" 
+								placeholder="message" rows="3" th:inline="text">[[${Leads.message}]] </textarea> -->
 						</div>
 
-						 <div class="mb-3">
-							<label>Select Course</label> <select class="form-control" 
-								name="course">
-								<option th:text="${Leads.course}"></option>
-								<option>9th</option>
-								<option>10th</option>
-								<option>12th</option>
-							</select>
-						</div>
-						
-						
 						<div class="mb-3">
-							<label>Lead Status</label> <select class="form-control"
-								name="leadStatus" >
-								<option th:text="${Leads.leadStatus}"></option>
-								<option>Ringed</option>
-								<option>not received</option>
-								<option>not connected</option>
-							</select>
-						</div> 
+								<label>Select Course</label> 
+								
+								<input type="text" name="course" th:value="${Leads.course}"
+								placeholder="course" class="form-control" readonly>
+								
+								<!--
+								<select class="form-select"
+									aria-label="Default select example" name="course">
+									
+									
+
+									<option th:text="${Leads.course}" readonly></option>
+									 <option>9th</option>
+									<option>10th</option>
+									<option>12th</option> 
+								</select> -->
+
+							</div>
+
+
+
+							<div class="col-md-12 mb-3">
+								<div class="form-group fw-bold">
+									<label for="form_message">Caller Follow Up Message </label>
+									<textarea id="form_message" name="messageOfCaller" class="form-control"
+										placeholder="Write your message here." rows="4"
+										data-error="Please, leave us a message." > [[${Leads.messageOfCaller}]] </textarea>
+								</div>
+								
+								
+								
+							</div>
+
+
+							<div class="mb-3">
+								<label>Lead Status</label> <select class="form-select"
+									aria-label="Default select example" name="leadStatus">
+
+
+									<option th:text="${Leads.leadStatus}"></option>
+									<option>New</option>
+									<option>Follow up</option>
+									<option>Success</option>
+									<option>Dead</option>
+								</select>
+							</div> 
 						
 
 						<button type="submit" class="btn btn-primary col-md-12">Update</button>
@@ -76,16 +106,7 @@
 		</div>
 	</div>
 <br>
-
-<div th:insert="Caller/Caller_Dashboard.html :: footer"></div>
-
-	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-		integrity="sha256-4+XzXVhsDmqanXGHaHvgh1gMQKX40OUvDEBTu8JcmNs="
-		crossorigin="anonymous">
-   </script>
-	<script
-		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.bundle.min.js">
-  </script>
+</section>
 
 </body>
 </html>

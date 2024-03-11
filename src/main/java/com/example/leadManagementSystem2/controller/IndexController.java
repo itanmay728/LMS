@@ -1,6 +1,7 @@
 package com.example.leadManagementSystem2.controller;
 
 import java.security.Principal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,8 +21,11 @@ import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
+import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
+import com.example.leadManagementSystem2.Service.EmployeeService;
+import com.example.leadManagementSystem2.Service.LeadService;
 import com.example.leadManagementSystem2.Service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -45,7 +49,16 @@ public class IndexController {
 
 	@Autowired
 	BusinessAssociateRepository businessAssociateRepository;
+	
+	@Autowired
+	EmployeeService employeeService;
+	
+	@Autowired
+	LeadService leadService;
 
+	@Autowired
+	EmployeeDetailsRepository employeeDetailsRepository;
+	
 	@GetMapping("")
 	public String getIndexPage() {
 
@@ -62,6 +75,7 @@ public class IndexController {
 		// Cache the username retrieval
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String username = authentication != null ? authentication.getName() : null;
+		
 		return username;
 	}
 
@@ -71,10 +85,12 @@ public class IndexController {
 
 	@GetMapping("/CustomersForm")
 	public String getCustomersForm(Model model) {
-		String username = getUsername();
-		if (username == null) {
-			return "redirect:/login";
-		}
+		
+		  String username = getUsername(); 
+		  if (username == null) { 
+			  return "redirect:/login";
+			  }
+		 
 		BusinessAssociate businessAssociate = getBusinessAssociate(username);
 		model.addAttribute("businessAssociate", businessAssociate);
 		model.addAttribute("leads", new Leads());
@@ -82,8 +98,7 @@ public class IndexController {
 	}
 
 	@PostMapping("/saveLeads")
-	public String saveLeads(@Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session,
-			Model model) {
+	public String saveLeads(@Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session, Model model) {
 		String username = getUsername();
 		if (username == null) {
 			return "redirect:/login";
@@ -97,6 +112,9 @@ public class IndexController {
 
 		try {
 			leads.setLeadStatus("New");
+			leads.setBusinessAssociate(businessAssociate);
+			leadService.assignLeadsToaCaller("ROLE_CALLER", leads);
+			
 			Leads savedLead = leadsRepository.save(leads);
 			session.setAttribute("msg", "Saved Successfully");
 		} catch (Exception e) {
@@ -108,14 +126,31 @@ public class IndexController {
 
 	@GetMapping("/addAdmin")
 	public String getAddadmin() {
+		
+		/*
+		 * List<EmployeeDetails> employeeDetails =
+		 * employeeDetailsRepository.findByRole("ROLE_CALLER");
+		 * 
+		 * EmployeeDetails empDetails = employeeDetails.get(0);
+		 * 
+		 * 
+		 * 
+		 * List<Leads> leads = empDetails.getLeads();
+		 * 
+		 * String name = leads.get(1).getName(); String Email =
+		 * empDetails.getUserName(); System.out.println(name);
+		 * System.out.println(Email);
+		 */
 
 		return "AddAdmin";
 	}
 
 	@PostMapping("/SaveAdmin")
-	public String SaveAdmin(@ModelAttribute Users_Credentials users_Credentials) {
+	public String SaveAdmin(@ModelAttribute EmployeeDetails employeeDetails) {
 
-		userService.saveUser(users_Credentials);
+		//userService.saveUser(users_Credentials);
+		
+		employeeService.saveEmployeeDetails(employeeDetails);
 
 		return "redirect:/addAdmin";
 	}

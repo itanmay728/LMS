@@ -1,12 +1,16 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Caller/CallerBase::layout(~{::section})">
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="/Caller/CallerBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
-<title>Caller | Leads</title>
+<title>Insert title here</title>
 </head>
 <body>
 
 <section>
+
+<div class="card text-center m-3">
+ <h2 >Fresh Leads</h2>
+ </div>
 
 <div class="card text-center m-3" th:each="LeadsDetail: ${Leads}">
   <div class="card-header" >
@@ -61,16 +65,13 @@
 	th:href="@{/Caller/Caller_Dashboard/Leads/edit/{id}(id=${LeadsDetail.Id})}" 
 class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit</span> </a> 
 
+
 	</div> 
  
  </div>
 
+
 </section>
-
-
-
-
-
 
 </body>
 </html>
