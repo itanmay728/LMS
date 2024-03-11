@@ -1,6 +1,7 @@
 package com.example.leadManagementSystem2.Service.impl;
 
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +58,12 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
 				// ...
 				return newBA;
 	
+	}
+	
+	@Override
+	public List<BusinessAssociate> getBusinessAssociateByApprove(boolean flag) {
+	
+		return businessAssociateRepository.findByApproval(flag);
 	}
 
 	@Override

@@ -1,5 +1,8 @@
 package com.example.leadManagementSystem2.Entity;
 
+
+import java.util.ArrayList;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -74,6 +77,11 @@ public class EmployeeDetails {
 	
 	@OneToMany(mappedBy = "fieldManager")
 	private List<BusinessAssociate> businessAssociates;
+
+	@OneToMany(mappedBy = "employeeDetails")
+	@JsonIgnore
+	private List<Leads> leads = new ArrayList<>();
+
 
 	public Long getId() {
 		return id;
@@ -203,14 +211,31 @@ public class EmployeeDetails {
 		this.users_Credentials = users_Credentials;
 	}
 
+	public List<Leads> getLeads() {
+		return leads;
+	}
+
+	public void setLeads(List<Leads> leads) {
+		this.leads = leads;
+	}
+
 	public EmployeeDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public EmployeeDetails(Long id, String name, String userName, String image, String address, String phone,
-			String panNumber, String aadhaar, String accountHolderName, String accountNumber, String ifscCode,
-			String branchAddress, String password, String role, boolean approve, Users_Credentials users_Credentials) {
+	public EmployeeDetails(Long id, @NotBlank(message = "name cannot be empty!!") String name,
+			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String userName,
+			String image, @NotBlank(message = "Address cannot be empty!!") String address,
+			@NotBlank(message = "Phone cannot be empty!!") String phone,
+			@NotBlank(message = "Pan number cannot be empty!!") @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "Invalid PAN number") String panNumber,
+			@NotBlank(message = "Aadhaar number cannot be empty!!") @Pattern(regexp = "[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", message = "Invalid Aadhaar number") String aadhaar,
+			@NotBlank(message = "Account holder name cannot be empty!!") String accountHolderName,
+			@NotBlank(message = "Account number cannot be empty!!") String accountNumber,
+			@NotBlank(message = "IFSC code cannot be empty!!") @Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code") String ifscCode,
+			@NotBlank(message = "Branch Address cannot be empty!!") String branchAddress,
+			@NotBlank(message = "Password cannot be empty!!") String password, String role, boolean approve,
+			Users_Credentials users_Credentials, List<Leads> leads) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -228,6 +253,7 @@ public class EmployeeDetails {
 		this.role = role;
 		this.approve = approve;
 		this.users_Credentials = users_Credentials;
+		this.leads = leads;
 	}
 
 	@Override
@@ -236,7 +262,9 @@ public class EmployeeDetails {
 				+ ", address=" + address + ", phone=" + phone + ", panNumber=" + panNumber + ", aadhaar=" + aadhaar
 				+ ", accountHolderName=" + accountHolderName + ", accountNumber=" + accountNumber + ", ifscCode="
 				+ ifscCode + ", branchAddress=" + branchAddress + ", password=" + password + ", role=" + role
-				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + "]";
+				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + ", leads=" + leads + "]";
 	}
+
+	
 
 }

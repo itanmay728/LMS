@@ -6,52 +6,113 @@
 </head>
 <body>
 
-<section>
+<!-- vh-100 -->
+<section class="mb-5" style="background-color: #f4f5f7;">
 
-
-<div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-			<div class="card p-4">
-				<div
-					class=" image d-flex flex-column justify-content-center align-items-center">
-					<button class="btn btn-secondary">
-						<img src="https://i.imgur.com/wvxPV9S.png" height="100"
-							width="100" />
-					</button>
-					<span class="name mt-3" th:text = "${employee.name}">Eleanor Pena</span> 
-					<span class="idd" th:text = "${employee.userName}">@eleanorpena</span>
-					<div
-						class="d-flex flex-row justify-content-center align-items-center gap-2">
-						<span class="idd1" th:text = "${employee.id}">Oxc4c16a645_b21a</span> <span><i class="fa fa-copy"></i></span>
-					</div>
-					<div
-						class="d-flex flex-row justify-content-center align-items-center mt-3">
-						<span class="number">1069 <span class="follow">Followers</span></span>
-					</div>
-					<div class=" d-flex mt-2">
-						<button class="btn1 btn-dark">Edit Profile</button>
-					</div>
-					<div class="text mt-3">
-						<span>Eleanor Pena is a creator of minimalistic x bold
-							graphics and digital artwork.<br>
-						<br> Artist/ Creative Director by Day #NFT minting@ with FND
-							night.
-						</span>
-					</div>
-					<div
-						class="gap-3 mt-3 icons d-flex flex-row justify-content-center align-items-center">
-						<span><i class="fa fa-twitter"></i></span> <span><i
-							class="fa fa-facebook-f"></i></span> <span><i
-							class="fa fa-instagram"></i></span> <span><i
-							class="fa fa-linkedin"></i></span>
-					</div>
-					<div class=" px-2 rounded mt-4 date ">
-						<span class="join">Joined May,2021</span>
-					</div>
-				</div>
-			</div>
-		</div>
-
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-lg-8 mb-4 mb-lg-0">
+        <div class="card mb-3" style="border-radius: .5rem;">
+          <div class="row g-0">
+          
+          <!-- right side information -->
+            <div class="col-md-4 gradient-custom text-center text-white"
+              style="border-top-left-radius: .5rem; border-bottom-left-radius: .5rem;">
+              <img 
+              src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <h5 th:text = "${employee.name}"></h5>
+              <p th:text = "${employee.role}" class="mb-5"></p>
+              
+             
+              <p>Password</p>
+              <p> <input type="password" class = "gradient-custom text-center mb-5" value="" th:value="${session.employeeDetails.password}"></p>
+              
+               
+              <a href="#" class=" text-white"> <span>Edit</span> <i class="far fa-edit mb-5 "></i>  </a>
+            </div>
+            
+            <!-- Left side information -->
+            <div class="col-md-8">
+              <div class="card-body p-4">
+              
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                
+                  <div class="col-6 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted" th:text = "${employee.userName}"></p>
+                  </div>
+                  
+                  <div class="col-6 mb-3">
+                    <h6>Phone</h6>
+                    <p class="text-muted" th:text = "${employee.phone}">123 456 789</p>
+                  </div>
+                  
+                   <div class="col-6 mb-3">
+                    <h6>Pan Number</h6>
+                    <p class="text-muted" th:text = "${employee.panNumber}">123 456 789</p>
+                  </div>
+                  
+                  <div class="col-6 mb-3">
+                    <h6>Aadhaar Number</h6>
+                    <p class="text-muted" th:text = "${employee.aadhaar}">123 456 789</p>
+                  </div>
+                  
+                  <div class="col-12 mb-3">
+                    <h6>Address</h6>
+                    <p class="text-muted" th:text = "${employee.address}">123 456 789</p>
+                  </div>
+                  
+                  
+                  
+                </div>
+                
+                <h6>Bank Details</h6>
+                <hr class="mt-0 mb-4">
+                
+                <div class="row pt-1">
+                
+                  <div class="col-6 mb-3">
+                    <h6>Account Holder Name</h6>
+                    <p class="text-muted" th:text = "${employee.accountHolderName}">Lorem ipsum</p>
+                  </div>
+                  
+                  <div class="col-6 mb-3">
+                    <h6>Account Number</h6>
+                    <p class="text-muted" th:text = "${employee.accountNumber}">Dolor sit amet</p>
+                  </div>
+                  
+                  <div class="col-6 mb-3">
+                    <h6>IFSC Code</h6>
+                    <p class="text-muted" th:text = "${employee.ifscCode}">Dolor sit amet</p>
+                  </div>
+                  
+                  <div class="col-12 mb-3">
+                    <h6>Branch Address</h6>
+                    <p class="text-muted" th:text = "${employee.branchAddress}">123 456 789</p>
+                  </div>
+                  
+                </div>
+                
+                <div class="d-flex justify-content-start">
+                  <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
+                  <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
+                </div>
+                
+              </div>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
 </section>
+
 
 </body>
 </html>
