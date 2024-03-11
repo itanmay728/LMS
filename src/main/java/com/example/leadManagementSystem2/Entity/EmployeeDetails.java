@@ -1,6 +1,8 @@
 package com.example.leadManagementSystem2.Entity;
 
+
 import java.util.ArrayList;
+
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -73,9 +75,13 @@ public class EmployeeDetails {
 	@JsonIgnore
 	private Users_Credentials users_Credentials;
 	
+	@OneToMany(mappedBy = "fieldManager")
+	private List<BusinessAssociate> businessAssociates;
+
 	@OneToMany(mappedBy = "employeeDetails")
 	@JsonIgnore
 	private List<Leads> leads = new ArrayList<>();
+
 
 	public Long getId() {
 		return id;

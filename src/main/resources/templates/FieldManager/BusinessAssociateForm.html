@@ -25,9 +25,28 @@
 						<th:block
 							th:text="${@businessAssociateServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
+					<div class="form-group ">
+						<label for="form_name">Referral Name *</label> <input
+							id="form_name" type="text" th:value="${fieldManager.name}"
+							class="form-control text-center" readonly>
+
+					</div>
+					<div class="form-group ">
+						<label for="form_name">Field Manager ID *</label> <input
+							id="form_name" type="text" th:value="${fieldManager.id}"
+							class="form-control text-center" readonly>
+
+					</div>
+
 					<div class="card-body">
 						<form action="/fieldManager/saveBA" method="post"
 							th:object="${businessAssociate}">
+							
+							<div>
+							<input type="hidden" name="fieldManager" th:value="${fieldManager.id}" />
+							
+							</div>
+							
 							<div class="mb-3">
 								<label>Enter Full Name</label> <input type="text" name="name"
 									class="form-control" th:value="${businessAssociate.name}"

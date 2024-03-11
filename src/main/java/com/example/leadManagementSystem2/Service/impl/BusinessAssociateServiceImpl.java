@@ -110,7 +110,6 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService{
         javaMailSender.send(message);
 		
 		// Return a custom response with success message and approved BA
-		
 		return businessAssociateRepository.save(ba); // Save and return the approved BA
 	}
 	
