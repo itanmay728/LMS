@@ -16,5 +16,7 @@ public interface EmployeeDetailsRepository extends JpaRepository<EmployeeDetails
 
 	//search
 	public List<EmployeeDetails> findByUserNameContaining(String userName);
+	
+	public List<EmployeeDetails> findByRole(String role);
 
 }

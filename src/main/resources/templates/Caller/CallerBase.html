@@ -70,9 +70,9 @@
 <div class="list-group list-group-light">
   <!-- <a href="#" class="list-group-item list-group-item-action px-3 border-0 active" aria-current="true">
     The current link item</a> -->
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0">Fresh Leads</a>
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0">Follow UP </a>
-  <a href="#" class="list-group-item list-group-item-action px-3 border-0 ">Success Leads</a>
+  <a href="#" th:href="@{/Caller/Caller_Dashboard/freshleads}" class="list-group-item list-group-item-action px-3 border-0">Fresh Leads</a>
+  <a href="#" th:href="@{/Caller/Caller_Dashboard/followupleads}" class="list-group-item list-group-item-action px-3 border-0">Follow UP </a>
+  <a href="#" th:href="@{/Caller/Caller_Dashboard/Successleads}" class="list-group-item list-group-item-action px-3 border-0 ">Success Leads</a>
   <a href="#" th:href="@{/Caller/Caller_Dashboard/Leads}" class="list-group-item list-group-item-action px-3 border-0">All Leads</a>
   
 </div>
@@ -85,7 +85,7 @@
   
            
         
-        <a
+        <!-- <a
            href="#" th:href="@{/Admin/registration }"
            class="list-group-item list-group-item-action py-2 ripple"
            >
@@ -105,7 +105,7 @@
            class="list-group-item list-group-item-action py-2 ripple"
            ><i class="fas fa-hand-holding-usd me-3"></i><span>Wallet</span>
            
-           </a>
+           </a> -->
              
            
            <hr>
@@ -154,7 +154,7 @@
 <i class="fas fa-address-card me-3"></i> <span>My profile</span>
 </a>
 
-<a href="#" th:href="@{/}" class="list-group-item list-group-item-action px-3 border-0">
+<a href="#" th:href="@{/logout}" class="list-group-item list-group-item-action px-3 border-0">
 <i class="fas fa-sign-out-alt me-3"></i> <span>Logout</span>
 </a>
   
@@ -210,7 +210,7 @@
       <!-- Right links -->
       <ul class="navbar-nav ms-auto d-flex flex-row">
       
-        <!-- Notification dropdown -->
+        <!-- Notification dropdown 
         <li class="nav-item dropdown me-2">
         
         				<a
@@ -229,14 +229,9 @@
 									here</a></li>
 						</ul>
 			</li>
-        
-          
-      
-        
-        
-
-        
+        -->   
       </ul>
+      
       
       <!-- Search form -->
       <form class="d-none d-md-flex input-group w-auto my-auto me-5">

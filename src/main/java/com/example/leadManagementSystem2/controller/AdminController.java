@@ -30,8 +30,8 @@ import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
-import com.example.leadManagementSystem2.Service.DataFetchingService;
 import com.example.leadManagementSystem2.Service.EmployeeService;
+import com.example.leadManagementSystem2.Service.LeadService;
 import com.example.leadManagementSystem2.Service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -42,30 +42,30 @@ import jakarta.validation.Valid;
 public class AdminController {
 
 	@Autowired
-	User_Credentials_Repository user_Credentials_Repository;
+	private User_Credentials_Repository user_Credentials_Repository;
 	@Autowired
-	LeadsRepository leadsRepository;
+	private LeadsRepository leadsRepository;
 
 	@Autowired
 	private UserService userService;
 
 	@Autowired
-	DataFetchingService dataFetchingService;
+	private BusinessAssociateRepository businessAssociateRepository;
 
 	@Autowired
-	BusinessAssociateRepository businessAssociateRepository;
+	private BusinessAssociateHistoryRepo businessAssociateHistoryRepo;
 
 	@Autowired
-	BusinessAssociateHistoryRepo businessAssociateHistoryRepo;
-
-	@Autowired
-	BusinessAssociateService businessAssociateService;
+	private BusinessAssociateService businessAssociateService;
 
 	@Autowired
 	private EmployeeService employeeService;
 
 	@Autowired
 	private EmployeeDetailsRepository employeeDetailsRepository;
+	
+	@Autowired
+	private LeadService leadService;
 
 	@GetMapping("/admin_Dashboard")
 	public String getAdminDashboard(Model model, HttpSession session) {
@@ -118,7 +118,7 @@ public class AdminController {
 			session.setAttribute("msg", "Something went wrong!");
 		}
 
-		return "redirect:/Admin/registration";
+		return "redirect:/Admin/admin_Dashboard/registration";
 	}
 
 	/* Leads Start */
@@ -127,7 +127,7 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/freshleads")
 	public String getFreshLeads(Model model) {
 
-		model.addAttribute("leads", dataFetchingService.getFreshLeadsDetails("New"));
+		model.addAttribute("leads", leadService.getLeadsDetailsByStatus("New"));
 		return "Admin/FreshLeads";
 	}
 
@@ -135,7 +135,7 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/followupleads")
 	public String getFollowUpLeads(Model model) {
 		
-		model.addAttribute("leads" ,dataFetchingService.getFreshLeadsDetails("Follow up"));
+		model.addAttribute("leads" ,leadService.getLeadsDetailsByStatus("Follow up"));
 		return "Admin/FollowUpLeads";
 
 	}
@@ -144,14 +144,14 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/successleads")
 	public String getSuccessLeads(Model model) {
 
-		model.addAttribute("leads", dataFetchingService.getFreshLeadsDetails("Success"));
+		model.addAttribute("leads", leadService.getLeadsDetailsByStatus("Success"));
 		return "Admin/SuccessLeads";
 	}
 
 	@GetMapping("/admin_Dashboard/Leads")
 	public String getAllLeads(ModelMap model) {
 
-		model.addAttribute("Leads", dataFetchingService.getAllLeadsDetails());
+		model.addAttribute("Leads", leadService.getAllLeadsDetails());
 		return "Admin/AllLeads";
 	}
 
@@ -201,7 +201,7 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/ApproveBusinessAssociate")
 	public String getApproveBusinessAssociatePage(ModelMap model) {
 
-		List<BusinessAssociate> approvedBAs = businessAssociateRepository.findByApproval(false); // dataFetchingService.getBusinessAssociateByApprove(false);
+		List<BusinessAssociate> approvedBAs = businessAssociateService.getBusinessAssociateByApprove(false); // dataFetchingService.getBusinessAssociateByApprove(false);
 
 		model.addAttribute("approvedBusinessAssociates", approvedBAs);
 		
@@ -240,7 +240,7 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/businessAssociatePage")
 	public String getBusinessAssociatePage(ModelMap model) {
 
-		List<BusinessAssociate> businessAssociate = businessAssociateRepository.findByApproval(true);
+		List<BusinessAssociate> businessAssociate = businessAssociateService.getBusinessAssociateByApprove(true);
 		model.addAttribute("approvedBusinessAssociates", businessAssociate);
 		
 		return "Admin/ApprovedBusinessAssociate";
