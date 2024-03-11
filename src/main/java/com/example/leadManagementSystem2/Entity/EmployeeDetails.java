@@ -1,5 +1,7 @@
 package com.example.leadManagementSystem2.Entity;
 
+import java.util.List;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
@@ -9,6 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -68,6 +71,9 @@ public class EmployeeDetails {
 	@OneToOne(mappedBy = "employeeDetails",cascade = CascadeType.ALL)
 	@JsonIgnore
 	private Users_Credentials users_Credentials;
+	
+	@OneToMany(mappedBy = "fieldManager")
+	private List<BusinessAssociate> businessAssociates;
 
 	public Long getId() {
 		return id;

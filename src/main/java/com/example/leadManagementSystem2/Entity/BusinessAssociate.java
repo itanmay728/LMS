@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
@@ -21,55 +22,59 @@ public class BusinessAssociate {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="name cannot be empty!!")
+
+	@NotBlank(message = "name cannot be empty!!")
 	private String name;
-	
-	@NotBlank(message="Email cannot be empty!!")
-	@Email(message="Invalid email format!")
+
+	@NotBlank(message = "Email cannot be empty!!")
+	@Email(message = "Invalid email format!")
 	@Column(unique = true)
 	private String userName;
-	
-	@NotBlank(message="Phone cannot be empty!!")
+
+	@NotBlank(message = "Phone cannot be empty!!")
 	private String phone;
-	
-	@NotBlank(message="Address cannot be empty!!")
+
+	@NotBlank(message = "Address cannot be empty!!")
 	private String address;
-	
-	@NotBlank(message="Business name cannot be empty!!")
+
+	@NotBlank(message = "Business name cannot be empty!!")
 	private String businessName;
-	
-	@NotBlank(message="Pan number cannot be empty!!")
-	@Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message="Invalid PAN number")
+
+	@NotBlank(message = "Pan number cannot be empty!!")
+	@Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "Invalid PAN number")
 	private String panNumber;
-	
-	@NotBlank(message="Aadhaar number cannot be empty!!")
-	@Pattern(regexp = "[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", message="Invalid Aadhaar number")
+
+	@NotBlank(message = "Aadhaar number cannot be empty!!")
+	@Pattern(regexp = "[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", message = "Invalid Aadhaar number")
 	private String aadhaarNumber;
-	
-	@NotBlank(message="Account number cannot be empty!!")
+
+	@NotBlank(message = "Account number cannot be empty!!")
 	private String accountNumber;
-	
-	@NotBlank(message="Account holder name cannot be empty!!")
+
+	@NotBlank(message = "Account holder name cannot be empty!!")
 	private String accountHolderName;
-	
-	@NotBlank(message="IFSC code cannot be empty!!")
-	@Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message="Invalid IFSC Code")
+
+	@NotBlank(message = "IFSC code cannot be empty!!")
+	@Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code")
 	private String ifscCode;
-	
-	@NotBlank(message="Branch Address cannot be empty!!")
+
+	@NotBlank(message = "Branch Address cannot be empty!!")
 	private String branchAddress;
-	
-	//@NotBlank(message="name cannot be empty!!")
+
+	// @NotBlank(message="name cannot be empty!!")
 	private String password;
-	
+
 	private boolean approval;
 
 	@OneToOne(mappedBy = "businessAssociate", cascade = CascadeType.ALL)
 	private Users_Credentials users_Credentials;
-	
+
 	@OneToMany(mappedBy = "businessAssociate")
 	private List<Leads> leads;
+
+	@OneToOne
+	@JoinColumn(name = "fieldManager_id")
+	private EmployeeDetails fieldManager;
 
 	public Long getId() {
 		return id;
@@ -199,6 +204,14 @@ public class BusinessAssociate {
 		this.leads = leads;
 	}
 
+	public EmployeeDetails getFieldManager() {
+		return fieldManager;
+	}
+
+	public void setFieldManager(EmployeeDetails fieldManager) {
+		this.fieldManager = fieldManager;
+	}
+
 	public BusinessAssociate() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -236,7 +249,5 @@ public class BusinessAssociate {
 				+ password + ", approval=" + approval + ", users_Credentials=" + users_Credentials + ", leads=" + leads
 				+ "]";
 	}
-	
-	
-	
+
 }
