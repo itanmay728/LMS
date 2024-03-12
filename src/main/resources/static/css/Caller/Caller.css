@@ -1,0 +1,11 @@
+@charset "ISO-8859-1";
+
+/* search */ 
+
+.search-container{
+	position: relative;
+}
+
+.search-result{
+	position: absolute;
+}

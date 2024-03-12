@@ -8,7 +8,28 @@
 
 <section>
 
-<div class="card text-center m-3" th:each="LeadsDetail: ${Leads}">
+<div class="card text-center m-3">
+ <h2 >All Leads</h2>
+ </div>
+
+<div class="card m-3">
+		<!-- search -->
+		<div class="search-container m-3 border border-4 rounded">
+
+			<input onkeyup="search()" id="search-input" type="text" class="form-control"
+				placeholder="search lead" />
+
+			<div class="search-result">
+
+				<!-- <h2>This is search result</h2> -->
+				
+				<!-- result goes here -->
+
+			</div>
+		</div>
+		
+
+<div class="card-body text-center m-3 border border-2 border-secondary" th:each="LeadsDetail: ${Leads}">
   <div class="card-header" >
   
   	 <span class = "float-sm-start fw-bold me-2">ID:-</span>
@@ -24,7 +45,7 @@
    
   </div>
   
-  <div class="card-body">
+  <div class="card-text">
   
   
       <table class="table table-bordered table-hover  ">
@@ -62,6 +83,8 @@
 class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit</span> </a> 
 
 	</div> 
+ 
+ </div>
  
  </div>
 
