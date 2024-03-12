@@ -9,12 +9,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
 
 @Entity
 public class BusinessAssociate {
@@ -72,7 +72,7 @@ public class BusinessAssociate {
 	@OneToMany(mappedBy = "businessAssociate")
 	private List<Leads> leads;
 
-	@OneToOne
+	@ManyToOne
 	@JoinColumn(name = "fieldManager_id")
 	private EmployeeDetails fieldManager;
 
