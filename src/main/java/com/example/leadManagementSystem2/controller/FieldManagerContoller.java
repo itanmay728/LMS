@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
+import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
@@ -52,7 +53,21 @@ public class FieldManagerContoller {
 	}
 
 	@GetMapping("/fieldManagerDashboard")
-	public String getFieldManager() {
+	public String getFieldManager(Model model, HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		System.out.println(username);
+		if (username == null) {
+			// Handle the case where username is not found in the session
+			return "redirect:/login"; // Redirect to login page or handle appropriately
+		}
+
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		session.setAttribute("employeeDetails", employeeDetails);
+		
+		
 		return "FieldManager/FieldManagerDashboard";
 	}
 
@@ -79,8 +94,9 @@ public class FieldManagerContoller {
 
 	@PostMapping("/saveBA")
 	public String SaveBusinessAssociate(@Valid @ModelAttribute BusinessAssociate businessAssociate,
-			BindingResult result, HttpSession session, Model model,@RequestParam("fieldManager") Long fieldManagerId) {
+			BindingResult result, HttpSession session, Model model) {
 
+	
 		String username = getUsername();
 //		if (username == null) {
 //			return "redirect:/login";
@@ -94,16 +110,13 @@ public class FieldManagerContoller {
 		}
 
 		System.out.println(businessAssociate);
+		//System.out.println(fieldManager);
 
 		try {
 			BusinessAssociate ba = businessAssociateService.saveBusinessAssociate(businessAssociate);
-			
-			// Retrieve the FieldManager entity using the fieldManagerId
-		    EmployeeDetails FM = employeeDetailsRepository.findById(fieldManagerId)//fieldManagerRepository.findById(fieldManagerId)
-		            .orElseThrow(() -> new RuntimeException("FieldManager not found with id: " + fieldManagerId));
-		    
+				    
 		    // Set the FieldManager for the BusinessAssociate
-		    ba.setFieldManager(FM);
+		    ba.setFieldManager(fieldManager);
 			
 			session.setAttribute("msg", "Saved Successfully");
 		} catch (DataIntegrityViolationException e) {
@@ -116,5 +129,10 @@ public class FieldManagerContoller {
 		}
 
 		return "redirect:/fieldManager/fieldManagerDashboard/AssociateForm";
+	}
+	
+	@GetMapping("/profile")
+	public String getProfile() {
+		return "FieldManager/FieldManagerProfile";
 	}
 }
