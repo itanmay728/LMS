@@ -3,6 +3,7 @@ package com.example.leadManagementSystem2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
@@ -32,10 +34,24 @@ public class CallerController {
 	@Autowired
 	private LeadService leadService;
 	
+	@Autowired
+	private User_Credentials_Repository user_Credentials_Repository;
+	
 	@GetMapping("/Caller_Dashboard")
 	public String getCallerDashboard(HttpSession session) {
 		
 		String username = (String) session.getAttribute("username");
+		
+		if (username == null) {
+			// Handle the case where username is not found in the session
+			return "redirect:/login"; // Redirect to login page or handle appropriately
+		}
+
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		session.setAttribute("employeeDetails", employeeDetails);
+		
 		System.out.println(username);
 		return "Caller/Caller_Dashboard";
 	}
@@ -78,7 +94,7 @@ public class CallerController {
 			
 		model.addAttribute("Leads", leads);
 			
-		return "Caller/FollowUpLeads";
+		return "Caller/SuccessLeads";
 		}
 	
 	
@@ -124,5 +140,28 @@ public class CallerController {
 	
 	/* Lead End */
 	
+	/* profile */
+	
+	@GetMapping("/Caller_Dashboard/profile")
+	public String getProfile() {
+		
+		return "Caller/CallerProfile";
+	}
+	
+	
+	@GetMapping("/Caller_Dashboard/Leads/{query}")
+	@ResponseBody
+	public ResponseEntity<?> search(@PathVariable("query") String query , HttpSession session) {
+
+		System.out.println(query);
+		
+		String username = (String) session.getAttribute("username");
+		Users_Credentials users_Credentials = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
+
+		List<Leads> leads = this.leadsRepository.findByEmailContainingAndEmployeeDetails(query, employeeDetails);
+
+		return ResponseEntity.ok(leads);
+	}
 	
 }

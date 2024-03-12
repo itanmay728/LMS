@@ -2,6 +2,8 @@ package com.example.leadManagementSystem2.Entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -45,10 +47,12 @@ public class Leads {
 	
 	@ManyToOne
 	@JoinColumn(name = "businessAssociate_id")
+	@JsonIgnore
 	private BusinessAssociate businessAssociate;
 	
 	@ManyToOne
 	@JoinColumn(name = "employee_id")
+	@JsonIgnore
 	private EmployeeDetails employeeDetails;
 
 	public Long getId() {

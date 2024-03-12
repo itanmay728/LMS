@@ -136,6 +136,7 @@ public class AdminController {
 	public String getFollowUpLeads(Model model) {
 		
 		model.addAttribute("leads" ,leadService.getLeadsDetailsByStatus("Follow up"));
+
 		return "Admin/FollowUpLeads";
 
 	}
@@ -176,12 +177,11 @@ public class AdminController {
 		existingLead.setCourse(leads.getCourse());
 		existingLead.setMessage(leads.getMessage());
 		existingLead.setLeadStatus(leads.getLeadStatus());
-		
-		
+
 		try {
-			leadsRepository.save(existingLead);			
+			leadsRepository.save(existingLead);
 			session.setAttribute("msg", "Updated Successfully");
-		}  catch (Exception e) {
+		} catch (Exception e) {
 			session.setAttribute("msg", "Something went wrong!");
 		}
 		return "redirect:/Admin/admin_Dashboard/Leads/edit/{id}";
@@ -204,7 +204,7 @@ public class AdminController {
 		List<BusinessAssociate> approvedBAs = businessAssociateService.getBusinessAssociateByApprove(false); // dataFetchingService.getBusinessAssociateByApprove(false);
 
 		model.addAttribute("approvedBusinessAssociates", approvedBAs);
-		
+
 		return "Admin/VerifyBusinessAssociate";
 
 	}
@@ -236,13 +236,12 @@ public class AdminController {
 		return "redirect:/Admin/admin_Dashboard/ApproveBusinessAssociate";
 	}
 
-
 	@GetMapping("/admin_Dashboard/businessAssociatePage")
 	public String getBusinessAssociatePage(ModelMap model) {
 
 		List<BusinessAssociate> businessAssociate = businessAssociateService.getBusinessAssociateByApprove(true);
 		model.addAttribute("approvedBusinessAssociates", businessAssociate);
-		
+
 		return "Admin/ApprovedBusinessAssociate";
 
 	}
@@ -255,9 +254,9 @@ public class AdminController {
 
 		return "Admin/RejectedBusinessAssociate";
 	}
-	
-	//BusinessAssociate End
-	
+
+	// BusinessAssociate End
+
 	@GetMapping("/profile")
 	public String getProfile(Model model) {
 
@@ -269,27 +268,25 @@ public class AdminController {
 	public String getCallerDetails() {
 		return "Admin/UsersDetails";
 	}
-	
+
 	@GetMapping("/admin_Dashboard/users/{id}")
 	public String getSearchedEmployee(@PathVariable("id") Long id, Model model) {
-		
-		EmployeeDetails employeeDetails =   employeeDetailsRepository.findById(id).get();
-		
+
+		EmployeeDetails employeeDetails = employeeDetailsRepository.findById(id).get();
+
 		model.addAttribute("employee", employeeDetails);
-		
+
 		return "Admin/EmployeePage";
 	}
-	
-	
-	
+
 	@GetMapping("/admin_Dashboard/users/search/{query}")
 	@ResponseBody
-	public ResponseEntity<?> search(@PathVariable("query") String query){
-		
+	public ResponseEntity<?> search(@PathVariable("query") String query) {
+
 		System.out.println(query);
-		
-		List<EmployeeDetails> employees=this.employeeDetailsRepository.findByUserNameContaining(query);
-		
+
+		List<EmployeeDetails> employees = this.employeeDetailsRepository.findByUserNameContaining(query);
+
 		return ResponseEntity.ok(employees);
 	}
 

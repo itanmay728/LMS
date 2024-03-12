@@ -2,7 +2,8 @@ package com.example.leadManagementSystem2.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -11,9 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
+import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
+import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -29,13 +35,52 @@ public class FieldManagerContoller {
 	@Autowired
 	LeadsRepository leadsRepository;
 
+	@Autowired
+	User_Credentials_Repository user_Credentials_Repository;
+	
+	@Autowired
+	EmployeeDetailsRepository employeeDetailsRepository;
+
+	private String getUsername() {
+		// Cache the username retrieval
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		String username = authentication != null ? authentication.getName() : null;
+		return username;
+	}
+
+	private EmployeeDetails getFieldManager(String username) {
+		return user_Credentials_Repository.getUsersCredentialsByUserName(username).getEmployeeDetails();
+	}
+
 	@GetMapping("/fieldManagerDashboard")
-	public String getFieldManager() {
+	public String getFieldManager(Model model, HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		System.out.println(username);
+		if (username == null) {
+			// Handle the case where username is not found in the session
+			return "redirect:/login"; // Redirect to login page or handle appropriately
+		}
+
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		session.setAttribute("employeeDetails", employeeDetails);
+		
+		
 		return "FieldManager/FieldManagerDashboard";
 	}
 
 	@GetMapping("/fieldManagerDashboard/AssociateForm")
 	public String getBusinessAssociateForm(Model model) {
+
+		String username = getUsername();
+//		if (username == null) {
+//			return "redirect:/login";
+
+		EmployeeDetails fieldManager = getFieldManager(username);
+		model.addAttribute("fieldManager", fieldManager);
+
 		model.addAttribute("businessAssociate", new BusinessAssociate());
 		return "FieldManager/BusinessAssociateForm";
 	}
@@ -49,7 +94,15 @@ public class FieldManagerContoller {
 
 	@PostMapping("/saveBA")
 	public String SaveBusinessAssociate(@Valid @ModelAttribute BusinessAssociate businessAssociate,
-			BindingResult result, HttpSession session) {
+			BindingResult result, HttpSession session, Model model) {
+
+	
+		String username = getUsername();
+//		if (username == null) {
+//			return "redirect:/login";
+
+		EmployeeDetails fieldManager = getFieldManager(username);
+		model.addAttribute("fieldManager", fieldManager);
 
 		if (result.hasErrors()) {
 			System.out.println(result);
@@ -57,9 +110,14 @@ public class FieldManagerContoller {
 		}
 
 		System.out.println(businessAssociate);
+		//System.out.println(fieldManager);
 
 		try {
 			BusinessAssociate ba = businessAssociateService.saveBusinessAssociate(businessAssociate);
+				    
+		    // Set the FieldManager for the BusinessAssociate
+		    ba.setFieldManager(fieldManager);
+			
 			session.setAttribute("msg", "Saved Successfully");
 		} catch (DataIntegrityViolationException e) {
 			// Handle the exception for duplicate username
@@ -71,5 +129,10 @@ public class FieldManagerContoller {
 		}
 
 		return "redirect:/fieldManager/fieldManagerDashboard/AssociateForm";
+	}
+	
+	@GetMapping("/profile")
+	public String getProfile() {
+		return "FieldManager/FieldManagerProfile";
 	}
 }

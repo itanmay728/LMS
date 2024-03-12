@@ -18,6 +18,8 @@
 					<div class="card-header text-center fs-4">Business Associate
 						Details</div>
 					<th:block th:if="${session.msg}">
+						<p th:if="${session.msg == 'Saved Successfully'}"
+							class="text-center text-success">[[${session.msg}]]</p>
 						<p th:if="${session.msg == 'Email already exists'}"
 							class="text-center text-danger">[[${session.msg}]]</p>
 						<p th:if="${session.msg == 'Something went wrong!'}"
@@ -25,9 +27,29 @@
 						<th:block
 							th:text="${@businessAssociateServiceImpl.removeSessionMessage()}"></th:block>
 					</th:block>
+					<!-- <div class="form-group ">
+						<label for="form_name">Referral Name *</label> <input
+							id="form_name" type="text" th:value="${fieldManager.name}"
+							class="form-control text-center" readonly>
+
+					</div>
+					<div class="form-group ">
+						<label for="form_name">Field Manager ID *</label> <input
+							id="form_name" type="text" th:value="${fieldManager.id}"
+							class="form-control text-center" readonly>
+
+					</div> -->
+
 					<div class="card-body">
 						<form action="/fieldManager/saveBA" method="post"
 							th:object="${businessAssociate}">
+
+							<div>
+								<input type="hidden" name="fieldManager"
+									th:value="${fieldManager.id}" />
+
+							</div>
+
 							<div class="mb-3">
 								<label>Enter Full Name</label> <input type="text" name="name"
 									class="form-control" th:value="${businessAssociate.name}"
@@ -101,7 +123,8 @@
 							</div>
 
 							<fieldset>
-								<legend>Bank Details</legend>
+								<legend><i class="fas fa-university"></i> Bank Details</legend>
+								
 								<div class="mb-3">
 									<label>Account Holder Name</label> <input type="text"
 										name="accountHolderName" class="form-control"
