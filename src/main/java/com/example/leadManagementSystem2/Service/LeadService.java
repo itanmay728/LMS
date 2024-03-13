@@ -17,5 +17,7 @@ public interface LeadService {
 	List<Leads> getLeadsDetailsOfAParticularCaller(String username);
 	
 	List<Leads> getLeadsDetailsByStatusOfAParticularCaller(String username , String status);
+
+	int getLeadsCountByStatus(String status);
 	
 }

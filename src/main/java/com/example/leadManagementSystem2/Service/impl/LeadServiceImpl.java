@@ -57,6 +57,14 @@ public class LeadServiceImpl implements LeadService {
 		return leadsRepository.findByLeadStatus(status);
 	}
 	
+	@Override
+	public int getLeadsCountByStatus(String status) {
+		
+		return leadsRepository.countByLeadStatus(status);
+		
+		//return leadsRepository.findByLeadStatus(status);
+	}
+	
 	//using this method in index controller
 	//Assigning lead to a caller
 	@Override
