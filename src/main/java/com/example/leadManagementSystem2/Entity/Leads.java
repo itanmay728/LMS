@@ -27,7 +27,6 @@ public class Leads {
 	
 	@NotBlank(message="Email cannot be empty!!")
 	@Email(message="Invalid email format!")
-	@Column(unique = true)
 	private String email;
 	
 	@NotBlank(message="Phone cannot be empty!!")
