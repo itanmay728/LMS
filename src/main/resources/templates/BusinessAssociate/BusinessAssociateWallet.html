@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "
+	th:replace="/BusinessAssociate/businessAssociateBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<!-- text-center -->
+<section>
+ <div class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
+<div class="card col text-center col-lg-11 ">
+
+  <div class="card-header ">
+  
+  <div class= "d-inline float-sm-start">
+  
+  	<i class="fas fa-wallet fs-4"></i>
+	<span class = "fs-4">WALLET</span>
+  	<div><i class="fas fa-rupee-sign"></i> <span class= "text-primary  fw-bold" th:text="${session.businessAssociate.wallet}"></span> </div> 
+  	
+  	
+  </div>
+  
+  <!-- right side -->
+  <div class = "float-sm-end">
+  
+  <div class="border-start border-3 me-4 h-25">
+  
+ 	<span class = "fs-6 ms-5">TOTAL BALANCE</span>
+  	<div><i class="fas fa-rupee-sign"></i> <span class= "text-primary  fw-bold" th:text="${session.businessAssociate.wallet}"></span> </div>
+  	
+  </div>
+  
+  </div>
+  
+  </div>
+  <div class="card-body">
+  
+    <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">TRANSACTIONS</th>
+      <th scope="col">AMOUNT</th>
+      <th scope="col">STATUS</th>
+    </tr>
+  </thead>
+  
+  <tbody>
+  
+    <tr>
+      <th scope="row">1</th>
+      <td>Paid for order at Jairam</td>
+      <td>100</td>
+      <td>Success</td>
+    </tr>
+    
+     <tr>
+      <th scope="row">1</th>
+      <td>Paid for order at Jairam</td>
+      <td>100</td>
+      <td>Success</td>
+    </tr>
+    
+     <tr>
+      <th scope="row">1</th>
+      <td>Paid for order at Jairam</td>
+      <td>100</td>
+      <td>Success</td>
+    </tr>
+    
+     <tr>
+      <th scope="row">1</th>
+      <td>Paid for order at Jairam</td>
+      <td>100</td>
+      <td>Success</td>
+    </tr>
+    
+  </tbody>
+  
+</table>
+    
+  </div>
+  
+  
+  <div class="card-footer text-muted">
+  
+  <a href="#" class="btn border border-2 float-sm-start ms-5" data-mdb-ripple-init> <i class="fas fa-file-download me-2"></i> <span>Download Statement</span></a>
+  <a href="#" class="btn float-sm-end me-5 border border-2" data-mdb-ripple-init> <i class="fas fa-comments-dollar me-2"></i> <span>Send Money from Wallet to Bank</span></a>
+  
+  </div>
+</div>
+</div>
+</section>
+
+</body>
+</html>

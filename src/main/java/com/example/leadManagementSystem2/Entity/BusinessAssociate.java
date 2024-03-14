@@ -65,6 +65,8 @@ public class BusinessAssociate {
 	private String password;
 
 	private boolean approval;
+	
+	private Long wallet = 0L;
 
 	@OneToOne(mappedBy = "businessAssociate", cascade = CascadeType.ALL)
 	private Users_Credentials users_Credentials;
@@ -212,15 +214,32 @@ public class BusinessAssociate {
 		this.fieldManager = fieldManager;
 	}
 
+	public Long getWallet() {
+		return wallet;
+	}
+
+	public void setWallet(Long wallet) {
+		this.wallet = wallet;
+	}
+
 	public BusinessAssociate() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public BusinessAssociate(Long id, String name, String userName, String phone, String address, String businessName,
-			String panNumber, String aadhaarNumber, String accountNumber, String accountHolderName, String ifscCode,
-			String branchAddress, String password, boolean approval, Users_Credentials users_Credentials,
-			List<Leads> leads) {
+	public BusinessAssociate(Long id, @NotBlank(message = "name cannot be empty!!") String name,
+			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String userName,
+			@NotBlank(message = "Phone cannot be empty!!") String phone,
+			@NotBlank(message = "Address cannot be empty!!") String address,
+			@NotBlank(message = "Business name cannot be empty!!") String businessName,
+			@NotBlank(message = "Pan number cannot be empty!!") @Pattern(regexp = "[A-Z]{5}[0-9]{4}[A-Z]{1}", message = "Invalid PAN number") String panNumber,
+			@NotBlank(message = "Aadhaar number cannot be empty!!") @Pattern(regexp = "[2-9]{1}[0-9]{3}\\s[0-9]{4}\\s[0-9]{4}", message = "Invalid Aadhaar number") String aadhaarNumber,
+			@NotBlank(message = "Account number cannot be empty!!") String accountNumber,
+			@NotBlank(message = "Account holder name cannot be empty!!") String accountHolderName,
+			@NotBlank(message = "IFSC code cannot be empty!!") @Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code") String ifscCode,
+			@NotBlank(message = "Branch Address cannot be empty!!") String branchAddress, String password,
+			boolean approval, Long wallet, Users_Credentials users_Credentials, List<Leads> leads,
+			EmployeeDetails fieldManager) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -236,8 +255,10 @@ public class BusinessAssociate {
 		this.branchAddress = branchAddress;
 		this.password = password;
 		this.approval = approval;
+		this.wallet = wallet;
 		this.users_Credentials = users_Credentials;
 		this.leads = leads;
+		this.fieldManager = fieldManager;
 	}
 
 	@Override
@@ -246,8 +267,10 @@ public class BusinessAssociate {
 				+ ", address=" + address + ", businessName=" + businessName + ", panNumber=" + panNumber
 				+ ", aadhaarNumber=" + aadhaarNumber + ", accountNumber=" + accountNumber + ", accountHolderName="
 				+ accountHolderName + ", ifscCode=" + ifscCode + ", branchAddress=" + branchAddress + ", password="
-				+ password + ", approval=" + approval + ", users_Credentials=" + users_Credentials + ", leads=" + leads
-				+ "]";
+				+ password + ", approval=" + approval + ", wallet=" + wallet + ", users_Credentials="
+				+ users_Credentials + ", leads=" + leads + ", fieldManager=" + fieldManager + "]";
 	}
+
+	
 
 }

@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
@@ -155,6 +156,40 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		session.removeAttribute("msg");
 
+	}
+
+	@Override
+	public void walletUpdate(Leads leads) {
+		
+		if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("9th / 10th Foundation Course")) {
+			
+			Long newAmount = leads.getBusinessAssociate().getWallet() + 100;
+			
+			leads.getBusinessAssociate().setWallet(newAmount);
+		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("One year Course (Medical/ Engineering) 12th")) {
+			
+			
+			Long newAmount = leads.getBusinessAssociate().getWallet() + 200;
+			
+			leads.getBusinessAssociate().setWallet(newAmount);
+		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("One year Course (Medical/ Engineering) after 12th")) {
+			
+			Long newAmount = leads.getBusinessAssociate().getWallet() + 200;
+			
+			leads.getBusinessAssociate().setWallet(newAmount);
+		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("B.tech")) {
+			
+			Long newAmount = leads.getBusinessAssociate().getWallet() + 300;
+			
+			leads.getBusinessAssociate().setWallet(newAmount);
+		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("MCA")) {
+			
+			Long newAmount = leads.getBusinessAssociate().getWallet() + 400;
+			
+			leads.getBusinessAssociate().setWallet(newAmount);
+		}
+		
+		
 	}
 
 }

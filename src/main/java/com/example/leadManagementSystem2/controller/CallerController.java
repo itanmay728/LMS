@@ -19,6 +19,7 @@ import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
+import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 import com.example.leadManagementSystem2.Service.LeadService;
 
 import jakarta.servlet.http.HttpSession;
@@ -36,6 +37,9 @@ public class CallerController {
 	
 	@Autowired
 	private User_Credentials_Repository user_Credentials_Repository;
+	
+	@Autowired
+	private BusinessAssociateService businessAssociateService;
 	
 	@GetMapping("/Caller_Dashboard")
 	public String getCallerDashboard(HttpSession session) {
@@ -133,6 +137,7 @@ public class CallerController {
 		
 		//existingLead.setMessageOfCaller(leads.getMessageOfCaller());
 		existingLead.setLeadStatus(leads.getLeadStatus());
+		businessAssociateService.walletUpdate(existingLead);
 		
 		leadsRepository.save(existingLead);
 		return "redirect:/Caller/Caller_Dashboard/Leads/edit/{id}";

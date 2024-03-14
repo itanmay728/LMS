@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
+import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
@@ -64,6 +65,13 @@ public class BusinessAssociateController {
 		long numberOfSuccessLeads = leadService.getLeadsCountByStatus("success");
 		model.addAttribute("numberOfLeads", numberOfSuccessLeads);
 		return "BusinessAssociate/SuccessLeads";
+	}
+	
+	
+	// Wallet 
+	@GetMapping("/businessAssociateDashboard/Wallet")
+	public String getWalletPage() {
+		return "BusinessAssociate/BusinessAssociateWallet";
 	}
 	
 
