@@ -18,6 +18,10 @@ public interface LeadService {
 	
 	List<Leads> getLeadsDetailsByStatusOfAParticularCaller(String username , String status);
 
-	int getLeadsCountByStatus(String status);
+	int getLeadsCountOfBusinessAssociate(String username);
+
+	int getLeadsCountByStatusOfBusinessAssociate(String username, String status);
+
+	List<Leads> getLeadsOfBusinessAssociate(String username);
 	
 }

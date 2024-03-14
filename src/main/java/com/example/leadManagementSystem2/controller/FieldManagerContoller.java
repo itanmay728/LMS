@@ -109,7 +109,7 @@ public class FieldManagerContoller {
 			return "FieldManager/BusinessAssociateForm";
 		}
 
-		System.out.println(businessAssociate);
+		//System.out.println(businessAssociate);
 		//System.out.println(fieldManager);
 
 		try {

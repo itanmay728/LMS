@@ -53,16 +53,22 @@ public class BusinessAssociateController {
 	//All leads
 	
 	@GetMapping("/businessAssociateDashboard/leads")
-	public String getLeads(Model model) {
-		long numberOfLeads = leadsRepository.count();
+	public String getLeads(Model model,HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		
+		long numberOfLeads = leadService.getLeadsCountOfBusinessAssociate(username);
 		model.addAttribute("numberOfLeads", numberOfLeads);
 		return "BusinessAssociate/Leads";
 	}
 	
 	//Success Leads
 	@GetMapping("/businessAssociateDashboard/successLeads")
-	public String getSuccessLeads(Model model) {
-		long numberOfSuccessLeads = leadService.getLeadsCountByStatus("success");
+	public String getSuccessLeads(Model model,HttpSession session) {
+		
+		String username = (String) session.getAttribute("username");
+		
+		long numberOfSuccessLeads = leadService.getLeadsCountByStatusOfBusinessAssociate(username, "Success");
 		model.addAttribute("numberOfLeads", numberOfSuccessLeads);
 		return "BusinessAssociate/SuccessLeads";
 	}
