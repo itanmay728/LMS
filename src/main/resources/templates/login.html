@@ -7,8 +7,8 @@
 </head>
 <body>
 
-<section class = "banner ">
-<div class="container p-3">
+<!--  <section class = "banner "> 
+ <div class="container p-3">
 			<div class="row">
 				<div class="col-md-6 offset-md-3 mt-5 ">
 					<div class="card ">
@@ -42,7 +42,73 @@
 				</div>
 			</div>
 		</div>
+		</section> -->
+		
+<!-- Section: Design Block -->
+<section class="banner">
+  <!-- Jumbotron -->
+  <div class="px-4 py-5 px-md-5 text-center text-lg-start" >
+    <div class="container">
+      <div class="row gx-lg-5 align-items-center">
+        <div class="col-lg-6 mb-5 mb-lg-0">
+          <h1 class="my-5  fw-bold ls-tight">
+            We are more than  <br />
+            <span class="text-primary fw-bold">just a company</span>
+          </h1>
+          <p class= "text-white fs-5" >
+            Suprams Info Solutions Pvt Ltd. is one of the rising IT consultation service and solutions providers in Delhi, India. 
+            We offer quality and satisfactory services to clients from all over India and beyond the shores.
+          </p>
+        </div>
 
+        <div class="col-lg-6 mb-5 mb-lg-0">
+        
+          <div class="card ">
+          <div class="card-header text-center fs-3  text-dark  bg-primary bg-gradient fw-bold">Login</div>
+
+							<div th:if="${param.error}" class=" alert-danger text-center">
+								Invalid username or password</div>
+
+							<div th:if="${param.logout}" class=" alert-success text-center">
+								Logout Successful</div>
+							<div class="card-body py-5 px-md-5 text-dark  ">
+            
+            
+              <form th:action = "@{/userLogin}" method="post">
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+
+                <!-- Email input -->
+                <div class="form-outline mb-5">
+                 <!-- <label class="form-label " for="form3Example3">Email address</label> -->
+                  <input type="email" id="form3Example3" class="form-control" placeholder="Email address" name="username" />
+                  
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-5">
+                  <!-- <label class="form-label" for="form3Example4">Password</label> -->
+                  <input type="password" id="form3Example4" class="form-control" placeholder="Password" name="password"/>
+                  
+                </div>
+
+              
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4 col-lg-12 ">
+                  Sign up
+                </button>
+                
+              </form>
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Jumbotron -->
 </section>
+<!-- Section: Design Block -->
+
 </body>
 </html>

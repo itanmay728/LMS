@@ -179,6 +179,7 @@ public class AdminController {
 		existingLead.setLeadStatus(leads.getLeadStatus());
 
 		try {
+			businessAssociateService.walletUpdate(existingLead);
 			leadsRepository.save(existingLead);
 			session.setAttribute("msg", "Updated Successfully");
 		} catch (Exception e) {
