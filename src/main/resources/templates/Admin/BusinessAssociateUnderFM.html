@@ -1,20 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:replace="/Admin/AdminBase::layout(~{::section})">
+    th:replace="/Admin/AdminBase::layout(~{::section})">
 <head>
-<meta charset="ISO-8859-1">
-<title>Approved Business Associate</title>
+    <meta charset="UTF-8">
+    <title>Business Associates under Field Manager</title>
 </head>
 <body>
-
-<section>
-
-		<div class="card text-center mt-3">
-			<h2>Approved Business Associates</h2>
+    <section>
+      <div class="card text-center mt-3">
+			<h2>Business Associates Under Field Manager</h2>
 		</div>
 
 		<div class="card text-center mt-4"
-			th:each="BADetail : ${approvedBusinessAssociates}">
+			th:each="BADetail : ${businessAssociates}">
 			<div class="card-header">
 				<div class="card-header text-center">
 					<span class="float-sm-start fw-bold">ID :- </span> <span
@@ -81,7 +79,6 @@
 
 		</div>
 	
-</section>
-
+    </section>
 </body>
 </html>

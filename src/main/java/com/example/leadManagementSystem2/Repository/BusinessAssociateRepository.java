@@ -14,4 +14,5 @@ public interface BusinessAssociateRepository extends JpaRepository<BusinessAssoc
 	
 	@Query("select u from BusinessAssociate u where u.userName = :userName")
 	public BusinessAssociate getBusinessAssociateByUserName(@Param("userName") String userName);
+	
 }

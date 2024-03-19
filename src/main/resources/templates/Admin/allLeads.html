@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="/Admin/AdminBase::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
 <head>
 <meta charset="ISO-8859-1">
 <title>Admin | Leads</title>
@@ -8,93 +9,94 @@
 <body>
 
 
-<section>
+	<section>
 
-<div class="card text-center m-3">
- <h2 >All Leads</h2>
- </div>
- 
- 
- <!-- search -->
-<div class="card m-3">
+		<div class="card text-center m-3">
+			<h2>All Leads</h2>
+		</div>
+
+
 		<!-- search -->
-		<div class="search-container m-3 border border-4 rounded">
+		<div class="card m-3">
+			<!-- search for all leads -->
+			<div class="search-container m-3 border border-4 rounded">
 
-			<input onkeyup="search()" id="search-input" type="text" class="form-control"
-				placeholder="search lead" />
+				<input onkeyup="searchLead()" id="search-input" type="text"
+					class="form-control" placeholder="search lead" />
 
-			<div class="search-result">
+				<div class="search-result">
 
-				<!-- <h2>This is search result</h2> -->
-				
-				<!-- result goes here -->
+					<!-- <h2>This is search result</h2> -->
+
+					<!-- result goes here -->
+
+				</div>
+			</div>
+
+			<div
+				class="card-body text-center m-3 border border-2 border-secondary"
+				th:each="LeadsDetail: ${Leads}" th:id="'lead-' + ${LeadsDetail.Id}">
+				<div class="card-header">
+
+					<span class="float-sm-start fw-bold me-2">ID:-</span> <span
+						class="float-sm-start" th:text="${LeadsDetail.Id}"></span> <span
+						class=" fw-bold me-2">Name:-</span> <span
+						th:text="${LeadsDetail.name}"></span> <span class=" float-sm-end">
+						<span class="fw-bold me-2">Email:-</span> <span
+						th:text="${LeadsDetail.email}"></span>
+					</span>
+
+				</div>
+
+				<div class="card-body">
+
+
+					<table class="table table-bordered table-hover  ">
+						<thead class="table-primary table-sm">
+							<tr>
+
+
+								<th>Phone Number</th>
+								<th>Address</th>
+								<th>Course</th>
+								<th>Message</th>
+								<th>Lead Status</th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr>
+								<td th:text="${LeadsDetail.phone}"></td>
+								<td th:text="${LeadsDetail.address}"></td>
+								<td th:text="${LeadsDetail.course}"></td>
+								<td th:text="${LeadsDetail.message}"></td>
+								<td th:text="${LeadsDetail.leadStatus}"></td>
+							</tr>
+						</tbody>
+
+					</table>
+
+				</div>
+
+
+				<div class="card-footer text-muted">
+
+					<a
+						th:href="@{/Admin/admin_Dashboard/Leads/edit/{id} (id=${LeadsDetail.Id})}"
+						class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i>
+						<span>Edit</span>
+					</a> <a
+						th:href="@{/Admin/admin_Dashboard/Leads/{id} (id=${LeadsDetail.Id})}"
+						class="btn btn-danger "> <i class="fas fa-trash-alt me-2"></i>
+						<span>Delete</span>
+					</a>
+
+				</div>
 
 			</div>
 		</div>
 
-<div class="card-body text-center m-3 border border-2 border-secondary" th:each="LeadsDetail: ${Leads}">
-  <div class="card-header" >
-  
-  	 <span class = "float-sm-start fw-bold me-2">ID:-</span>
-     <span class = "float-sm-start" th:text="${LeadsDetail.Id}"></span>
-     
-   <span class = " fw-bold me-2">Name:-</span>  
-   <span th:text="${LeadsDetail.name}"></span>
-   
-   <span class = " float-sm-end">
-   <span class = "fw-bold me-2">Email:-</span>  
-   <span th:text="${LeadsDetail.email}"></span>
-   </span>
-   
-  </div>
-  
-  <div class="card-body">
-  
-  
-      <table class="table table-bordered table-hover  ">
-  <thead class= "table-primary table-sm">
- 					 <tr>
-  					
-						
-						<th>Phone Number</th>
-						<th>Address</th>
-						<th>Course</th>
-						<th>Message</th>
-						<th>Lead Status</th>
-  					</tr>
-  </thead>
-  
-  <tbody>
-  					<tr>
-						<td th:text="${LeadsDetail.phone}"></td>
-						<td th:text="${LeadsDetail.address}"></td>
-						<td th:text="${LeadsDetail.course}"></td>
-						<td th:text="${LeadsDetail.message}"></td>
-						<td th:text="${LeadsDetail.leadStatus}"></td>
-					</tr>
-  </tbody>
-  
-  </table>
-    
-  </div>
-  
-  
-  <div class="card-footer text-muted">
-
-<a
-	th:href="@{/Admin/admin_Dashboard/Leads/edit/{id} (id=${LeadsDetail.Id})}"
-class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit</span> </a> 
-
-<a
-th:href="@{/Admin/admin_Dashboard/Leads/{id} (id=${LeadsDetail.Id})}"
-class="btn btn-danger "> <i class="fas fa-trash-alt me-2"></i> <span>Delete</span> </a>
-
-	</div> 
- 
- </div>
- </div>
-
-</section>
+	</section>
 
 </body>
 </html>

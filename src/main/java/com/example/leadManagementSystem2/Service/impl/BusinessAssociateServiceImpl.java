@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
@@ -190,6 +191,18 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 		}
 		
 		
+	}
+
+	@Override
+	public List<BusinessAssociate> findByFieldManagerId(Long id) {
+		
+		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
+
+		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
+
+		List<BusinessAssociate> BA = employeeDetails.getBusinessAssociates();
+
+		return BA;
 	}
 
 }

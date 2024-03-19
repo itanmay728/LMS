@@ -76,6 +76,7 @@ public class EmployeeDetails {
 	private Users_Credentials users_Credentials;
 	
 	@OneToMany(mappedBy = "fieldManager")
+	@JsonIgnore
 	private List<BusinessAssociate> businessAssociates;
 
 	@OneToMany(mappedBy = "employeeDetails")
@@ -218,11 +219,23 @@ public class EmployeeDetails {
 	public void setLeads(List<Leads> leads) {
 		this.leads = leads;
 	}
+	
+	
+
+	public List<BusinessAssociate> getBusinessAssociates() {
+		return businessAssociates;
+	}
+
+	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
+		this.businessAssociates = businessAssociates;
+	}
 
 	public EmployeeDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 	public EmployeeDetails(Long id, @NotBlank(message = "name cannot be empty!!") String name,
 			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String userName,
@@ -235,7 +248,7 @@ public class EmployeeDetails {
 			@NotBlank(message = "IFSC code cannot be empty!!") @Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code") String ifscCode,
 			@NotBlank(message = "Branch Address cannot be empty!!") String branchAddress,
 			@NotBlank(message = "Password cannot be empty!!") String password, String role, boolean approve,
-			Users_Credentials users_Credentials, List<Leads> leads) {
+			Users_Credentials users_Credentials, List<BusinessAssociate> businessAssociates, List<Leads> leads) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -253,6 +266,7 @@ public class EmployeeDetails {
 		this.role = role;
 		this.approve = approve;
 		this.users_Credentials = users_Credentials;
+		this.businessAssociates = businessAssociates;
 		this.leads = leads;
 	}
 
@@ -262,9 +276,8 @@ public class EmployeeDetails {
 				+ ", address=" + address + ", phone=" + phone + ", panNumber=" + panNumber + ", aadhaar=" + aadhaar
 				+ ", accountHolderName=" + accountHolderName + ", accountNumber=" + accountNumber + ", ifscCode="
 				+ ifscCode + ", branchAddress=" + branchAddress + ", password=" + password + ", role=" + role
-				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + ", leads=" + leads + "]";
+				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + ", businessAssociates="
+				+ businessAssociates + ", leads=" + leads + "]";
 	}
-
-	
 
 }

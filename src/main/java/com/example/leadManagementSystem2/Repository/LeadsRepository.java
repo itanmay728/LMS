@@ -14,4 +14,8 @@ public interface LeadsRepository extends JpaRepository<Leads, Long> {
 	int countByLeadStatus(String leadStatus);
 	
 	public List<Leads> findByEmailContainingAndEmployeeDetails(String email, EmployeeDetails employeeDetails);
+	
+	
+	//search
+	public List<Leads> findByEmailContaining(String email);
 }
