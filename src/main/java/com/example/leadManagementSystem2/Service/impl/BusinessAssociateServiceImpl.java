@@ -194,6 +194,19 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	}
 
 	@Override
+
+	public List<BusinessAssociate> findByFieldManagerId(Long id) {
+		
+		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
+
+		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
+
+		List<BusinessAssociate> BA = employeeDetails.getBusinessAssociates();
+
+		return BA;
+	}
+
+
 	public List<BusinessAssociate> getBusinessAssociateOfAParticularFieldManager(String username) {
 		
 		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
@@ -224,5 +237,6 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	
 	
 	
+
 
 }

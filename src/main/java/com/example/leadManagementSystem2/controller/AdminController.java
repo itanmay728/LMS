@@ -63,7 +63,7 @@ public class AdminController {
 
 	@Autowired
 	private EmployeeDetailsRepository employeeDetailsRepository;
-	
+
 	@Autowired
 	private LeadService leadService;
 
@@ -81,6 +81,11 @@ public class AdminController {
 
 		EmployeeDetails employeeDetails = user.getEmployeeDetails();
 		session.setAttribute("employeeDetails", employeeDetails);
+
+		long numberOfLeads = leadsRepository.count();
+		model.addAttribute("numberOfLeads", numberOfLeads);
+
+		model.addAttribute("numberOfFreshLeads", leadService.getLeadsDetailsByStatus("New").size());
 
 		return "Admin/Admin_Dashboard";
 	}
@@ -128,14 +133,15 @@ public class AdminController {
 	public String getFreshLeads(Model model) {
 
 		model.addAttribute("leads", leadService.getLeadsDetailsByStatus("New"));
+
 		return "Admin/FreshLeads";
 	}
 
 	// Follow Up Leads
 	@GetMapping("/admin_Dashboard/followupleads")
 	public String getFollowUpLeads(Model model) {
-		
-		model.addAttribute("leads" ,leadService.getLeadsDetailsByStatus("Follow up"));
+
+		model.addAttribute("leads", leadService.getLeadsDetailsByStatus("Follow up"));
 
 		return "Admin/FollowUpLeads";
 
@@ -289,6 +295,40 @@ public class AdminController {
 		List<EmployeeDetails> employees = this.employeeDetailsRepository.findByUserNameContaining(query);
 
 		return ResponseEntity.ok(employees);
+	}
+	
+//	@GetMapping("/admin_Dashboard/Lead/{id}")
+//	public String getSearchedLead(@PathVariable("id") Long id, Model model) {
+//		
+//		Leads leadDetails=leadsRepository.findById(id).get();
+//		
+//		model.addAttribute("lead",leadDetails);
+//
+//		return "Admin/LeadPage";
+//	}
+
+	@GetMapping("/admin_Dashboard/Leads/search/{query}")
+	@ResponseBody
+	public ResponseEntity<?> searchLead(@PathVariable("query") String query) {
+
+		System.out.println(query);
+
+		List<Leads> leads = this.leadsRepository.findByEmailContaining(query);
+
+		return ResponseEntity.ok(leads);
+	}
+	
+	@GetMapping("/admin_Dashboard/businessAssociateUnderFM/{id}")
+	public String businessAssociateUnderFieldManager(@PathVariable Long id, Model model){
+	    List<BusinessAssociate> businessAssociates = businessAssociateService.findByFieldManagerId(id);
+	    model.addAttribute("businessAssociates", businessAssociates);
+		return "Admin/BusinessAssociateUnderFM";
+	}
+	
+	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
+	public String leadsUnderCaller(@PathVariable Long id, Model model) {
+		
+		return "Admin/LeadPage";
 	}
 
 }

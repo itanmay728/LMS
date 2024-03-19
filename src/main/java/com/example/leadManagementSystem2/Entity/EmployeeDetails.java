@@ -76,6 +76,7 @@ public class EmployeeDetails {
 	private Users_Credentials users_Credentials;
 	
 	@OneToMany(mappedBy = "fieldManager")
+	@JsonIgnore
 	private List<BusinessAssociate> businessAssociates;
 
 	@OneToMany(mappedBy = "employeeDetails")
@@ -225,11 +226,23 @@ public class EmployeeDetails {
 	public void setLeads(List<Leads> leads) {
 		this.leads = leads;
 	}
+	
+	
+
+	public List<BusinessAssociate> getBusinessAssociates() {
+		return businessAssociates;
+	}
+
+	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
+		this.businessAssociates = businessAssociates;
+	}
 
 	public EmployeeDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 
 	public EmployeeDetails(Long id, @NotBlank(message = "name cannot be empty!!") String name,
 			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String userName,
@@ -274,8 +287,5 @@ public class EmployeeDetails {
 				+ businessAssociates + ", leads=" + leads + "]";
 	}
 
-
-	
-	
 
 }
