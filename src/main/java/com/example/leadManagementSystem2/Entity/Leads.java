@@ -40,8 +40,6 @@ public class Leads {
 	@Column(length = 100)
 	private String message;
 	
-	private List<String> messageOfCaller;
-	
 	private String leadStatus;
 	
 	@ManyToOne
@@ -53,6 +51,9 @@ public class Leads {
 	@JoinColumn(name = "employee_id")
 	@JsonIgnore
 	private EmployeeDetails employeeDetails;
+	
+	@OneToMany(mappedBy = "leads")
+	private List<LeadsConversation> leadsConversation;
 
 	public Long getId() {
 		return Id;
@@ -134,25 +135,25 @@ public class Leads {
 		this.employeeDetails = employeeDetails;
 	}
 
-	public List<String> getMessageOfCaller() {
-		return messageOfCaller;
+	public List<LeadsConversation> getLeadsConversation() {
+		return leadsConversation;
 	}
 
-	public void setMessageOfCaller(List<String> messageOfCaller) {
-		this.messageOfCaller = messageOfCaller;
+	public void setLeadsConversation(List<LeadsConversation> leadsConversation) {
+		this.leadsConversation = leadsConversation;
 	}
 
 	public Leads() {
 		super();
-		// TODO Auto-generated constructor stub = messageOfCaller
+		// TODO Auto-generated constructor stub
 	}
 
 	public Leads(Long id, @NotBlank(message = "name cannot be empty!!") String name,
 			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String email,
 			@NotBlank(message = "Phone cannot be empty!!") String phone,
 			@NotBlank(message = "Address cannot be empty!!") String address, String course, String message,
-			List<String> messageOfCaller, String leadStatus, BusinessAssociate businessAssociate,
-			EmployeeDetails employeeDetails) {
+			String leadStatus, BusinessAssociate businessAssociate, EmployeeDetails employeeDetails,
+			List<LeadsConversation> leadsConversation) {
 		super();
 		Id = id;
 		this.name = name;
@@ -161,22 +162,21 @@ public class Leads {
 		this.address = address;
 		this.course = course;
 		this.message = message;
-		this.messageOfCaller = messageOfCaller;
 		this.leadStatus = leadStatus;
 		this.businessAssociate = businessAssociate;
 		this.employeeDetails = employeeDetails;
+		this.leadsConversation = leadsConversation;
 	}
 
 	@Override
 	public String toString() {
 		return "Leads [Id=" + Id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", address=" + address
-				+ ", course=" + course + ", message=" + message + ", messageOfCaller=" + messageOfCaller
-				+ ", leadStatus=" + leadStatus + ", businessAssociate=" + businessAssociate + ", employeeDetails="
-				+ employeeDetails + "]";
+				+ ", course=" + course + ", message=" + message + ", leadStatus=" + leadStatus + ", businessAssociate="
+				+ businessAssociate + ", employeeDetails=" + employeeDetails + ", leadsConversation="
+				+ leadsConversation + "]";
 	}
 
 	
-
 	
 	
 	

@@ -17,6 +17,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
@@ -78,7 +79,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		SimpleMailMessage message = new SimpleMailMessage();
 
-		message.setFrom("ktanmay728@gmail.com");
+		message.setFrom("craftechretailsolutions1@gmail.com");
 		message.setTo(ba.getUserName());
 		message.setSubject("Subject : Successfully approved");
 
@@ -136,7 +137,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		SimpleMailMessage message = new SimpleMailMessage();
 
-		message.setFrom("ktanmay728@gmail.com");
+		message.setFrom("craftechretailsolutions1@gmail.com");
 		message.setTo(ba.getUserName());
 		message.setSubject("Subject : Application rejected");
 		message.setText("Hi " + ba.getName() + "\n" + "Your application has been rejected" + "\n" + "\n" + "$ REASON $"
@@ -191,5 +192,37 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 		
 		
 	}
+
+	@Override
+	public List<BusinessAssociate> getBusinessAssociateOfAParticularFieldManager(String username) {
+		
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+		
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		
+		List<BusinessAssociate> BA = employeeDetails.getBusinessAssociates();
+		
+		
+		return BA;
+	}
+
+	@Override
+	public Long conutOfBa(String username) {
+		
+		List<BusinessAssociate> businessAssociate =  getBusinessAssociateOfAParticularFieldManager(username);
+		
+		Long count = 0L;
+		
+		for(BusinessAssociate ba : businessAssociate) {
+			
+			count++;
+		}
+		
+		return count;
+	}
+	
+	
+	
+	
 
 }

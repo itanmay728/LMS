@@ -17,4 +17,8 @@ public interface BusinessAssociateService {
 	public void removeSessionMessage();
 	
 	public void walletUpdate(Leads leads);
+	
+	List<BusinessAssociate>getBusinessAssociateOfAParticularFieldManager(String username);
+	
+	public Long conutOfBa(String username);
 }
