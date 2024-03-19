@@ -1,6 +1,8 @@
 package com.example.leadManagementSystem2.Service.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -13,9 +15,11 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
+import com.example.leadManagementSystem2.Entity.LeadsConversation;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
+import com.example.leadManagementSystem2.Repository.LeadsConversationRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.LeadService;
@@ -36,6 +40,9 @@ public class LeadServiceImpl implements LeadService {
 
 	@Autowired
 	private User_Credentials_Repository user_Credentials_Repository;
+	
+	@Autowired
+	private LeadsConversationRepository leadsConversationRepository;
 
 	@Override
 	public void removeSessionMessage() {
@@ -66,12 +73,32 @@ public class LeadServiceImpl implements LeadService {
 
 		List<EmployeeDetails> employeeDetails = employeeDetailsRepository.findByRole(role);
 
-		Random myRandomizer = new Random();
-
-		EmployeeDetails emDetails = employeeDetails.get(myRandomizer.nextInt(employeeDetails.size()));
-
-		leads.setEmployeeDetails(emDetails);
-
+		/*
+		 * Random myRandomizer = new Random();
+		 * 
+		 * EmployeeDetails emDetails =
+		 * employeeDetails.get(myRandomizer.nextInt(employeeDetails.size()));
+		 * leads.setEmployeeDetails(emDetails);
+		 */
+		
+		List<Long> numberOfLeads = new ArrayList<>();
+		
+		
+		for(int i = 0; i<employeeDetails.size(); i++ ) {
+			
+			numberOfLeads.add((long) employeeDetails.get(i).getLeads().size());
+		}
+		
+		Long smallestNumberOfLeads = Collections.min(numberOfLeads);
+		for(int i = 0; i< employeeDetails.size(); i++) {
+			
+			if(smallestNumberOfLeads == (long)employeeDetails.get(i).getLeads().size()) {
+				leads.setEmployeeDetails(employeeDetails.get(i));
+				break;
+			}
+			
+		}
+		
 	}
 
 	@Override
@@ -152,4 +179,18 @@ public class LeadServiceImpl implements LeadService {
 	    // Return the count of leads with the specified status
 	    return leadsByStatusCount;
 	}
+
+	@Override
+	public void saveLeadsConversation(Long id, LeadsConversation leadsConversation) {
+		
+	 Leads lead = leadsRepository.findById(id).get();
+	 leadsConversation.setLeads(lead);
+	 
+	 leadsConversationRepository.save(leadsConversation);
+		
+	}
+	
+	
+	
+	
 }

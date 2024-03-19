@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
+import com.example.leadManagementSystem2.Entity.LeadsConversation;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
@@ -83,7 +84,7 @@ public class CallerController {
 		
 		List<Leads> leads =  leadService.getLeadsDetailsByStatusOfAParticularCaller(username, "Follow up");
 		
-		model.addAttribute("Leads", leads);
+		model.addAttribute("Leads", leads); 
 		
 		return "Caller/FollowUpLeads";
 	}
@@ -167,6 +168,14 @@ public class CallerController {
 		List<Leads> leads = this.leadsRepository.findByEmailContainingAndEmployeeDetails(query, employeeDetails);
 
 		return ResponseEntity.ok(leads);
+	}
+	
+	@PostMapping("/Caller_Dashboard/saveconversation/{id}")
+	public String saveConversationOfLead(@PathVariable Long id, @ModelAttribute LeadsConversation leadsConversation) {
+		
+		leadService.saveLeadsConversation(id, leadsConversation);
+		
+		return "redirect:/Caller/Caller_Dashboard/Leads/edit/{id}";
 	}
 	
 }

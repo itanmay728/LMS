@@ -9,12 +9,12 @@
 
 <section>
 	<div class="row">
-		<div class="col-md-6 offset-md-3 mt-2">
+		<div class="col-md-10 offset-md-1 mt-2">
 			<div class="card">
 				<div class="card-header text-center fs-4 font-weight-bold ">Update Your Details</div>
 					
 				<div class="card-body">
-					<form th:action="@{/Caller/Caller_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
+					
 
 						<div class="mb-3">
 							<label>Enter Full Name</label> <input type="text" name="name" th:value="${Leads.name}" 
@@ -72,20 +72,85 @@
 
 
 
-							<div class="col-md-12 mb-3">
+					
+							
+    <h6 class="mt-5">Follow Up History</h6>
+    <hr class="mt-0 mb-4">
+    
+  <table class="table table-bordered table-hover  text-center">
+  <thead class= "bg-warning bg-gradient table-sm text-light">
+ 					 <tr>
+  					
+						
+						<th class="col-2">Date</th>
+						<th >Conversation Message</th>
+						<th class="col-2">Next Follow Up Date </th>
+						<th>Next Follow Up Time</th>
+						
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr th:each= "conversation : ${Leads.getLeadsConversation()}">
+						<td th:text="${conversation.date}">03/03/2024</td>
+						<td th:text="${conversation.message}"></td>
+						<td th:text="${conversation.nextFollowUpDate}">03/03/2024</td>
+						<td th:text="${conversation.nextFollowUpTime}">5:15 PM</td>
+						
+					</tr>
+  </tbody>
+  
+  </table>
+  
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary float-end me-2" data-bs-toggle="modal" data-bs-target="#staticBackdrop" th:attr="data-bs-target='#staticBackdrop'+${Leads.Id}"> <i class="fas fa-plus me-2"></i>
+  Add Follow Up
+</button>
+
+<!-- Modal -->
+<div class="modal fade text-center" th:id="'staticBackdrop'+${Leads.Id}" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Adding Follow up for ID :- <span th:text="${Leads.Id}" ></span> </h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        
+        <form th:action="@{/Caller/Caller_Dashboard/saveconversation/{id} (id=${Leads.Id})}" method="post">
+        		<div class="col-md-12 mb-3 mt-5">
 								<div class="form-group fw-bold">
-									<label for="form_message">Caller Follow Up Message </label>
-									<textarea id="form_message" name="messageOfCaller" class="form-control"
+									<label for="form_message">Follow Up Message </label>
+									<textarea id="form_message" name="message" class="form-control"
 										placeholder="Write your message here." rows="4"
-										data-error="Please, leave us a message." > [[${Leads.messageOfCaller}]] </textarea>
+										data-error="Please, leave us a message." >  </textarea>
 								</div>
 								
+								<div class="form-group fw-bold text-center  mt-2 p-2 bg-light bg-gradient">
 								
+								
+									<div>Select Date and Time for Follow Up</div>
+								
+									
+									<input type="date" id="FollowUpDate" name="nextFollowUpDate">			
+									<input type="time" id="FollowUpTime" name="nextFollowUpTime">
+							
+								
+								</div>
+								
+								<button type="submit" class="btn btn-primary mt-5">Submit</button>
 								
 							</div>
+							</form>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
-
-							<div class="mb-3">
+<form th:action="@{/Caller/Caller_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
+							<div class="mb-3 mt-5">
 								<label>Lead Status</label> <select class="form-select"
 									aria-label="Default select example" name="leadStatus">
 

@@ -83,7 +83,6 @@ public class EmployeeDetails {
 	@JsonIgnore
 	private List<Leads> leads = new ArrayList<>();
 
-
 	public Long getId() {
 		return id;
 	}
@@ -212,6 +211,14 @@ public class EmployeeDetails {
 		this.users_Credentials = users_Credentials;
 	}
 
+	public List<BusinessAssociate> getBusinessAssociates() {
+		return businessAssociates;
+	}
+
+	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
+		this.businessAssociates = businessAssociates;
+	}
+
 	public List<Leads> getLeads() {
 		return leads;
 	}
@@ -279,5 +286,6 @@ public class EmployeeDetails {
 				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + ", businessAssociates="
 				+ businessAssociates + ", leads=" + leads + "]";
 	}
+
 
 }

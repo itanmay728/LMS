@@ -1,5 +1,7 @@
 package com.example.leadManagementSystem2.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.core.Authentication;
@@ -63,10 +65,11 @@ public class FieldManagerContoller {
 		}
 
 		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
-
+	
 		EmployeeDetails employeeDetails = user.getEmployeeDetails();
 		session.setAttribute("employeeDetails", employeeDetails);
-		
+		session.setAttribute("numberOfLeads", leadsRepository.count());
+		session.setAttribute("baCount", businessAssociateService.conutOfBa(username));
 		
 		return "FieldManager/FieldManagerDashboard";
 	}
@@ -85,6 +88,7 @@ public class FieldManagerContoller {
 		return "FieldManager/BusinessAssociateForm";
 	}
 
+	//NumberOfLeads
 	@GetMapping("/fieldManagerDashboard/leads")
 	public String getNumberOfLeads(ModelMap model) {
 		long numberOfLeads = leadsRepository.count();
@@ -129,6 +133,15 @@ public class FieldManagerContoller {
 		}
 
 		return "redirect:/fieldManager/fieldManagerDashboard/AssociateForm";
+	}
+	
+	@GetMapping("/fieldManagerDashboard/allbusinessassociate")
+	public String getAllBusinessAssociatePage(Model model, HttpSession session) {
+		String username = (String) session.getAttribute("username");
+		List<BusinessAssociate> BA = businessAssociateService.getBusinessAssociateOfAParticularFieldManager(username);
+		
+		model.addAttribute("BA",BA);
+		return "FieldManager/AllBusinessAssociate";
 	}
 	
 	@GetMapping("/profile")

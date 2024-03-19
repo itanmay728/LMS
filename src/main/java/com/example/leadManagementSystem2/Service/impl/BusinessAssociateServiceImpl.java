@@ -79,7 +79,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		SimpleMailMessage message = new SimpleMailMessage();
 
-		message.setFrom("ktanmay728@gmail.com");
+		message.setFrom("craftechretailsolutions1@gmail.com");
 		message.setTo(ba.getUserName());
 		message.setSubject("Subject : Successfully approved");
 
@@ -137,7 +137,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		SimpleMailMessage message = new SimpleMailMessage();
 
-		message.setFrom("ktanmay728@gmail.com");
+		message.setFrom("craftechretailsolutions1@gmail.com");
 		message.setTo(ba.getUserName());
 		message.setSubject("Subject : Application rejected");
 		message.setText("Hi " + ba.getName() + "\n" + "Your application has been rejected" + "\n" + "\n" + "$ REASON $"
@@ -194,6 +194,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	}
 
 	@Override
+
 	public List<BusinessAssociate> findByFieldManagerId(Long id) {
 		
 		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
@@ -204,5 +205,38 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 		return BA;
 	}
+
+
+	public List<BusinessAssociate> getBusinessAssociateOfAParticularFieldManager(String username) {
+		
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
+		
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		
+		List<BusinessAssociate> BA = employeeDetails.getBusinessAssociates();
+		
+		
+		return BA;
+	}
+
+	@Override
+	public Long conutOfBa(String username) {
+		
+		List<BusinessAssociate> businessAssociate =  getBusinessAssociateOfAParticularFieldManager(username);
+		
+		Long count = 0L;
+		
+		for(BusinessAssociate ba : businessAssociate) {
+			
+			count++;
+		}
+		
+		return count;
+	}
+	
+	
+	
+	
+
 
 }
