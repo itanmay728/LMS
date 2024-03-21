@@ -226,16 +226,7 @@ public class EmployeeDetails {
 	public void setLeads(List<Leads> leads) {
 		this.leads = leads;
 	}
-	
-	
 
-	public List<BusinessAssociate> getBusinessAssociates() {
-		return businessAssociates;
-	}
-
-	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
-		this.businessAssociates = businessAssociates;
-	}
 
 	public EmployeeDetails() {
 		super();
