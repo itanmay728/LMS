@@ -1,5 +1,7 @@
 package com.example.leadManagementSystem2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -11,12 +13,6 @@ import jakarta.persistence.OneToOne;
 @Entity
 public class Users_Credentials {
 
-	/*
-	 * @Id
-	 * 
-	 * @GeneratedValue(strategy = GenerationType.IDENTITY) private Long id;
-	 */
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
@@ -36,6 +32,7 @@ public class Users_Credentials {
 
 	@OneToOne
 	@JoinColumn(name = "businessAssociate_id")
+	@JsonIgnore
 	private BusinessAssociate businessAssociate;
 	
 	public Long getId() {

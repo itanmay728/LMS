@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Users edit page</title>
+</head>
+<body>
+	<section>
+
+		<h2>Edit Employee</h2>
+
+		<section>
+			<div class="row">
+				<div class="col-md-6 offset-md-3 mt-2">
+					<div class="card">
+						<div class="card-header text-center fs-4 font-weight-bold ">Update
+							Employee Details</div>
+
+
+						<div class="card-body">
+							<!-- <th:block th:if="${session.msg}">
+						<p th:if="${session.msg == 'Updated Successfully'}"
+							class="text-center text-success">[[${session.msg}]]</p>
+						<p th:if="${session.msg == 'Something went wrong!'}"
+							class="text-center text-danger">[[${session.msg}]]</p>
+						<th:block th:text="${@leadServiceImpl.removeSessionMessage()}"></th:block>
+					</th:block> -->
+							<form
+								th:action="@{/Admin/admin_Dashboard/Users/edit/{id}  (id=${employee.Id})}"
+								method="post">
+
+								<div class="mb-3">
+									<label>Enter Full Name</label> <input type="text" name="name"
+										th:value="${employee.name}" placeholder="Full Name"
+										class="form-control" />
+								</div>
+
+								<!-- <div class="mb-3">
+									<label>Enter Email</label> <input type="email" name="email"
+										th:value="${employee.userName}"
+										placeholder="email@example.com" class="form-control">
+								</div> -->
+
+
+								<div class="mb-3">
+									<label>Enter Phone number</label> <input type="text"
+										name="phone" th:value="${employee.phone}"
+										placeholder="PhoneNumber" class="form-control">
+								</div>
+
+
+
+								<div class="mb-3">
+									<label>Enter Address</label> <input type="text" name="address"
+										th:value="${employee.address}" placeholder="Full Address"
+										class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Enter Pan Number</label> <input type="text"
+										name="address" th:value="${employee.panNumber}"
+										placeholder="Full Address" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Enter Aadhaar Number</label> <input type="text"
+										name="address" th:value="${employee.aadhaar}"
+										placeholder="Full Address" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Enter Account Holder Name</label> <input type="text"
+										name="address" th:value="${employee.accountHolderName}"
+										placeholder="Full Address" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Enter Account Number</label> <input type="text"
+										name="address" th:value="${employee.accountNumber}"
+										placeholder="Full Address" class="form-control">
+								</div>
+
+								<div class="mb-3">
+									<label>Enter IFSC Code</label> <input type="text"
+										name="address" th:value="${employee.ifscCode}"
+										placeholder="Full Address" class="form-control">
+								</div>
+								
+								<div class="mb-3">
+								<label>Enter Branch Address</label> <input type="text" name="address"
+									th:value="${employee.branchAddress}" placeholder="Full Address"
+									class="form-control">
+							</div>
+							
+								<button type="submit" class="btn btn-primary col-md-12">Update</button>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br>
+		</section>
+
+
+	</section>
+</body>
+</html>

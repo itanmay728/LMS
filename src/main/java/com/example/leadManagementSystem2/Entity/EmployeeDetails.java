@@ -229,14 +229,6 @@ public class EmployeeDetails {
 	
 	
 
-	public List<BusinessAssociate> getBusinessAssociates() {
-		return businessAssociates;
-	}
-
-	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
-		this.businessAssociates = businessAssociates;
-	}
-
 	public EmployeeDetails() {
 		super();
 		// TODO Auto-generated constructor stub

@@ -1,7 +1,7 @@
 package com.example.leadManagementSystem2.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
@@ -158,7 +157,10 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/Leads")
 	public String getAllLeads(ModelMap model) {
 
-		model.addAttribute("Leads", leadService.getAllLeadsDetails());
+		List<Leads> leads = leadService.getAllLeadsDetails();
+
+		model.addAttribute("Leads", leads);
+		//model.addAttribute("Employees", employeeService.getAllEmployees());
 		return "Admin/AllLeads";
 	}
 
@@ -286,6 +288,8 @@ public class AdminController {
 		return "Admin/EmployeePage";
 	}
 
+	// user search in user menu
+
 	@GetMapping("/admin_Dashboard/users/search/{query}")
 	@ResponseBody
 	public ResponseEntity<?> search(@PathVariable("query") String query) {
@@ -296,16 +300,8 @@ public class AdminController {
 
 		return ResponseEntity.ok(employees);
 	}
-	
-//	@GetMapping("/admin_Dashboard/Lead/{id}")
-//	public String getSearchedLead(@PathVariable("id") Long id, Model model) {
-//		
-//		Leads leadDetails=leadsRepository.findById(id).get();
-//		
-//		model.addAttribute("lead",leadDetails);
-//
-//		return "Admin/LeadPage";
-//	}
+
+	// lead search in all leads
 
 	@GetMapping("/admin_Dashboard/Leads/search/{query}")
 	@ResponseBody
@@ -317,18 +313,74 @@ public class AdminController {
 
 		return ResponseEntity.ok(leads);
 	}
-	
+
 	@GetMapping("/admin_Dashboard/businessAssociateUnderFM/{id}")
-	public String businessAssociateUnderFieldManager(@PathVariable Long id, Model model){
-	    List<BusinessAssociate> businessAssociates = businessAssociateService.findByFieldManagerId(id);
-	    model.addAttribute("businessAssociates", businessAssociates);
+	public String businessAssociateUnderFieldManager(@PathVariable Long id, Model model) {
+		List<BusinessAssociate> businessAssociates = businessAssociateService.findByFieldManagerId(id);
+		model.addAttribute("businessAssociates", businessAssociates);
 		return "Admin/BusinessAssociateUnderFM";
 	}
-	
+
 	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
 	public String leadsUnderCaller(@PathVariable Long id, Model model) {
-		
+
+		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
+
+		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
+
+		List<Leads> leads = employeeDetails.getLeads();
+
+		model.addAttribute("leads", leads);
 		return "Admin/LeadPage";
 	}
 
+	// BA search in approved BA
+
+	@GetMapping("/admin_Dashboard/BusinessAssociate/search/{query}")
+	@ResponseBody
+	public ResponseEntity<?> searchBusinessAssociate(@PathVariable("query") String query) {
+
+		System.out.println(query);
+
+		List<BusinessAssociate> businessAssociates = this.businessAssociateRepository.findByUserNameContaining(query);
+
+		return ResponseEntity.ok(businessAssociates);
+	}
+
+	@GetMapping("/admin_Dashboard/Users/edit/{id}")
+	public String getEditEmployeePage(@PathVariable Long id, Model model) {
+
+		model.addAttribute("employee", employeeDetailsRepository.findById(id).get());
+		return "Admin/EditEmployee";
+	}
+
+	@PostMapping("/admin_Dashboard/Users/edit/{id}")
+	// @Transactional
+	public String updateEmployee(@PathVariable Long id, @ModelAttribute EmployeeDetails employee) {
+
+		// model.addAttribute("employee", employeeDetailsRepository.findById(id).get());
+
+		EmployeeDetails existingEmp = employeeDetailsRepository.findById(id).get();
+
+		existingEmp.setName(employee.getName());
+		// existingEmp.setUserName(employee.getUserName());
+		existingEmp.setPhone(employee.getPhone());
+		existingEmp.setAddress(employee.getAddress());
+//		existingEmp.setAadhaar(employee.getAadhaar());
+//		existingEmp.setPanNumber(employee.getPanNumber());
+//		existingEmp.setAccountHolderName(employee.getAccountHolderName());
+//		existingEmp.setAccountNumber(employee.getAccountNumber());
+//		existingEmp.setBranchAddress(employee.getBranchAddress());
+//		existingEmp.setIfscCode(employee.getIfscCode());
+
+		try {
+			employeeDetailsRepository.save(existingEmp);
+			// employeeService.saveEmployeeDetails(existingEmp);
+			// session.setAttribute("msg", "Updated Successfully");
+		} catch (Exception e) {
+			System.out.println(e);// session.setAttribute("msg", "Something went wrong!");
+		}
+
+		return "redirect:/Admin/admin_Dashboard/Users/edit/{id}";
+	}
 }
