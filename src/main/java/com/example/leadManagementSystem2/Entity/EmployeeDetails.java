@@ -227,7 +227,6 @@ public class EmployeeDetails {
 		this.leads = leads;
 	}
 
-
 	public EmployeeDetails() {
 		super();
 		// TODO Auto-generated constructor stub

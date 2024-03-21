@@ -26,5 +26,6 @@ public interface LeadService {
 	List<Leads> getLeadsOfBusinessAssociate(String username);
 	
 	public void saveLeadsConversation(Long id, LeadsConversation leadsConversation);
+
 	
 }

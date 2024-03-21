@@ -12,9 +12,24 @@
 		<div class="card text-center mt-3">
 			<h2>Approved Business Associates</h2>
 		</div>
+		
+		<!-- search for all BA -->
+			<div class="search-container m-3 border border-4 rounded">
+
+				<input onkeyup="searchBusinessAssociate()" id="search-input" type="text"
+					class="form-control" placeholder="search business associate" />
+
+				<div class="search-result">
+
+					<!-- <h2>This is search result</h2> -->
+
+					<!-- result goes here -->
+
+				</div>
+			</div>
 
 		<div class="card text-center mt-4"
-			th:each="BADetail : ${approvedBusinessAssociates}">
+			th:each="BADetail : ${approvedBusinessAssociates}" th:id="'businessAssociate-' + ${BADetail.Id}">
 			<div class="card-header">
 				<div class="card-header text-center">
 					<span class="float-sm-start fw-bold">ID :- </span> <span
