@@ -190,4 +190,21 @@ public class LeadServiceImpl implements LeadService {
 		
 	}
 
+	@Override
+	public void transferLeads(Long id, EmployeeDetails employeeDetails) {
+		
+		
+		EmployeeDetails employeeDetails1 = employeeDetailsRepository.findById(employeeDetails.getId()).get();
+		
+		EmployeeDetails employeeDetails2 = employeeDetailsRepository.findById(id).get();
+
+		List<Leads> leads = employeeDetails2.getLeads();
+		
+		for(Leads leads2 : leads) {
+			leads2.setEmployeeDetails(employeeDetails1);
+			leadsRepository.save(leads2);
+		}
+		
+	}
+
 }

@@ -2,6 +2,7 @@ package com.example.leadManagementSystem2.Service;
 
 import java.util.List;
 
+import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.LeadsConversation;
 
@@ -26,6 +27,8 @@ public interface LeadService {
 	List<Leads> getLeadsOfBusinessAssociate(String username);
 	
 	public void saveLeadsConversation(Long id, LeadsConversation leadsConversation);
+	
+	public void transferLeads(Long id, EmployeeDetails employeeDetails);
 
 	
 }

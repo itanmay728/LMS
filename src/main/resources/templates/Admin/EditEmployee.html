@@ -8,11 +8,10 @@
 <body>
 	<section>
 
-		<h2>Edit Employee</h2>
 
 		<section>
 			<div class="row">
-				<div class="col-md-6 offset-md-3 mt-2">
+				<div class="col-md-8 offset-md-2 mt-2">
 					<div class="card">
 						<div class="card-header text-center fs-4 font-weight-bold ">Update
 							Employee Details</div>
@@ -36,11 +35,11 @@
 										class="form-control" />
 								</div>
 
-								<!-- <div class="mb-3">
-									<label>Enter Email</label> <input type="email" name="email"
+								<div class="mb-3">
+									<label>Enter Email</label> <input type="email" name="userName"
 										th:value="${employee.userName}"
-										placeholder="email@example.com" class="form-control">
-								</div> -->
+										placeholder="email@example.com" class="form-control" readonly="readonly">
+								</div> 
 
 
 								<div class="mb-3">
@@ -59,41 +58,59 @@
 
 								<div class="mb-3">
 									<label>Enter Pan Number</label> <input type="text"
-										name="address" th:value="${employee.panNumber}"
-										placeholder="Full Address" class="form-control">
+										name="panNumber" th:value="${employee.panNumber}"
+										placeholder="Full Address" class="form-control" readonly="readonly">
 								</div>
 
 								<div class="mb-3">
 									<label>Enter Aadhaar Number</label> <input type="text"
-										name="address" th:value="${employee.aadhaar}"
-										placeholder="Full Address" class="form-control">
+										name="aadhaar" th:value="${employee.aadhaar}"
+										placeholder="Full Address" class="form-control" readonly="readonly">
 								</div>
 
 								<div class="mb-3">
 									<label>Enter Account Holder Name</label> <input type="text"
-										name="address" th:value="${employee.accountHolderName}"
+										name="accountHolderName" th:value="${employee.accountHolderName}"
 										placeholder="Full Address" class="form-control">
 								</div>
 
 								<div class="mb-3">
 									<label>Enter Account Number</label> <input type="text"
-										name="address" th:value="${employee.accountNumber}"
+										name="accountNumber" th:value="${employee.accountNumber}"
 										placeholder="Full Address" class="form-control">
 								</div>
 
 								<div class="mb-3">
 									<label>Enter IFSC Code</label> <input type="text"
-										name="address" th:value="${employee.ifscCode}"
+										name="ifscCode" th:value="${employee.ifscCode}"
 										placeholder="Full Address" class="form-control">
 								</div>
 								
 								<div class="mb-3">
-								<label>Enter Branch Address</label> <input type="text" name="address"
+								<label>Enter Branch Address</label> <input type="text" name="branchAddress"
 									th:value="${employee.branchAddress}" placeholder="Full Address"
 									class="form-control">
 							</div>
 							
-								<button type="submit" class="btn btn-primary col-md-12">Update</button>
+							<div class="mb-3">
+						<label>Enter Password</label> <input type="text"
+							name="password" class="form-control"
+							placeholder="Enter a strong password"
+							th:value="${employee.password}" >
+					</div>
+							
+						<div class="mb-3">
+						<label>Select role</label> <select class="form-select"
+							aria-label="Default select example" name="role">
+							<option value="" selected disabled th:text="${employee.role}"></option>
+							<option>ADMIN</option>
+							<option>CALLER</option>
+							<option>FIELDMANAGER</option>
+						</select>
+
+					</div>
+							
+								<button type="submit" class="btn btn-primary col-md-12 mt-5">Update</button>
 							</form>
 						</div>
 					</div>

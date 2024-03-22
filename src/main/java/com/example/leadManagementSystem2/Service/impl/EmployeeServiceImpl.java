@@ -64,4 +64,35 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	}
 
+	@Override
+	public void updateEmployeeDetails(Long id, EmployeeDetails employeeDetails) {
+		
+		EmployeeDetails existingEmp = employeeDetailsRepository.findById(id).get();
+		Users_Credentials users_Credentials =  existingEmp.getUsers_Credentials();
+	
+		existingEmp.setName(employeeDetails.getName());
+		users_Credentials.setName(employeeDetails.getName());
+		
+// 		existingEmp.setUserName(employeeDetails.getUserName());
+//		users_Credentials.setUserName(employeeDetails.getUserName());
+		
+		existingEmp.setPassword(employeeDetails.getPassword());
+		String password = bCryptPasswordEncoder.encode(employeeDetails.getPassword());
+		users_Credentials.setPassword(password);
+		
+		existingEmp.setRole("ROLE_" + employeeDetails.getRole());
+		users_Credentials.setRole("ROLE_" + employeeDetails.getRole());
+		
+		existingEmp.setPhone(employeeDetails.getPhone());
+		existingEmp.setAddress(employeeDetails.getAddress());	
+//		existingEmp.setAadhaar(employeeDetails.getAadhaar());
+//		existingEmp.setPanNumber(employeeDetails.getPanNumber());
+		existingEmp.setAccountHolderName(employeeDetails.getAccountHolderName());
+		existingEmp.setAccountNumber(employeeDetails.getAccountNumber());
+		existingEmp.setBranchAddress(employeeDetails.getBranchAddress());
+		existingEmp.setIfscCode(employeeDetails.getIfscCode());
+		
+		employeeDetailsRepository.save(existingEmp);
+	}
+
 }

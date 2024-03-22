@@ -22,6 +22,7 @@ import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
+import com.example.leadManagementSystem2.Entity.LeadsConversation;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
@@ -154,6 +155,7 @@ public class AdminController {
 		return "Admin/SuccessLeads";
 	}
 
+	//All Leads
 	@GetMapping("/admin_Dashboard/Leads")
 	public String getAllLeads(ModelMap model) {
 
@@ -201,6 +203,14 @@ public class AdminController {
 	public String deleteLead(@PathVariable Long id) {
 		leadsRepository.deleteById(id);
 		return "redirect:/Admin/admin_Dashboard/Leads";
+	}
+	
+	@PostMapping("/admin_Dashboard/Leads/saveconversation/{id}")
+	public String saveConversationOfLead(@PathVariable Long id, @ModelAttribute LeadsConversation leadsConversation) {
+		
+		leadService.saveLeadsConversation(id, leadsConversation);
+		
+		return "redirect:/Admin/admin_Dashboard/Leads/edit/{id}";
 	}
 
 	/* Leads End */
@@ -275,7 +285,7 @@ public class AdminController {
 
 	@GetMapping("/admin_Dashboard/users")
 	public String getCallerDetails() {
-		return "Admin/UsersDetails";
+		return "Admin/SearchEmployee";
 	}
 
 	@GetMapping("/admin_Dashboard/users/{id}")
@@ -324,14 +334,24 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
 	public String leadsUnderCaller(@PathVariable Long id, Model model) {
 
-		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
+		//Users_Credentials users_Credentials = user_Credentials_Repository.getById(id); users_Credentials.getEmployeeDetails()
 
-		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
+		EmployeeDetails employeeDetails = employeeDetailsRepository.findById(id).get();
 
 		List<Leads> leads = employeeDetails.getLeads();
 
 		model.addAttribute("leads", leads);
-		return "Admin/LeadPage";
+		return "Admin/LeadsOfParticularCaller";
+	}
+	
+	@PostMapping("/admin_Dashboard/leadsUnderCaller/{id}")
+	public String transferLeads(@PathVariable Long id, @ModelAttribute EmployeeDetails employeeDetails) {
+		
+		System.out.println(id);
+		System.out.println(employeeDetails.getId());
+		leadService.transferLeads(id, employeeDetails);
+		
+		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
 	}
 
 	// BA search in approved BA
@@ -359,22 +379,11 @@ public class AdminController {
 	public String updateEmployee(@PathVariable Long id, @ModelAttribute EmployeeDetails employee) {
 
 		// model.addAttribute("employee", employeeDetailsRepository.findById(id).get());
-
-		EmployeeDetails existingEmp = employeeDetailsRepository.findById(id).get();
-
-		existingEmp.setName(employee.getName());
-		// existingEmp.setUserName(employee.getUserName());
-		existingEmp.setPhone(employee.getPhone());
-		existingEmp.setAddress(employee.getAddress());
-//		existingEmp.setAadhaar(employee.getAadhaar());
-//		existingEmp.setPanNumber(employee.getPanNumber());
-//		existingEmp.setAccountHolderName(employee.getAccountHolderName());
-//		existingEmp.setAccountNumber(employee.getAccountNumber());
-//		existingEmp.setBranchAddress(employee.getBranchAddress());
-//		existingEmp.setIfscCode(employee.getIfscCode());
+		
+		employeeService.updateEmployeeDetails(id, employee);
 
 		try {
-			employeeDetailsRepository.save(existingEmp);
+			
 			// employeeService.saveEmployeeDetails(existingEmp);
 			// session.setAttribute("msg", "Updated Successfully");
 		} catch (Exception e) {

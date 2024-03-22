@@ -53,6 +53,7 @@ public class Leads {
 	private EmployeeDetails employeeDetails;
 	
 	@OneToMany(mappedBy = "leads")
+	@JsonIgnore
 	private List<LeadsConversation> leadsConversation;
 
 	public Long getId() {

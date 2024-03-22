@@ -31,6 +31,12 @@
   
   <div class="card-body">
   
+  <span class="float-sm-start fw-bold me-2">Caller:-</span> 
+  <span class="float-sm-start " th:text="${LeadsDetail.employeeDetails.userName}" ></span>
+				
+<span class="float-sm-start fw-bold me-2 ms-4">BA:-</span> 
+<span class="float-sm-start" th:text="${LeadsDetail.businessAssociate.userName}"></span>
+  
   
       <table class="table table-bordered table-hover  ">
   <thead class= "table-primary table-sm">
@@ -56,6 +62,35 @@
   </tbody>
   
   </table>
+  
+      <h6 class="mt-5">Follow Up History</h6>
+    <hr class="mt-0 mb-4">
+    
+  <table class="table table-bordered table-hover  ">
+  <thead class= "bg-warning bg-gradient table-sm text-light">
+ 					 <tr>
+  					
+						
+						<th class="col-1">Date</th>
+						<th class="col-9">Conversation Message</th>
+						<th>Next Follow Up Date </th>
+						<th>Next Follow Up Time</th>
+						
+  					</tr>
+  </thead>
+  
+  <tbody>
+  					<tr th:each= "conversation : ${LeadsDetail.getLeadsConversation()}">
+						<td th:text="${conversation.date}">03/03/2024</td>
+						<td th:text="${conversation.message}"></td>
+						<td th:text="${conversation.nextFollowUpDate}">03/03/2024</td>
+						<td th:text="${conversation.nextFollowUpTime}">5:15 PM</td>
+						
+					</tr>
+  </tbody>
+  
+  </table>
+  
     
     
   </div>
@@ -66,7 +101,7 @@
 
 <a
 	th:href="@{/Admin/admin_Dashboard/Leads/edit/{id} (id=${LeadsDetail.Id})}"
-class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit</span> </a> 
+class="btn btn-primary me-2"> <i class="fas fa-edit me-2"></i> <span>Edit  <i class="fas fa-plus me-2 ms-2"></i> App Follow Up</span> </a> 
 
 <a
 th:href="@{/Admin/admin_Dashboard/Leads/{id} (id=${LeadsDetail.Id})}"

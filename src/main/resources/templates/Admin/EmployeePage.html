@@ -39,9 +39,11 @@
 								</a>
 
 								<!-- Show Business Associate button -->
+								<div>
 								<a th:if="${employee.role == 'ROLE_FIELDMANAGER'}" th:href="@{/Admin/admin_Dashboard/businessAssociateUnderFM/{id}(id=${id})}" class="btn btn-primary">Show Business Associate</a>
 
 								<a th:if="${employee.role == 'ROLE_CALLER'}" th:href="@{/Admin/admin_Dashboard/leadsUnderCaller/{id}(id=${id})}" class="btn btn-primary">Show Leads</a>
+								</div>
 
 
 							</div>
@@ -50,7 +52,10 @@
 							<div class="col-md-8">
 								<div class="card-body p-4">
 
-									<h6>Information</h6>
+									<h6 class="d-inline">Information</h6>
+									<span class="float-end ms-2 fw-bold" th:text="${employee.id}"></span>
+									<span class="float-end">ID:-</span>
+									
 									<hr class="mt-0 mb-4">
 									<div class="row pt-1">
 
