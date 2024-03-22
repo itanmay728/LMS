@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
@@ -71,40 +72,42 @@ public class IndexController {
 		return "login";
 	}
 
-	private String getUsername() {
-		// Cache the username retrieval
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String username = authentication != null ? authentication.getName() : null;
-		
-		return username;
-	}
+	/*
+	 * private String getUsername() { // Cache the username retrieval Authentication
+	 * authentication = SecurityContextHolder.getContext().getAuthentication();
+	 * String username = authentication != null ? authentication.getName() : null;
+	 * 
+	 * return username; }
+	 * 
+	 * private BusinessAssociate getBusinessAssociate(String username) { return
+	 * user_Credentials_Repository.getUsersCredentialsByUserName(username).
+	 * getBusinessAssociate(); }
+	 */
 
-	private BusinessAssociate getBusinessAssociate(String username) {
-		return user_Credentials_Repository.getUsersCredentialsByUserName(username).getBusinessAssociate();
-	}
-
-	@GetMapping("/CustomersForm")
-	public String getCustomersForm(Model model) {
+	@GetMapping("/CustomersForm/PublicEntryForm")
+	public String getCustomersForm(@RequestParam(name = "partyid") Long id, Model model) {
 		
-		  String username = getUsername(); 
-		  if (username == null) { 
-			  return "redirect:/login";
-			  }
+		/*
+		 * String username = getUsername(); if (username == null) { return
+		 * "redirect:/login"; }
+		 */
 		 
-		BusinessAssociate businessAssociate = getBusinessAssociate(username);
-		model.addAttribute("businessAssociate", businessAssociate);
+		/*
+		 * BusinessAssociate businessAssociate = getBusinessAssociate(username);
+		 * model.addAttribute("businessAssociate", businessAssociate);
+		 */
 		model.addAttribute("leads", new Leads());
 		return "BusinessAssociate/CustomersForm";
 	}
 
 	@PostMapping("/saveLeads")
 	public String saveLeads(@Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session, Model model) {
-		String username = getUsername();
-		if (username == null) {
-			return "redirect:/login";
-		}
-		BusinessAssociate businessAssociate = getBusinessAssociate(username);
-		model.addAttribute("businessAssociate", businessAssociate);
+		/*
+		 * String username = getUsername(); if (username == null) { return
+		 * "redirect:/login"; } BusinessAssociate businessAssociate =
+		 * getBusinessAssociate(username); model.addAttribute("businessAssociate",
+		 * businessAssociate);
+		 */
 
 		if (result.hasErrors()) {
 			return "BusinessAssociate/CustomersForm";
@@ -112,7 +115,7 @@ public class IndexController {
 
 		try {
 			leads.setLeadStatus("New");
-			leads.setBusinessAssociate(businessAssociate);
+			//leads.setBusinessAssociate(businessAssociate);
 			leadService.assignLeadsToaCaller("ROLE_CALLER", leads);
 			
 			Leads savedLead = leadsRepository.save(leads);
