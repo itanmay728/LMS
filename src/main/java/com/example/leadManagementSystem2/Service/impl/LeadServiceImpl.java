@@ -193,9 +193,10 @@ public class LeadServiceImpl implements LeadService {
 	@Override
 	public void transferLeads(Long id, EmployeeDetails employeeDetails) {
 		
-		
+		//caller whose leads will be transferred
 		EmployeeDetails employeeDetails1 = employeeDetailsRepository.findById(employeeDetails.getId()).get();
 		
+		// id comes from entering in the box, caller to whom the lead will be transferred
 		EmployeeDetails employeeDetails2 = employeeDetailsRepository.findById(id).get();
 
 		List<Leads> leads = employeeDetails2.getLeads();
