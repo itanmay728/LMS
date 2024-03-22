@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org ">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Entry Form</title>
@@ -37,13 +37,14 @@
 
 									<div class="form-group ">
 										<label for="form_name">Referral Name *</label> <input
+										th:value="${businessName}"
 											id="form_name" type="text"
 											
 											class="form-control text-center" readonly>
 
 									</div>
 								</div>
-								<form id="contact-form" role="form" action="saveLeads"
+								<form id="contact-form" role="form" th:action="@{/CustomersForm/saveLeads/{id} (id=${id})}"
 									method="post" th:object="${leads}">
 
 

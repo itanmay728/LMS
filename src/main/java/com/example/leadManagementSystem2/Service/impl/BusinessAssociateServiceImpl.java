@@ -233,6 +233,26 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 		
 		return count;
 	}
+
+	@Override
+	public String uniqueForm(Long id) {
+		//BusinessAssociate businessAssociate = new BusinessAssociate();
+		String businessName = null;
+		try {
+			businessName =  businessAssociateRepository.findById(id).get().getBusinessName();
+		} catch (Exception e) {
+			if(businessName == null) {
+				return null;
+			}
+		}
+		
+		
+		
+		
+		return businessName;
+		
+		
+	}
 	
 	
 	

@@ -26,4 +26,6 @@ public interface BusinessAssociateService {
 	List<BusinessAssociate>getBusinessAssociateOfAParticularFieldManager(String username);
 	
 	public Long conutOfBa(String username);
+	
+	public String uniqueForm(Long id);
 }
