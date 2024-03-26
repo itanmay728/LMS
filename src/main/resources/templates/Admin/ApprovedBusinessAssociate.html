@@ -96,6 +96,15 @@
 					</tbody>
 
 				</table>
+				
+				<div class="container mt-5">
+				<div class="float-sm-start fw-bold">Form Link</div>
+  <div class="input-group mb-3">
+  
+    <input type="text" class="form-control" id="copyLinkInput" th:value="'http://localhost:8080/CustomersForm/PublicEntryForm?partyid=' +${BADetail.id}" >
+    <button class="btn btn-primary" type="button" onclick="copyLink()">Copy Link</button>
+  </div>
+</div>
 
 			</div>
 

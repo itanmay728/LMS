@@ -20,12 +20,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.Course;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.LeadsConversation;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
+import com.example.leadManagementSystem2.Repository.CourseRepository;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
@@ -66,6 +68,9 @@ public class AdminController {
 
 	@Autowired
 	private LeadService leadService;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@GetMapping("/admin_Dashboard")
 	public String getAdminDashboard(Model model, HttpSession session) {
@@ -391,5 +396,28 @@ public class AdminController {
 		}
 
 		return "redirect:/Admin/admin_Dashboard/Users/edit/{id}";
+	}
+	
+	@GetMapping("/admin_Dashboard/addCourse")
+	public String getAddCoursePage(Model model) {
+		
+		model.addAttribute("Courses" , courseRepository.findAll());
+		
+		return "Admin/AddCourse";
+	}
+	
+	@PostMapping("/admin_Dashboard/saveCourse")
+	public String saveCourse(@ModelAttribute Course course) {
+		
+		courseRepository.save(course);
+		return "redirect:/Admin/admin_Dashboard/addCourse";
+	}
+	
+	@GetMapping("/admin_Dashboard/deleteCourse/{id}")
+	public String deleteCourse(@PathVariable Long id) {
+		
+		courseRepository.deleteById(id);
+		
+		return "redirect:/Admin/admin_Dashboard/addCourse";
 	}
 }

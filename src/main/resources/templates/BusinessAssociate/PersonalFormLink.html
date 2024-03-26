@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "
+	th:replace="/BusinessAssociate/businessAssociateBase::layout(~{::section})">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Copy Link Field</title>
+  
+</head>
+<body>
+
+<section>
+<div class="container mt-5">
+  <div class="input-group mb-3">
+    <input type="text" class="form-control" id="copyLinkInput" th:value="'http://localhost:8080/CustomersForm/PublicEntryForm?partyid=' +${session.businessAssociate.id}" >
+    <button class="btn btn-primary" type="button" onclick="copyLink()">Copy Link</button>
+  </div>
+</div>
+</section>
+
+
+<!-- <script>   http://localhost:8080/CustomersForm/PublicEntryForm? (partyid= ${session.businessAssociate.id})
+function copyLink() {
+    // Get the input field
+    var copyText = document.getElementById("copyLinkInput");
+
+    // Select the text in the input field
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); // For mobile devices
+
+    // Copy the text inside the input field to the clipboard
+    document.execCommand("copy");
+
+    // Alert the copied text
+    alert("Copied the link: " + copyText.value);
+}
+</script> -->
+
+</body>
+</html>
