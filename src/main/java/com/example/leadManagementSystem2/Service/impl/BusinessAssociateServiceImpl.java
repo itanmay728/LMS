@@ -246,9 +246,6 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 			}
 		}
 
-
-
-
 		return businessName;
 
 

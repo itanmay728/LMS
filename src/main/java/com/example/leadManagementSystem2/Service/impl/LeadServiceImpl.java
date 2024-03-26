@@ -43,7 +43,7 @@ public class LeadServiceImpl implements LeadService {
 	
 	@Autowired
 	private LeadsConversationRepository leadsConversationRepository;
-
+	
 	@Override
 	public void removeSessionMessage() {
 		HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest()
@@ -94,7 +94,6 @@ public class LeadServiceImpl implements LeadService {
 			
 			if(smallestNumberOfLeads == (long)employeeDetails.get(i).getLeads().size()) {
 				leads.setEmployeeDetails(employeeDetails.get(i));
-				
 				break;
 			}
 			
