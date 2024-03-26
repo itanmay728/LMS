@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animated Form</title>
+  
+  <style>
+    /* Custom CSS for animation */
+ @keyframes slideIn {
+      from {
+        transform: translateY(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    .animated-form {
+      animation: slideIn 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+<section>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-10">
+      <form class="shadow p-4 rounded animated-form" action="#" th:action="@{/Admin/admin_Dashboard/saveCourse}" method="post">
+      
+        <h2 class="mb-4 text-center">Add Course</h2>
+        
+        <div class="mb-3">
+          <label for="name" class="form-label">Course Name</label>
+          <input type="text" class="form-control" id="name" name="courseName" required>
+        </div>
+               
+        <button type="submit" class="btn btn-primary">Add Course</button>
+      </form>
+      
+      <!-- showing course -->
+    
+      <table class="table table-hover shadow mt-3 text-center ">
+  <thead >
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Course Name</th>
+      <th scope="col">Action</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr th:each="course : ${Courses}">
+      <th scope="row" th:text="${course.id}">1</th>
+      <td th:text="${course.courseName}">Mark</td>
+      <td>
+      
+      <a th:href="@{/Admin/admin_Dashboard/deleteCourse/{id} (id=${course.id})}" type="button" class="btn btn-danger">Delete</a>
+      
+      </td>
+      
+    </tr>
+   
+   
+  </tbody>
+</table>
+      </div>
+    </div>
+    
+  </div>
+</div>
+</section>
+
+</body>
+</html>

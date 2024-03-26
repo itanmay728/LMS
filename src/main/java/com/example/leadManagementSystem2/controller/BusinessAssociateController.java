@@ -80,5 +80,12 @@ public class BusinessAssociateController {
 		return "BusinessAssociate/BusinessAssociateWallet";
 	}
 	
+	//personal form link
+	@GetMapping("/businessAssociateDashboard/personalformlink")
+	public String getPersonalFormLinkPage() {
+		return "BusinessAssociate/PersonalFormLink";
+		
+	}
+	
 
 }

@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
+import com.example.leadManagementSystem2.Entity.Course;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
+import com.example.leadManagementSystem2.Repository.CourseRepository;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
@@ -58,6 +61,9 @@ public class IndexController {
 	@Autowired
 	BusinessAssociateService businessAssociateService;
 	
+	@Autowired
+	private CourseRepository courseRepository;
+	
 	@GetMapping("")
 	public String getIndexPage() {
 
@@ -71,19 +77,22 @@ public class IndexController {
 	}
 
 
-	@GetMapping("/CustomersForm/{id}")
-	public String getCustomersForm(@PathVariable Long id, Model model) {
+	
+	@GetMapping("/CustomersForm/PublicEntryForm")
+	public String getCustomersForm(@RequestParam(name = "partyid") Long id, Model model) {
 		
 		String businessName = businessAssociateService.uniqueForm(id);
 		model.addAttribute("businessName", businessName);
-		
+		model.addAttribute("courses", courseRepository.findAll());
 		model.addAttribute("leads", new Leads());
 		
 		return "BusinessAssociate/CustomersForm";
 	}
 
-	@PostMapping("/CustomersForm/saveLeads/{id}")
-	public String saveLeads(@PathVariable Long id, @Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session, Model model) {
+	@PostMapping("/CustomersForm/PublicEntryForm")
+	public String saveLeads(@RequestParam(name = "partyid") Long id, @Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session, Model model) {
+		
+		
 		
 		String businessName = businessAssociateService.uniqueForm(id);
 		model.addAttribute("businessName", businessName);
@@ -98,7 +107,6 @@ public class IndexController {
 			leads.setLeadStatus("New");
 			leads.setBusinessAssociate(businessAssociate);
 			leadService.assignLeadsToaCaller("ROLE_CALLER", leads);
-			
 			leadsRepository.save(leads);
 			session.setAttribute("msg", "Saved Successfully");
 		} catch (Exception e) {
@@ -106,7 +114,7 @@ public class IndexController {
 			
 		}
 
-		return "redirect:/CustomersForm/{id}";
+		return "BusinessAssociate/CustomersForm";
 	}
 
 	@GetMapping("/addAdmin")

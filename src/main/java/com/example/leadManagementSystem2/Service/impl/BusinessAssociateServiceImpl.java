@@ -245,18 +245,14 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 				return null;
 			}
 		}
-		
-		
-		
-		
+
+
+
+
 		return businessName;
-		
-		
+
+
 	}
-	
-	
-	
-	
 
 
 }

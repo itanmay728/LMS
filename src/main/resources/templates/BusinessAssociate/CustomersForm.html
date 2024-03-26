@@ -44,8 +44,8 @@
 
 									</div>
 								</div>
-								<form id="contact-form" role="form" th:action="@{/CustomersForm/saveLeads/{id} (id=${id})}"
-									method="post" th:object="${leads}">
+								<form id="contact-form" role="form" th:action="@{/CustomersForm/PublicEntryForm?partyid={id}  (id=${param.partyid})}"
+									method="post" th:object="${leads}"> <!--  th:action="@{/CustomersForm/PublicEntryForm?(partyid=${partyid})}" -->
 
 
 
@@ -113,13 +113,12 @@
 												<div class="form-group">
 													<label for="form_need">Please specify your Course *</label>
 													<select id="form_need" name="course" class="form-control">
-														<option value="" selected disabled>--Select Your
-															Course--</option>
-														<option>9th / 10th Foundation Course</option>
-														<option>One year Course (Medical/ Engineering) 12th</option>
-														<option>One year Course (Medical/ Engineering) after 12th</option>
-														<option>B.tech</option>
-														<option>MCA</option>
+														<option value="" selected disabled>--Select Your Course--</option>
+														<option th:each="course : ${courses}"
+																th:text="${course.courseName}"
+														>
+														</option>
+												
 													</select>
 
 												</div>
