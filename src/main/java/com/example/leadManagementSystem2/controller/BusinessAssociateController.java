@@ -29,7 +29,7 @@ public class BusinessAssociateController {
 	private LeadService leadService;
 
 	@GetMapping("/businessAssociateDashboard")
-	public String getBusinessAssociateDashboard(HttpSession session) {
+	public String getBusinessAssociateDashboard(Model model,HttpSession session) {
 		String Username = (String) session.getAttribute("username");
 		System.out.println(Username);
 		
@@ -42,6 +42,13 @@ public class BusinessAssociateController {
 	    session.setAttribute("user", user);
 	    BusinessAssociate businessAssociate = user.getBusinessAssociate();
 		session.setAttribute("businessAssociate", businessAssociate);
+		
+		String username = (String) session.getAttribute("username");
+		long numberOfLeads = leadService.getLeadsCountOfBusinessAssociate(username);
+		model.addAttribute("numberOfLeads", numberOfLeads);
+		
+		long numberOfSuccessLeads = leadService.getLeadsCountByStatusOfBusinessAssociate(username, "Success");
+		model.addAttribute("numberOfSuccessLeads", numberOfSuccessLeads);
 		return "BusinessAssociate/businessAssociate_Dashboard";
 	}
 	
@@ -56,7 +63,6 @@ public class BusinessAssociateController {
 	public String getLeads(Model model,HttpSession session) {
 		
 		String username = (String) session.getAttribute("username");
-		
 		long numberOfLeads = leadService.getLeadsCountOfBusinessAssociate(username);
 		model.addAttribute("numberOfLeads", numberOfLeads);
 		return "BusinessAssociate/Leads";
@@ -69,7 +75,7 @@ public class BusinessAssociateController {
 		String username = (String) session.getAttribute("username");
 		
 		long numberOfSuccessLeads = leadService.getLeadsCountByStatusOfBusinessAssociate(username, "Success");
-		model.addAttribute("numberOfLeads", numberOfSuccessLeads);
+		model.addAttribute("numberOfSuccessLeads", numberOfSuccessLeads);
 		return "BusinessAssociate/SuccessLeads";
 	}
 	
