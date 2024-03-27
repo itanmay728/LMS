@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "
+	th:replace="/BusinessAssociate/businessAssociateBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>QR Code Page</title>
+</head>
+<body>
+	<section>
+		<section>
+		<h1>QR Code</h1>
+		<img th:src="'data:image/png;base64,' + ${qrCodeBase64}" alt="QR Code">
+				<p th:text="${session.businessAssociate.name}"></p>
+		
+		</section>
+		<a th:href="'data:image/png;base64,' + ${qrCodeBase64}" download="qr_code.png" class="btn btn-primary">Download QR Code</a>
+
+	</section>
+</body>
+</html>
