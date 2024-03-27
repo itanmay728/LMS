@@ -88,11 +88,23 @@ public class IndexController {
 		
 		return "BusinessAssociate/CustomersForm";
 	}
+	
+	//get mapping for getting qr code image page
+	
+//	public String getCustomersFormQRCode(@RequestParam(name = "partyid") Long id, Model model) {
+	
+	public String getCustomersFormQRCode() {
+		
+//		String businessName = businessAssociateService.uniqueForm(id);
+//		model.addAttribute("businessName", businessName);
+//		model.addAttribute("courses", courseRepository.findAll());
+//		model.addAttribute("leads", new Leads());
+		
+		return "BusinessAssociate/QRCodePage";
+	}
 
 	@PostMapping("/CustomersForm/PublicEntryForm")
 	public String saveLeads(@RequestParam(name = "partyid") Long id, @Valid @ModelAttribute Leads leads, BindingResult result, HttpSession session, Model model) {
-		
-		
 		
 		String businessName = businessAssociateService.uniqueForm(id);
 		model.addAttribute("businessName", businessName);

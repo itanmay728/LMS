@@ -12,3 +12,17 @@ function copyLink() {
     // Alert the copied text
     alert("Copied the link: " + copyText.value);
 }
+
+function updateQRCodeLink() {
+		var bsurl = $('#copyLinkInput').val();
+		console.log(bsurl);
+		
+		
+		var baId = $('#businessAssociateId').val();
+		console.log(baId);
+		
+		var url = "http://localhost:8080/businessAssociate/businessAssociateDashboard/QRCodePage?partyid=" + baId;
+		console.log(url);
+
+        window.location=url;
+    }
