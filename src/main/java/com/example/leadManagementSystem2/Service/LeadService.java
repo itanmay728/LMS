@@ -30,5 +30,7 @@ public interface LeadService {
 	
 	public void transferLeads(Long id, EmployeeDetails employeeDetails);
 
+	public void transferSelectedLeads(List<Long> leadIds, Long newCallerId);
+
 	
 }

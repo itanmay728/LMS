@@ -2,9 +2,7 @@ package com.example.leadManagementSystem2.Service.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
@@ -40,10 +38,10 @@ public class LeadServiceImpl implements LeadService {
 
 	@Autowired
 	private User_Credentials_Repository user_Credentials_Repository;
-	
+
 	@Autowired
 	private LeadsConversationRepository leadsConversationRepository;
-	
+
 	@Override
 	public void removeSessionMessage() {
 		HttpSession session = ((ServletRequestAttributes) (RequestContextHolder.getRequestAttributes())).getRequest()
@@ -80,27 +78,24 @@ public class LeadServiceImpl implements LeadService {
 		 * employeeDetails.get(myRandomizer.nextInt(employeeDetails.size()));
 		 * leads.setEmployeeDetails(emDetails);
 		 */
-		
+
 		List<Long> numberOfLeads = new ArrayList<>();
-		
-		
-		for(int i = 0; i<employeeDetails.size(); i++ ) {
-			
+
+		for (int i = 0; i < employeeDetails.size(); i++) {
+
 			numberOfLeads.add((long) employeeDetails.get(i).getLeads().size());
 		}
-		
+
 		Long smallestNumberOfLeads = Collections.min(numberOfLeads);
-		for(int i = 0; i< employeeDetails.size(); i++) {
-			
-			if(smallestNumberOfLeads == (long)employeeDetails.get(i).getLeads().size()) {
+		for (int i = 0; i < employeeDetails.size(); i++) {
+
+			if (smallestNumberOfLeads == (long) employeeDetails.get(i).getLeads().size()) {
 				leads.setEmployeeDetails(employeeDetails.get(i));
 				break;
 			}
-			
+
 		}
-		
-		
-	
+
 	}
 
 	@Override
@@ -148,7 +143,7 @@ public class LeadServiceImpl implements LeadService {
 
 		return leads.size();
 	}
-	
+
 	@Override
 	public List<Leads> getLeadsOfBusinessAssociate(String username) {
 
@@ -160,54 +155,62 @@ public class LeadServiceImpl implements LeadService {
 
 		return leads;
 	}
-	
-	
 
 	@Override
 	public int getLeadsCountByStatusOfBusinessAssociate(String username, String status) {
 
-	    // Get the leads directly associated with the business associate
-	    List<Leads> leads = getLeadsOfBusinessAssociate(username);
+		// Get the leads directly associated with the business associate
+		List<Leads> leads = getLeadsOfBusinessAssociate(username);
 
-	    int leadsByStatusCount = 0;
+		int leadsByStatusCount = 0;
 
-	    for (Leads L : leads) {
+		for (Leads L : leads) {
 
-	        if (L.getLeadStatus().equals(status)) {
-	            leadsByStatusCount++;
-	        }
-	    }
+			if (L.getLeadStatus().equals(status)) {
+				leadsByStatusCount++;
+			}
+		}
 
-	    // Return the count of leads with the specified status
-	    return leadsByStatusCount;
+		// Return the count of leads with the specified status
+		return leadsByStatusCount;
 	}
 
 	@Override
 	public void saveLeadsConversation(Long id, LeadsConversation leadsConversation) {
-		
-	 Leads lead = leadsRepository.findById(id).get();
-	 leadsConversation.setLeads(lead);
-	 
-	 leadsConversationRepository.save(leadsConversation);
-		
+
+		Leads lead = leadsRepository.findById(id).get();
+		leadsConversation.setLeads(lead);
+
+		leadsConversationRepository.save(leadsConversation);
+
 	}
 
 	@Override
 	public void transferLeads(Long id, EmployeeDetails employeeDetails) {
-		
-		//caller whose leads will be transferred
+
+		// caller whose leads will be transferred
 		EmployeeDetails employeeDetails1 = employeeDetailsRepository.findById(employeeDetails.getId()).get();
-		
-		// id comes from entering in the box, caller to whom the lead will be transferred
+
+		// id comes from entering in the box, caller to whom the lead will be
+		// transferred
 		EmployeeDetails employeeDetails2 = employeeDetailsRepository.findById(id).get();
 
 		List<Leads> leads = employeeDetails2.getLeads();
-		
-		for(Leads leads2 : leads) {
+
+		for (Leads leads2 : leads) {
 			leads2.setEmployeeDetails(employeeDetails1);
 			leadsRepository.save(leads2);
 		}
-		
+
 	}
 
+	@Override
+	public void transferSelectedLeads(List<Long> leadIds, Long newCallerId) {
+		List<Leads> leadsToTransfer = leadsRepository.findAllById(leadIds);
+		for (Leads lead : leadsToTransfer) {
+			EmployeeDetails emp = employeeDetailsRepository.getById(newCallerId);
+			lead.setEmployeeDetails(emp); // Update caller ID for each lead
+			leadsRepository.save(lead);
+		}
+	}
 }
