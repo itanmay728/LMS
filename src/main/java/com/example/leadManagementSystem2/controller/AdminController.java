@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
@@ -68,7 +69,7 @@ public class AdminController {
 
 	@Autowired
 	private LeadService leadService;
-	
+
 	@Autowired
 	private CourseRepository courseRepository;
 
@@ -160,14 +161,14 @@ public class AdminController {
 		return "Admin/SuccessLeads";
 	}
 
-	//All Leads
+	// All Leads
 	@GetMapping("/admin_Dashboard/Leads")
 	public String getAllLeads(ModelMap model) {
 
 		List<Leads> leads = leadService.getAllLeadsDetails();
 
 		model.addAttribute("Leads", leads);
-		//model.addAttribute("Employees", employeeService.getAllEmployees());
+		// model.addAttribute("Employees", employeeService.getAllEmployees());
 		return "Admin/AllLeads";
 	}
 
@@ -209,12 +210,12 @@ public class AdminController {
 		leadsRepository.deleteById(id);
 		return "redirect:/Admin/admin_Dashboard/Leads";
 	}
-	
+
 	@PostMapping("/admin_Dashboard/Leads/saveconversation/{id}")
 	public String saveConversationOfLead(@PathVariable Long id, @ModelAttribute LeadsConversation leadsConversation) {
-		
+
 		leadService.saveLeadsConversation(id, leadsConversation);
-		
+
 		return "redirect:/Admin/admin_Dashboard/Leads/edit/{id}";
 	}
 
@@ -339,25 +340,29 @@ public class AdminController {
 	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
 	public String leadsUnderCaller(@PathVariable Long id, Model model) {
 
-		//Users_Credentials users_Credentials = user_Credentials_Repository.getById(id); users_Credentials.getEmployeeDetails()
+		// Users_Credentials users_Credentials =
+		// user_Credentials_Repository.getById(id);
+		// users_Credentials.getEmployeeDetails()
 
 		EmployeeDetails employeeDetails = employeeDetailsRepository.findById(id).get();
 
 		List<Leads> leads = employeeDetails.getLeads();
 
 		model.addAttribute("leads", leads);
+
+		model.addAttribute("callerId", id);
 		return "Admin/LeadsOfParticularCaller";
 	}
-	
-	@PostMapping("/admin_Dashboard/leadsUnderCaller/{id}")
-	public String transferLeads(@PathVariable Long id, @ModelAttribute EmployeeDetails employeeDetails) {
-		
-		System.out.println(id);
-		System.out.println(employeeDetails.getId());
-		leadService.transferLeads(id, employeeDetails);
-		
-		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
-	}
+
+//	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
+//	public String transferLeads(@PathVariable Long id, @ModelAttribute EmployeeDetails employeeDetails) {
+//
+//		System.out.println(id);
+//		System.out.println(employeeDetails.getId());
+//		leadService.transferLeads(id, employeeDetails);
+//
+//		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
+//	}
 
 	// BA search in approved BA
 
@@ -384,11 +389,11 @@ public class AdminController {
 	public String updateEmployee(@PathVariable Long id, @ModelAttribute EmployeeDetails employee) {
 
 		// model.addAttribute("employee", employeeDetailsRepository.findById(id).get());
-		
+
 		employeeService.updateEmployeeDetails(id, employee);
 
 		try {
-			
+
 			// employeeService.saveEmployeeDetails(existingEmp);
 			// session.setAttribute("msg", "Updated Successfully");
 		} catch (Exception e) {
@@ -397,27 +402,54 @@ public class AdminController {
 
 		return "redirect:/Admin/admin_Dashboard/Users/edit/{id}";
 	}
-	
+
 	@GetMapping("/admin_Dashboard/addCourse")
 	public String getAddCoursePage(Model model) {
-		
-		model.addAttribute("Courses" , courseRepository.findAll());
-		
+
+		model.addAttribute("Courses", courseRepository.findAll());
+
 		return "Admin/AddCourse";
 	}
-	
+
 	@PostMapping("/admin_Dashboard/saveCourse")
 	public String saveCourse(@ModelAttribute Course course) {
-		
+
 		courseRepository.save(course);
 		return "redirect:/Admin/admin_Dashboard/addCourse";
 	}
-	
+
 	@GetMapping("/admin_Dashboard/deleteCourse/{id}")
 	public String deleteCourse(@PathVariable Long id) {
-		
+
 		courseRepository.deleteById(id);
-		
+
 		return "redirect:/Admin/admin_Dashboard/addCourse";
 	}
+
+	// method to transfer selected leads
+
+	@PostMapping("/admin_Dashboard/leadsUnderCaller/{id}")
+	public String transferSelectedLeads(@PathVariable Long id,
+			@RequestParam("leadIds") List<List<String>> leadIdsAsStrings,
+			@RequestParam("newCallerId") Long newCallerId) {
+
+		// Flatten the list of lists into a single list of strings and remove square brackets and quotes
+	    List<String> flattenedLeadIds = leadIdsAsStrings.stream()
+	                                                    .flatMap(List::stream)
+	                                                    .map(s -> s.replaceAll("[\\[\\]\"]", ""))
+	                                                    .collect(Collectors.toList());
+
+	    // Convert List<String> to List<Long> using a stream
+	    List<Long> leadIds = flattenedLeadIds.stream()
+	                                          .map(Long::valueOf)
+	                                          .collect(Collectors.toList());
+		System.out.println(leadIds);
+		System.out.println(newCallerId);
+
+// Call the service with the converted leadIds
+		leadService.transferSelectedLeads(leadIds, newCallerId);
+
+		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
+	}
+
 }

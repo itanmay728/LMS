@@ -142,6 +142,64 @@ function copyLink() {
     alert("Copied the link: " + copyText.value);
 }    
     
+//to transfer selected leads
+
+  // const leadCheckboxes = document.querySelectorAll('.lead-checkbox');
+  // const transferButton = document.querySelector('.btn-danger');
+  // console.log(transferButton);
+
+  // transferButton.addEventListener('DOMContentLoaded', function() {
+  //   const selectedLeads = [];
+  //   leadCheckboxes.forEach(checkbox => {
+  //     if (checkbox.checked) {
+  //       selectedLeads.push(checkbox.value);
+  //     }
+  //   });
+
+  //   if (selectedLeads.length === 0) {
+  //     alert('Please select leads to transfer');
+  //     return false; // prevent form submission if no leads selected
+  //   }
+
+  //   const form = document.querySelector('form');
+  //   selectedLeads.forEach(leadId => {
+  //     const hiddenInput = document.createElement('input');
+  //     hiddenInput.type = 'hidden';
+  //     hiddenInput.name = 'leadIds'; // Adjust name if needed
+  //     hiddenInput.value = leadId;
+  //     form.appendChild(hiddenInput);
+  //   });
+  // });
+
+  /*document.addEventListener('DOMContentLoaded', function() {
+    const transferButton = document.querySelector('.btn-danger');
+    const leadCheckboxes = document.querySelectorAll('.lead-checkbox');
+  
+    transferButton.addEventListener('click', function() {
+      const selectedLeads = [];
+      leadCheckboxes.forEach(checkbox => {
+        if (checkbox.checked) {
+          selectedLeads.push(checkbox.value);
+        }
+      });
+  
+      if (selectedLeads.length === 0) {
+        alert('Please select leads to transfer');
+        return false; // prevent form submission if no leads selected
+      }
+  
+      const form = document.querySelector('form');
+      selectedLeads.forEach(leadId => {
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'leadIds'; // Adjust name if needed
+        hiddenInput.value = leadId;
+        form.appendChild(hiddenInput);
+      });
+    });
+  });*/
+  
+
 
 
     
