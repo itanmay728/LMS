@@ -77,6 +77,9 @@ public class BusinessAssociate {
 	@ManyToOne
 	@JoinColumn(name = "fieldManager_id")
 	private EmployeeDetails fieldManager;
+	
+	@OneToMany(mappedBy = "businessAssociate")
+	private List<WalletDetails> walletDetails;
 
 	public Long getId() {
 		return id;
