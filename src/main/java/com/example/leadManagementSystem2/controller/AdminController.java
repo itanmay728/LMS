@@ -354,15 +354,6 @@ public class AdminController {
 		return "Admin/LeadsOfParticularCaller";
 	}
 
-//	@GetMapping("/admin_Dashboard/leadsUnderCaller/{id}")
-//	public String transferLeads(@PathVariable Long id, @ModelAttribute EmployeeDetails employeeDetails) {
-//
-//		System.out.println(id);
-//		System.out.println(employeeDetails.getId());
-//		leadService.transferLeads(id, employeeDetails);
-//
-//		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
-//	}
 
 	// BA search in approved BA
 

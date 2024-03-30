@@ -15,12 +15,13 @@
                    th:value="'http://localhost:8080/CustomersForm/PublicEntryForm?partyid=' + ${session.businessAssociate.id}">
             <button class="btn btn-primary" type="button" onclick="copyLink()">Copy Link</button>
         </div>
+        
+        <div> <a id="generateQRCodeButton" class="btn btn-primary" onclick="updateQRCodeLink()">Generate QR Code</a> </div>
+    	<input type="hidden" id="businessAssociateId" th:value="${session.businessAssociate.id}">
     </div>
 
-    <div>
-        <a id="generateQRCodeButton" class="btn btn-primary" onclick="updateQRCodeLink()">Generate QR Code</a> </div>
-
-    <input type="hidden" id="businessAssociateId" th:value="${session.businessAssociate.id}">
+    
+    
 </section>
 
 </body>

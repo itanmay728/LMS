@@ -17,11 +17,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.BusinessAssociateHistory;
+import com.example.leadManagementSystem2.Entity.Course;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
+import com.example.leadManagementSystem2.Repository.CourseRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 
@@ -42,7 +44,10 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	private BusinessAssociateHistoryRepo businessAssociateHistoryRepo;
 
 	@Autowired
-	JavaMailSender javaMailSender;
+	private JavaMailSender javaMailSender;
+	
+	@Autowired
+	private CourseRepository courseRepository;
 
 	@Override
 	public BusinessAssociate saveBusinessAssociate(BusinessAssociate businessAssociate) {
@@ -161,36 +166,19 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 	@Override
 	public void walletUpdate(Leads leads) {
+			
+		List<Course> course = courseRepository.findAll();
 		
-		if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("9th / 10th Foundation Course")) {
+		for(int i = 0 ; i<course.size(); i++) {
 			
-			Long newAmount = leads.getBusinessAssociate().getWallet() + 100;
-			
-			leads.getBusinessAssociate().setWallet(newAmount);
-		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("One year Course (Medical/ Engineering) 12th")) {
-			
-			
-			Long newAmount = leads.getBusinessAssociate().getWallet() + 200;
-			
-			leads.getBusinessAssociate().setWallet(newAmount);
-		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("One year Course (Medical/ Engineering) after 12th")) {
-			
-			Long newAmount = leads.getBusinessAssociate().getWallet() + 200;
-			
-			leads.getBusinessAssociate().setWallet(newAmount);
-		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("B.tech")) {
-			
-			Long newAmount = leads.getBusinessAssociate().getWallet() + 300;
-			
-			leads.getBusinessAssociate().setWallet(newAmount);
-		}else if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals("MCA")) {
-			
-			Long newAmount = leads.getBusinessAssociate().getWallet() + 400;
-			
-			leads.getBusinessAssociate().setWallet(newAmount);
+			if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals(course.get(i).getCourseName())) {
+				
+				Long newAmount = leads.getBusinessAssociate().getWallet() + course.get(i).getCommission();
+				
+				leads.getBusinessAssociate().setWallet(newAmount);
+			}
 		}
-		
-		
+			
 	}
 
 	@Override

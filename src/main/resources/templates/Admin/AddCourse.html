@@ -36,6 +36,9 @@
         <div class="mb-3">
           <label for="name" class="form-label">Course Name</label>
           <input type="text" class="form-control" id="name" name="courseName" required>
+          
+           <label for="commission" class="form-label">Margin</label>
+          <input type="text" class="form-control" id="commission" name="commission" required>
         </div>
                
         <button type="submit" class="btn btn-primary">Add Course</button>
@@ -48,6 +51,7 @@
     <tr>
       <th scope="col">Id</th>
       <th scope="col">Course Name</th>
+      <th scope="col">Margin</th>
       <th scope="col">Action</th>
       
     </tr>
@@ -56,6 +60,7 @@
     <tr th:each="course : ${Courses}">
       <th scope="row" th:text="${course.id}">1</th>
       <td th:text="${course.courseName}">Mark</td>
+      <td th:text="${course.commission}">Mark</td>
       <td>
       
       <a th:href="@{/Admin/admin_Dashboard/deleteCourse/{id} (id=${course.id})}" type="button" class="btn btn-danger">Delete</a>

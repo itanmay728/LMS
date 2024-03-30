@@ -33,21 +33,13 @@
 				</div>
 			</div>
 
-			<button type="button"
-				class="btn bg-danger bg-gradient  text-white  col-3 ms-3"
-				data-bs-toggle="modal" data-bs-target="#exampleModal">
-				<i class="fas fa-random"></i> Transfer Selected Leads <i
-					class="fas fa-users-cog ms-2"></i>
-			</button>
 
 			<div
 				class="card-body text-center m-3 border border-2 border-secondary"
 				th:each="LeadsDetail: ${Leads}" th:id="'lead-' + ${LeadsDetail.Id}">
 				<div class="card-header">
-
-
-					<input class="form-check-input float-sm-start me-2" type="checkbox"
-						value="" id="flexCheckChecked"> <span
+				
+					 <span
 						class="float-sm-start fw-bold me-2">ID:-</span> <span
 						class="float-sm-start " th:text="${LeadsDetail.Id}"></span> <span
 						class=" fw-bold me-2">Name:-</span> <span

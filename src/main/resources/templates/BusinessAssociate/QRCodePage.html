@@ -6,14 +6,23 @@
 <title>QR Code Page</title>
 </head>
 <body>
+
 	<section>
-		<section>
-		<h1>QR Code</h1>
-		<img th:src="'data:image/png;base64,' + ${qrCodeBase64}" alt="QR Code">
-				<p th:text="${session.businessAssociate.name}"></p>
-		
-		</section>
-		<a th:href="'data:image/png;base64,' + ${qrCodeBase64}" download="qr_code.png" class="btn btn-primary">Download QR Code</a>
+
+		<div
+			class="container d-flex justify-content-center align-items-center ">
+			<div class="card  " style="width: 20rem;">
+				<img th:src="'data:image/png;base64,' + ${qrCodeBase64}"
+					class="card-img-top" alt="QR Code">
+				<div class="card-body text-center">
+					<h5 class="card-title" th:text="${session.businessAssociate.name}"></h5>
+
+					<a th:href="'data:image/png;base64,' + ${qrCodeBase64}"
+						th:download="qr_code.png" class="btn btn-primary">Download QR
+						Code</a>
+				</div>
+			</div>
+		</div>
 
 	</section>
 </body>

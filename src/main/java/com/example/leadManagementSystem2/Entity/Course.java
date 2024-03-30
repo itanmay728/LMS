@@ -14,6 +14,7 @@ public class Course {
 	private Long id;
 
 	private String courseName;
+	private Long  commission;
 
 	public Long getId() {
 		return id;
@@ -31,10 +32,12 @@ public class Course {
 		this.courseName = courseName;
 	}
 
-	public Course(Long id, String courseName) {
-		super();
-		this.id = id;
-		this.courseName = courseName;
+	public Long getCommission() {
+		return commission;
+	}
+
+	public void setCommission(Long commission) {
+		this.commission = commission;
 	}
 
 	public Course() {
@@ -42,10 +45,18 @@ public class Course {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Course(Long id, String courseName, Long commission) {
+		super();
+		this.id = id;
+		this.courseName = courseName;
+		this.commission = commission;
+	}
+
 	@Override
 	public String toString() {
-		return "Course [id=" + id + ", courseName=" + courseName + "]";
+		return "Course [id=" + id + ", courseName=" + courseName + ", commission=" + commission + "]";
 	}
+
 	
 	
 }
