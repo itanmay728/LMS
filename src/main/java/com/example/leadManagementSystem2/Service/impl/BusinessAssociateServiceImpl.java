@@ -21,10 +21,12 @@ import com.example.leadManagementSystem2.Entity.Course;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Entity.WalletDetails;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.CourseRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
+import com.example.leadManagementSystem2.Repository.WalletDetailsRepository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 
 import jakarta.servlet.http.HttpSession;
@@ -48,6 +50,9 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private WalletDetailsRepository walletDetailsRepository;
 
 	@Override
 	public BusinessAssociate saveBusinessAssociate(BusinessAssociate businessAssociate) {
@@ -168,6 +173,7 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 	public void walletUpdate(Leads leads) {
 			
 		List<Course> course = courseRepository.findAll();
+		WalletDetails walletDetails = new WalletDetails();
 		
 		for(int i = 0 ; i<course.size(); i++) {
 			
@@ -175,6 +181,13 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 				
 				Long newAmount = leads.getBusinessAssociate().getWallet() + course.get(i).getCommission();
 				
+				System.out.println(leads.getBusinessAssociate().getName());
+				System.out.println(course.get(i).getCommission());
+				
+				
+				walletDetails.setAmount(course.get(i).getCommission());
+				walletDetails.setBusinessAssociate(leads.getBusinessAssociate());
+				walletDetailsRepository.save(walletDetails);
 				leads.getBusinessAssociate().setWallet(newAmount);
 			}
 		}

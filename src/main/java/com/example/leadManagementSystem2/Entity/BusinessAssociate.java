@@ -224,6 +224,15 @@ public class BusinessAssociate {
 	public void setWallet(Long wallet) {
 		this.wallet = wallet;
 	}
+	
+
+	public List<WalletDetails> getWalletDetails() {
+		return walletDetails;
+	}
+
+	public void setWalletDetails(List<WalletDetails> walletDetails) {
+		this.walletDetails = walletDetails;
+	}
 
 	public BusinessAssociate() {
 		super();
@@ -242,7 +251,7 @@ public class BusinessAssociate {
 			@NotBlank(message = "IFSC code cannot be empty!!") @Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code") String ifscCode,
 			@NotBlank(message = "Branch Address cannot be empty!!") String branchAddress, String password,
 			boolean approval, Long wallet, Users_Credentials users_Credentials, List<Leads> leads,
-			EmployeeDetails fieldManager) {
+			EmployeeDetails fieldManager, List<WalletDetails> walletDetails) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -262,6 +271,7 @@ public class BusinessAssociate {
 		this.users_Credentials = users_Credentials;
 		this.leads = leads;
 		this.fieldManager = fieldManager;
+		this.walletDetails = walletDetails;
 	}
 
 	@Override
@@ -271,9 +281,11 @@ public class BusinessAssociate {
 				+ ", aadhaarNumber=" + aadhaarNumber + ", accountNumber=" + accountNumber + ", accountHolderName="
 				+ accountHolderName + ", ifscCode=" + ifscCode + ", branchAddress=" + branchAddress + ", password="
 				+ password + ", approval=" + approval + ", wallet=" + wallet + ", users_Credentials="
-				+ users_Credentials + ", leads=" + leads + ", fieldManager=" + fieldManager + "]";
+				+ users_Credentials + ", leads=" + leads + ", fieldManager=" + fieldManager + ", walletDetails="
+				+ walletDetails + "]";
 	}
 
+	
 	
 
 }

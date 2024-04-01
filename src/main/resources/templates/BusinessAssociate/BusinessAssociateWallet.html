@@ -49,8 +49,9 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th>Select</th>
 								<th scope="col">#</th>
-								<th scope="col">TRANSACTIONS</th>
+								
 								<th scope="col">AMOUNT</th>
 								<th scope="col">STATUS</th>
 							</tr>
@@ -58,33 +59,14 @@
 
 						<tbody>
 
-							<tr>
-								<th scope="row">1</th>
-								<td>Paid for order at Jairam</td>
-								<td>100</td>
-								<td>Success</td>
+							<tr th:each="wd: ${walletDetails}">
+								<th><input type="checkbox" class="form-check-input me-2 lead-checkbox"></th>
+								<th scope="row" th:text = "${wd.id}">1</th>
+								<td th:text = "${wd.amount}">100</td>
+								<td th:text = "${wd.status}">Success</td>
 							</tr>
 
-							<tr>
-								<th scope="row">1</th>
-								<td>Paid for order at Jairam</td>
-								<td>100</td>
-								<td>Success</td>
-							</tr>
-
-							<tr>
-								<th scope="row">1</th>
-								<td>Paid for order at Jairam</td>
-								<td>100</td>
-								<td>Success</td>
-							</tr>
-
-							<tr>
-								<th scope="row">1</th>
-								<td>Paid for order at Jairam</td>
-								<td>100</td>
-								<td>Success</td>
-							</tr>
+						
 
 						</tbody>
 
@@ -97,6 +79,125 @@
 						data-mdb-ripple-init> <i class="fas fa-file-download me-2"></i>
 						<span>Download Statement</span></a> <a href="#"
 						class="btn float-sm-end me-5 border border-2" data-mdb-ripple-init>
+						<i class="fas fa-comments-dollar me-2"></i> <span>Send
+							Money from Wallet to Bank</span>
+					</a>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div
+			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
+			<div class="card col text-center col-lg-11 ">
+
+				<div class="card-header bg-success">
+
+					<div class="fw-bold text-success fs-3 text-white">Approved</div>
+
+				</div>
+				<div class="card-body">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">TRANSACTIONS</th>
+								<th scope="col">AMOUNT</th>
+								<th scope="col">STATUS</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr>
+								<th scope="row" >1</th>
+								<td>Paid for order at Jairam</td>
+								<td>100</td>
+								<td>Success</td>
+							</tr>
+
+						
+
+						</tbody>
+
+					</table>
+
+				</div>
+				<div class="card-footer text-muted">
+						
+						<a href="#"
+						class="btn me-5 border border-2" data-mdb-ripple-init>
+						<i class="fas fa-comments-dollar me-2"></i> <span>Send
+							Money from Wallet to Bank</span>
+					</a>
+
+				</div>
+			</div>
+		</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<div
+			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
+			<div class="card col text-center col-lg-11 ">
+
+				<div class="card-header bg-danger">
+
+					<div class="fw-bold text-danger fs-3 text-white">Rejected</div>
+
+				</div>
+				<div class="card-body">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">TRANSACTIONS</th>
+								<th scope="col">AMOUNT</th>
+								<th scope="col">STATUS</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr>
+								<th scope="row" >1</th>
+								<td>Paid for order at Jairam</td>
+								<td>100</td>
+								<td>rejected</td>
+							</tr>
+
+						
+
+						</tbody>
+
+					</table>
+
+				</div>
+				<div class="card-footer text-muted">
+
+					<!-- <a href="#" class="btn border border-2 float-sm-start ms-5"
+						data-mdb-ripple-init> <i class="fas fa-file-download me-2"></i>
+						<span>Download Statement</span></a> --> 
+						
+						<a href="#"
+						class="btn  me-5 border border-2" data-mdb-ripple-init>
 						<i class="fas fa-comments-dollar me-2"></i> <span>Send
 							Money from Wallet to Bank</span>
 					</a>

@@ -1,7 +1,9 @@
 package com.example.leadManagementSystem2.controller;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Base64;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.QRCodeGenerator;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Entity.WalletDetails;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.LeadService;
@@ -88,7 +91,14 @@ public class BusinessAssociateController {
 
 	// Wallet
 	@GetMapping("/businessAssociateDashboard/Wallet")
-	public String getWalletPage() {
+	public String getWalletPage(Principal principal, Model model) {
+		
+		String username = principal.getName();
+		
+		List<WalletDetails> walletDetails =  user_Credentials_Repository.getUsersCredentialsByUserName(username).getBusinessAssociate().getWalletDetails();
+		
+		model.addAttribute("walletDetails", walletDetails);
+		
 		return "BusinessAssociate/BusinessAssociateWallet";
 	}
 
@@ -116,7 +126,7 @@ public class BusinessAssociateController {
 
 	@GetMapping("/businessAssociateDashboard/personalformlink")
 	public String getPersonalFormLinkPage() {
-
+		
 		return "BusinessAssociate/PersonalFormLink";
 	}
 
