@@ -1,15 +1,15 @@
 package com.example.leadManagementSystem2.Service.impl;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -47,10 +47,10 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 	@Autowired
 	private JavaMailSender javaMailSender;
-	
+
 	@Autowired
 	private CourseRepository courseRepository;
-	
+
 	@Autowired
 	private WalletDetailsRepository walletDetailsRepository;
 
@@ -171,33 +171,32 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 	@Override
 	public void walletUpdate(Leads leads) {
-			
+
 		List<Course> course = courseRepository.findAll();
 		WalletDetails walletDetails = new WalletDetails();
-		
-		for(int i = 0 ; i<course.size(); i++) {
-			
+
+		for (int i = 0; i < course.size(); i++) {
+
 			if (leads.getLeadStatus().equals("Success") && leads.getCourse().equals(course.get(i).getCourseName())) {
-				
+
 				Long newAmount = leads.getBusinessAssociate().getWallet() + course.get(i).getCommission();
-				
+
 				System.out.println(leads.getBusinessAssociate().getName());
 				System.out.println(course.get(i).getCommission());
-				
-				
+
 				walletDetails.setAmount(course.get(i).getCommission());
 				walletDetails.setBusinessAssociate(leads.getBusinessAssociate());
 				walletDetailsRepository.save(walletDetails);
 				leads.getBusinessAssociate().setWallet(newAmount);
 			}
 		}
-			
+
 	}
 
 	@Override
 
 	public List<BusinessAssociate> findByFieldManagerId(Long id) {
-		
+
 		Users_Credentials users_Credentials = user_Credentials_Repository.getById(id);
 
 		EmployeeDetails employeeDetails = users_Credentials.getEmployeeDetails();
@@ -207,50 +206,86 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 		return BA;
 	}
 
-
 	public List<BusinessAssociate> getBusinessAssociateOfAParticularFieldManager(String username) {
-		
+
 		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(username);
-		
+
 		EmployeeDetails employeeDetails = user.getEmployeeDetails();
-		
+
 		List<BusinessAssociate> BA = employeeDetails.getBusinessAssociates();
-		
-		
+
 		return BA;
 	}
 
 	@Override
 	public Long conutOfBa(String username) {
-		
-		List<BusinessAssociate> businessAssociate =  getBusinessAssociateOfAParticularFieldManager(username);
-		
+
+		List<BusinessAssociate> businessAssociate = getBusinessAssociateOfAParticularFieldManager(username);
+
 		Long count = 0L;
-		
-		for(BusinessAssociate ba : businessAssociate) {
-			
+
+		for (BusinessAssociate ba : businessAssociate) {
+
 			count++;
 		}
-		
+
 		return count;
 	}
 
 	@Override
 	public String uniqueForm(Long id) {
-		//BusinessAssociate businessAssociate = new BusinessAssociate();
+		// BusinessAssociate businessAssociate = new BusinessAssociate();
 		String businessName = null;
 		try {
-			businessName =  businessAssociateRepository.findById(id).get().getBusinessName();
+			businessName = businessAssociateRepository.findById(id).get().getBusinessName();
 		} catch (Exception e) {
-			if(businessName == null) {
+			if (businessName == null) {
 				return null;
 			}
 		}
 
 		return businessName;
 
-
 	}
 
+	@Override
+	public Long amountTransferRequest(Map<String, Object> amountToTransfer) {
+
+		List<Long> values = new ArrayList<>();
+
+		for (Object value : amountToTransfer.values()) {
+		    if (value instanceof List) {
+		        List<?> list = (List<?>) value;
+		        for (Object element : list) {
+		            if (element instanceof String) {
+		                // Process the String element
+		                String stringValue = (String) element;
+		                try {
+		                    Long integerValue = Long.parseLong(stringValue);
+		                    values.add(integerValue);
+		                } catch (NumberFormatException e) {
+		                    System.err.println("Unable to parse String value to Long: " + stringValue);
+		                }
+		            } else {
+		                System.err.println("Element is not a String: " + element);
+		            }
+		        }
+		    } else {
+		        System.err.println("Value is not a List: " + value);
+		    }
+		}
+
+
+		System.out.println("Values as integers: " + values);
+		Long amount = 0L;
+		for (int i = 0; i < values.size(); i++) {
+			if(values.get(i) instanceof Long) {
+				System.out.println("value is long");
+			}
+			amount += walletDetailsRepository.findById(values.get(i)).get().getAmount();
+		}
+		System.out.println(amount);
+		return amount;
+	}
 
 }

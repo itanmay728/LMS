@@ -1,6 +1,7 @@
 package com.example.leadManagementSystem2.Service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,4 +28,5 @@ public interface BusinessAssociateService {
 	
 	public Long conutOfBa(String username);
 	public String uniqueForm(Long id);
+	Long amountTransferRequest(Map<String, Object> amountToTransfer);
 }
