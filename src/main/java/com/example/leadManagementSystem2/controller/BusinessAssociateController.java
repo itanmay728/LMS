@@ -3,14 +3,18 @@ package com.example.leadManagementSystem2.controller;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.Base64;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -20,7 +24,9 @@ import com.example.leadManagementSystem2.Entity.Users_Credentials;
 import com.example.leadManagementSystem2.Entity.WalletDetails;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
+import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 import com.example.leadManagementSystem2.Service.LeadService;
+import com.example.leadManagementSystem2.Service.impl.BusinessAssociateServiceImpl;
 import com.google.zxing.WriterException;
 
 import jakarta.servlet.http.HttpSession;
@@ -37,6 +43,9 @@ public class BusinessAssociateController {
 
 	@Autowired
 	private LeadService leadService;
+	
+	@Autowired
+	private BusinessAssociateService businessAssociateService;
 
 	@GetMapping("/businessAssociateDashboard")
 	public String getBusinessAssociateDashboard(Model model, HttpSession session) {
@@ -101,6 +110,24 @@ public class BusinessAssociateController {
 		
 		return "BusinessAssociate/BusinessAssociateWallet";
 	}
+	
+	@PostMapping("/businessAssociateDashboard/WalletRequest")
+	public ResponseEntity<?> handleAmountTransferRequest(@RequestBody Map<String, Object> amountToTransfer,Model model) {
+        // Process the data received from the client
+        System.out.println("Received data:");
+        //amountToTransfer.forEach((key, value) -> System.out.println(key + ": " + value));
+        
+       Long amount= businessAssociateService.amountTransferRequest(amountToTransfer);
+       
+       //model.addAttribute("totalAmount", amount);
+       System.out.println("done");
+        
+        // Optionally, you can return a response
+        Map<String, Long> response = new HashMap<>();
+        response.put("message", 1L);
+        response.put("totalAmount", amount);
+        return ResponseEntity.ok(response);
+    }
 
 	// QR Code generation
 	@GetMapping("/businessAssociateDashboard/QRCodePage")

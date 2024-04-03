@@ -19,7 +19,8 @@
 
 						<i class="fas fa-wallet fs-4"></i> <span class="fs-4">WALLET</span>
 						<div>
-							<i class="fas fa-rupee-sign"></i> <span
+							<input type="hidden" name="amount" value=""> <i
+								class="fas fa-rupee-sign"></i> <span
 								class="text-primary  fw-bold"
 								th:text="${session.businessAssociate.wallet}"></span>
 						</div>
@@ -51,7 +52,7 @@
 							<tr>
 								<th>Select</th>
 								<th scope="col">#</th>
-								
+
 								<th scope="col">AMOUNT</th>
 								<th scope="col">STATUS</th>
 							</tr>
@@ -60,13 +61,15 @@
 						<tbody>
 
 							<tr th:each="wd: ${walletDetails}">
-								<th><input type="checkbox" class="form-check-input me-2 lead-checkbox"></th>
-								<th scope="row" th:text = "${wd.id}">1</th>
-								<td th:text = "${wd.amount}">100</td>
-								<td th:text = "${wd.status}">Success</td>
+								<th><input type="checkbox" th:value="${wd.id}"
+									class="form-check-input float-sm-start me-2 amount-checkbox">
+								</th>
+								<th scope="row" th:text="${wd.id}">1</th>
+								<td th:text="${wd.amount}"></td>
+								<td th:text="${wd.status}"></td>
 							</tr>
 
-						
+
 
 						</tbody>
 
@@ -77,25 +80,34 @@
 
 					<a href="#" class="btn border border-2 float-sm-start ms-5"
 						data-mdb-ripple-init> <i class="fas fa-file-download me-2"></i>
-						<span>Download Statement</span></a> <a href="#"
-						class="btn float-sm-end me-5 border border-2" data-mdb-ripple-init>
-						<i class="fas fa-comments-dollar me-2"></i> <span>Send
-							Money from Wallet to Bank</span>
-					</a>
+						<span>Download Statement</span></a> <a id="transferAmount"
+						class="btn btn-primary" onclick="transferRequest()">Transfer
+						Amount Request</a>
+
+					<div class="float-sm-end">
+						<div class="border-start border-3 me-4 h-25">
+							<span class="fs-6 ms-5">TOTAL BALANCE</span>
+							<div>
+								<i class="fas fa-rupee-sign"></i> <span id="totalAmount"
+									class="text-primary fw-bold" ></span>
+							</div>
+						</div>
+					</div>
+
 
 				</div>
 			</div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
+
 		<div
 			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
 			<div class="card col text-center col-lg-11 ">
@@ -120,13 +132,13 @@
 						<tbody>
 
 							<tr>
-								<th scope="row" >1</th>
+								<th scope="row">1</th>
 								<td>Paid for order at Jairam</td>
 								<td>100</td>
 								<td>Success</td>
 							</tr>
 
-						
+
 
 						</tbody>
 
@@ -134,9 +146,8 @@
 
 				</div>
 				<div class="card-footer text-muted">
-						
-						<a href="#"
-						class="btn me-5 border border-2" data-mdb-ripple-init>
+
+					<a href="#" class="btn me-5 border border-2" data-mdb-ripple-init>
 						<i class="fas fa-comments-dollar me-2"></i> <span>Send
 							Money from Wallet to Bank</span>
 					</a>
@@ -144,15 +155,15 @@
 				</div>
 			</div>
 		</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
+
+
+
+
+
+
+
+
 		<div
 			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
 			<div class="card col text-center col-lg-11 ">
@@ -177,13 +188,13 @@
 						<tbody>
 
 							<tr>
-								<th scope="row" >1</th>
+								<th scope="row">1</th>
 								<td>Paid for order at Jairam</td>
 								<td>100</td>
 								<td>rejected</td>
 							</tr>
 
-						
+
 
 						</tbody>
 
@@ -194,10 +205,9 @@
 
 					<!-- <a href="#" class="btn border border-2 float-sm-start ms-5"
 						data-mdb-ripple-init> <i class="fas fa-file-download me-2"></i>
-						<span>Download Statement</span></a> --> 
-						
-						<a href="#"
-						class="btn  me-5 border border-2" data-mdb-ripple-init>
+						<span>Download Statement</span></a> -->
+
+					<a href="#" class="btn  me-5 border border-2" data-mdb-ripple-init>
 						<i class="fas fa-comments-dollar me-2"></i> <span>Send
 							Money from Wallet to Bank</span>
 					</a>
