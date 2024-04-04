@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="/Admin/AdminBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+<section>
+
+<div
+			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-5">
+			<div class="card col text-center col-lg-11 ">
+
+				<div class="card-header bg-warning">
+
+					<div class="fw-bold text-success fs-3 text-white">Requested</div>
+
+				</div>
+				<div class="card-body">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">LEAD_ID</th>
+								<th scope="col">BA_ID</th>
+								<th scope="col">AMOUNT</th>
+								<th scope="col">STATUS</th>
+								<th scope="col">ACTION</th>
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="wd: ${walletDetails}" th:if="${wd.status == 'Requested'}" >
+								<th scope="row" th:text="${wd.id}"></th>
+								<td th:text="${wd.leads.Id}"></td>
+								<td th:text="${wd.businessAssociate.id}"></td>
+								<td class="text-success fw-bold" th:text="${wd.amount}"></td>
+								<td th:text="${wd.status}"></td>
+								<td class="">
+								
+								<!-- Button trigger modal -->
+
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" th:attr="data-bs-target='#exampleModal1'+${wd.id}">
+  Approve
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" th:id="'exampleModal1'+${wd.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">TRANSACTION_ID</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      
+      <span th:text="${wd.id}"></span>
+        <div>
+        <form th:action="@{/Admin/admin_Dashboard/ApprovePaymentRequest/{id} (id= ${wd.id})}" method="post">
+        <label>TRANSACTION_ID</label>
+        <input class="col-6" name="transaction_id" required="required">
+        
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" th:attr="data-bs-target='#exampleModal'+${wd.id}">
+ Reject
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" th:id="'exampleModal'+${wd.id}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Rejection Reason</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+        <span th:text="${wd.id}"></span>
+        <form th:action="@{/Admin/admin_Dashboard/RejectPaymentRequest/{id} (id=${wd.id})}" method="post">
+        <label>Rejection Reason</label>
+        <textarea class="form-control mt-1" name="rejection_reason" placeholder="Reason" rows="4" required="required"></textarea>
+        
+        
+        <button type="submit" class="btn btn-primary mt-2">Submit</button>
+        </form>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+								
+								</td>
+							</tr>
+
+
+
+						</tbody>
+
+					</table>
+
+				</div>
+				
+			</div>
+		</div>
+		
+		
+		
+		
+
+
+
+
+
+		<div
+			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
+			<div class="card col text-center col-lg-11 ">
+
+				<div class="card-header bg-success">
+
+					<div class="fw-bold text-success fs-3 text-white">Approved</div>
+
+				</div>
+				<div class="card-body">
+
+					<table class="table">
+					<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">LEAD_ID</th>
+								<th scope="col">BA_ID</th>
+								<th scope="col">TRANSACTION_ID</th>
+								<th scope="col">AMOUNT</th>
+								<th scope="col">STATUS</th>
+						
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="wd: ${walletDetails}" th:if="${wd.status == 'Approved'}">
+								<th scope="row" th:text="${wd.id}"></th>
+								<td th:text="${wd.leads.Id}"></td>
+								<td th:text="${wd.businessAssociate.id}"></td>
+								<td th:text="${wd.transaction_id}"></td>
+								<td class="text-success fw-bold" th:text="${wd.amount}"></td>
+								<td th:text="${wd.status}"></td>
+							</tr>
+
+
+
+						</tbody>
+
+					</table>
+
+				</div>
+				
+			</div>
+		</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+		<div
+			class="container py-5 h-100 d-flex justify-content-center align-items-center mt-2">
+			<div class="card col text-center col-lg-11 ">
+
+				<div class="card-header bg-danger">
+
+					<div class="fw-bold text-danger fs-3 text-white">Rejected</div>
+
+				</div>
+				<div class="card-body">
+
+					<table class="table">
+						<thead>
+							<tr>
+								<th scope="col">#</th>
+								<th scope="col">LEAD_ID</th>
+								<th scope="col">BA_ID</th>	
+								<th scope="col">AMOUNT</th>
+								<th scope="col">STATUS</th>
+								<th scope="col">Rejection_Reason</th>
+						
+							</tr>
+						</thead>
+
+						<tbody>
+
+							<tr th:each="wd: ${walletDetails}" th:if="${wd.status == 'Rejected'}">
+								<th scope="row" th:text="${wd.id}"></th>
+								<td th:text="${wd.leads.Id}"></td>
+								<td th:text="${wd.businessAssociate.id}"></td>
+								
+								<td class="text-success fw-bold" th:text="${wd.amount}"></td>
+								<td th:text="${wd.status}"></td>
+								<td th:text="${wd.rejection_reason}"></td>
+							</tr>
+
+
+
+						</tbody>
+
+					</table>
+
+				</div>
+				
+			</div>
+		</div>
+
+</section>
+
+</body>
+</html>

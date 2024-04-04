@@ -111,6 +111,7 @@ public class BusinessAssociateController {
 		return "BusinessAssociate/BusinessAssociateWallet";
 	}
 	
+	//Withdraw Amount Request button
 	@PostMapping("/businessAssociateDashboard/WalletRequest")
 	public ResponseEntity<?> handleAmountTransferRequest(@RequestBody Map<String, Object> amountToTransfer,Model model) {
         // Process the data received from the client
@@ -118,6 +119,25 @@ public class BusinessAssociateController {
         //amountToTransfer.forEach((key, value) -> System.out.println(key + ": " + value));
         
        Long amount= businessAssociateService.amountTransferRequest(amountToTransfer);
+       
+       //model.addAttribute("totalAmount", amount);
+       //System.out.println("done");
+        
+        // Optionally, you can return a response
+        Map<String, Long> response = new HashMap<>();
+        //response.put("message", 1L);
+        response.put("totalAmount", amount);
+        return ResponseEntity.ok(response);
+    }
+	
+	//only for total amount
+	@PostMapping("/businessAssociateDashboard/totalAmount")
+	public ResponseEntity<?> totalAmountTransfer(@RequestBody Map<String, Object> amountToTransfer,Model model) {
+        // Process the data received from the client
+        System.out.println("Received data:");
+        //amountToTransfer.forEach((key, value) -> System.out.println(key + ": " + value));
+        
+       Long amount= businessAssociateService.totalAmountTransfer(amountToTransfer);
        
        //model.addAttribute("totalAmount", amount);
        System.out.println("done");

@@ -151,15 +151,15 @@
 
 <form th:action="@{/Caller/Caller_Dashboard/Leads/edit/{id}  (id=${Leads.Id})}" method="post">
 							<div class="mb-3 mt-5">
-								<label>Lead Status</label> <select class="form-select"
+								<label>Lead Status</label> <select class="form-select" 
 									aria-label="Default select example" name="leadStatus">
 
 
-									<option th:text="${Leads.leadStatus}"></option>
-									<option>New</option>
-									<option>Follow up</option>
-									<option>Success</option>
-									<option>Dead</option>
+									<option th:text="${Leads.leadStatus}" selected disabled></option>
+									<option th:if="${Leads.leadStatus != 'Success'}">New</option>
+									<option th:if="${Leads.leadStatus != 'Success'}">Follow up</option>
+									<option th:if="${Leads.leadStatus != 'Success'}">Success</option>
+									<option th:if="${Leads.leadStatus != 'Success'}">Dead</option>
 								</select>
 							</div> 
 						

@@ -186,6 +186,8 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 				walletDetails.setAmount(course.get(i).getCommission());
 				walletDetails.setBusinessAssociate(leads.getBusinessAssociate());
+				walletDetails.setStatus("New");
+				walletDetails.setLeads(leads);
 				walletDetailsRepository.save(walletDetails);
 				leads.getBusinessAssociate().setWallet(newAmount);
 			}
@@ -248,8 +250,53 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 
 	}
 
+	//Withdraw Amount Request button
 	@Override
 	public Long amountTransferRequest(Map<String, Object> amountToTransfer) {
+
+		List<Long> values = new ArrayList<>();
+
+		for (Object value : amountToTransfer.values()) {
+		    if (value instanceof List) {
+		        List<?> list = (List<?>) value;
+		        for (Object element : list) {
+		            if (element instanceof String) {
+		                // Process the String element
+		                String stringValue = (String) element;
+		                try {
+		                    Long integerValue = Long.parseLong(stringValue);
+		                    values.add(integerValue);
+		                } catch (NumberFormatException e) {
+		                    System.err.println("Unable to parse String value to Long: " + stringValue);
+		                }
+		            } else {
+		                System.err.println("Element is not a String: " + element);
+		            }
+		        }
+		    } else {
+		        System.err.println("Value is not a List: " + value);
+		    }
+		}
+
+
+		System.out.println("Values as integers: " + values);
+		Long amount = 0L;
+		for (int i = 0; i < values.size(); i++) {
+			if(values.get(i) instanceof Long) {
+				System.out.println("value is long");
+			}
+			//amount += walletDetailsRepository.findById(values.get(i)).get().getAmount();
+			WalletDetails walletDetails = walletDetailsRepository.findById(values.get(i)).get();
+			walletDetails.setStatus("Requested");
+			walletDetailsRepository.save(walletDetails);
+		}
+		System.out.println(amount);
+		return amount;
+	}
+
+	//only for total amount
+	@Override
+	public Long totalAmountTransfer(Map<String, Object> amountToTransfer) {
 
 		List<Long> values = new ArrayList<>();
 
@@ -287,5 +334,4 @@ public class BusinessAssociateServiceImpl implements BusinessAssociateService {
 		System.out.println(amount);
 		return amount;
 	}
-
 }

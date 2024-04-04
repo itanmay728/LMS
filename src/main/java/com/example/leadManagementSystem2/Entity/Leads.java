@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 
@@ -55,6 +56,10 @@ public class Leads {
 	@OneToMany(mappedBy = "leads")
 	@JsonIgnore
 	private List<LeadsConversation> leadsConversation;
+	
+	@OneToOne(mappedBy = "leads")
+	@JsonIgnore
+	private WalletDetails walletDetails;
 
 	public Long getId() {
 		return Id;
@@ -144,6 +149,14 @@ public class Leads {
 		this.leadsConversation = leadsConversation;
 	}
 
+	public WalletDetails getWalletDetails() {
+		return walletDetails;
+	}
+
+	public void setWalletDetails(WalletDetails walletDetails) {
+		this.walletDetails = walletDetails;
+	}
+
 	public Leads() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -154,7 +167,7 @@ public class Leads {
 			@NotBlank(message = "Phone cannot be empty!!") String phone,
 			@NotBlank(message = "Address cannot be empty!!") String address, String course, String message,
 			String leadStatus, BusinessAssociate businessAssociate, EmployeeDetails employeeDetails,
-			List<LeadsConversation> leadsConversation) {
+			List<LeadsConversation> leadsConversation, WalletDetails walletDetails) {
 		super();
 		Id = id;
 		this.name = name;
@@ -167,6 +180,7 @@ public class Leads {
 		this.businessAssociate = businessAssociate;
 		this.employeeDetails = employeeDetails;
 		this.leadsConversation = leadsConversation;
+		this.walletDetails = walletDetails;
 	}
 
 	@Override
@@ -174,13 +188,11 @@ public class Leads {
 		return "Leads [Id=" + Id + ", name=" + name + ", email=" + email + ", phone=" + phone + ", address=" + address
 				+ ", course=" + course + ", message=" + message + ", leadStatus=" + leadStatus + ", businessAssociate="
 				+ businessAssociate + ", employeeDetails=" + employeeDetails + ", leadsConversation="
-				+ leadsConversation + "]";
+				+ leadsConversation + ", walletDetails=" + walletDetails + "]";
 	}
 
 	
-	
-	
-	
+
 	
 	
 }
