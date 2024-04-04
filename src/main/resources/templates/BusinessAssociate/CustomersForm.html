@@ -28,39 +28,27 @@
 <body>
 
 	<section>
+		<div class="container">
+			<div class="text-center mt-5">
+				<h1>Entry Form</h1>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="card mt-2 p-4">
+						<div class="card-body">
 
-		<div class=" text-center mt-5 ">
-
-			<h1>Entry Form</h1>
-
-
-		</div>
-
-		<div class="d-flex justify-content-center">
-			<div class="row col-11 ">
-				<div class=" mx-auto">
-					<div class=" card mt-2 mx-auto p-4 ">
-						<div class="col-12 card-body ">
-
-
-
-							<div class="col-12 text-center mb-3">
-
-								<div class="form-group ">
+							<div class="text-center mb-3">
+								<div class="form-group">
 									<label for="form_name">Referral Name *</label> <input
 										th:value="${businessName}" id="form_name" type="text"
 										class="form-control text-center" readonly>
-
 								</div>
 							</div>
 							<form id="contact-form" role="form"
 								th:action="@{/CustomersForm/PublicEntryForm?partyid={id}  (id=${param.partyid})}"
 								method="post" th:object="${leads}">
 
-
-
 								<div class="controls">
-
 									<th:block th:if="${session.msg}">
 										<p th:if="${session.msg == 'Saved Successfully'}"
 											class="text-center text-success">[[${session.msg}]]</p>
@@ -69,24 +57,19 @@
 										<th:block th:text="${@leadServiceImpl.removeSessionMessage()}"></th:block>
 									</th:block>
 
-
-
 									<div class="row mb-3">
-
-										<div class="col-6 ">
+										<div class="col-md-6">
 											<div class="form-group">
 												<label for="form_name">Fullname *</label> <input
 													id="form_name" type="text" name="name" class="form-control"
 													placeholder="Please enter your firstname *"
 													th:value="${leads.name}"
 													th:classappend="${#fields.hasErrors('name')?'is-invalid':''}">
-
 												<div th:each="e : ${#fields.errors('name')}" th:text="${e}"
 													id="validationServer03Feedback" class="invalid-feedback"></div>
-
 											</div>
 										</div>
-										<div class="col-md-6 ">
+										<div class="col-md-6">
 											<div class="form-group">
 												<label for="form_lastname">Email *</label> <input
 													id="form_lastname" type="email" name="email"
@@ -94,10 +77,8 @@
 													placeholder="Please enter your email *"
 													th:value="${leads.email}"
 													th:classappend="${#fields.hasErrors('email')?'is-invalid':''}">
-
 												<div th:each="e : ${#fields.errors('email')}" th:text="${e}"
 													id="validationServer03Feedback" class="invalid-feedback"></div>
-
 											</div>
 										</div>
 									</div>
@@ -110,7 +91,6 @@
 													placeholder="Please enter your phone number *"
 													th:value="${leads.phone}"
 													th:classappend="${#fields.hasErrors('phone')?'is-invalid':''}">
-
 												<div th:each="e : ${#fields.errors('phone')}" th:text="${e}"
 													id="validationServer03Feedback" class="invalid-feedback"></div>
 											</div>
@@ -123,17 +103,11 @@
 														Course--</option>
 													<option th:each="course : ${courses}"
 														th:text="${course.courseName}"></option>
-
 												</select>
-
 											</div>
 										</div>
 									</div>
-
-
-
-									<div class="row ">
-
+									<div class="row">
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
 												<label for="form_name">Full Address *</label> <input
@@ -142,15 +116,11 @@
 													placeholder="Please enter your address *"
 													th:value="${leads.address}"
 													th:classappend="${#fields.hasErrors('address')?'is-invalid':''}">
-
-
 												<div th:each="e : ${#fields.errors('address')}"
 													th:text="${e}" id="validationServer03Feedback"
 													class="invalid-feedback"></div>
 											</div>
 										</div>
-
-										<!-- removed required from message as it is optional -->
 										<div class="col-md-12 mb-3">
 											<div class="form-group">
 												<label for="form_message">Message *</label>
@@ -158,79 +128,38 @@
 													class="form-control" placeholder="Write your message here."
 													rows="4" data-error="Please, leave us a message."></textarea>
 											</div>
-
 										</div>
-
-
 										<div class="text-center mt-2">
-
 											<input type="submit"
-												class="btn btn-success btn-send col-2  btn-block">
-
+												class="btn btn-success btn-send col-12">
 										</div>
-
 									</div>
-
-
 								</div>
 							</form>
 						</div>
 					</div>
-
-
 				</div>
-				<!-- /.8 -->
-
 			</div>
-			<!-- /.row-->
 
-
-		</div>
-
-		<div class="d-flex justify-content-center">
-			<div class="col-md-11 mt-3 bg-dark">
-
-
-
-				<div class="col-md-6">
-
-					<h4 class="widget-title text-white">Quick Contact</h4>
-					<p class="text-white text-white">C-4, Community Centre, Pankha
-						Road, Janak Puri, New Delhi-110058</p>
-					<ul class="list-inline mt-5">
-
-						<li class="m-0 pl-10 pr-10"><i
-							class="fas fa-envelope fa-xs me-2 ms-2" style="color: #d97d7d;"></i><a
-							class="text-white" href="mailto:contact@aspirelessons.com">contact@aspirelessons.com</a>
-						</li>
-						<br>
-
-
-						<li class="m-0 pl-10 pr-10"><i
-							class="fa fa-globe text-theme-colored2 mr-5"></i><a
-							class="text-white" style="color: white; padding-bottom: 5px;"
-							href="https://www.aspirelessons.com/" target="_blank">www.aspirelessons.com</a>
-						</li>
-					</ul>
-
+			<div class="row justify-content-center mt-3">
+				<div class="col-lg-11 bg-dark">
+					<div class="row">
+						<div class="col-md-6">
+							<h4 class="widget-title text-white">Quick Contact</h4>
+							<p class="text-white">C-4, Community Centre, Pankha Road, Janak Puri, New Delhi-110058</p>
+							<ul class="list-inline mt-5">
+								<li class="m-0 pl-10 pr-10"><i class="fas fa-envelope fa-xs me-2 ms-2" style="color: #d97d7d;"></i><a class="text-white" href="mailto:contact@aspirelessons.com">contact@aspirelessons.com</a></li>
+								<br>
+								<li class="m-0 pl-10 pr-10"><i class="fa fa-globe text-theme-colored2 mr-5"></i><a class="text-white" style="color: white; padding-bottom: 5px;" href="https://www.aspirelessons.com/" target="_blank">www.aspirelessons.com</a></li>
+							</ul>
+						</div>
+						<div class="col-md-6">
+							<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d112064.95248264776!2d77.091206!3d28.628870000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb64a723dd5962dfb!2sAspire%20Lessons!5e0!3m2!1sen!2sin!4v1662723168771!5m2!1sen!2sin" width="100%" height="250" style="border: 0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+						</div>
+					</div>
 				</div>
-
-				<div class="col-md-6">
-					<iframe
-						src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d112064.95248264776!2d77.091206!3d28.628870000000003!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb64a723dd5962dfb!2sAspire%20Lessons!5e0!3m2!1sen!2sin!4v1662723168771!5m2!1sen!2sin"
-						width="300" height="250" style="border: 0;" allowfullscreen=""
-						loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-				</div>
-
-
-
 			</div>
 		</div>
-		<br> <br>
-
-
-
 	</section>
 
 	<script
