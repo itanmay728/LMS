@@ -1,11 +1,15 @@
 package com.example.leadManagementSystem2.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 
 @Entity
@@ -28,6 +32,10 @@ public class WalletDetails {
 	@ManyToOne
 	@JoinColumn(name = "businessAssociate_id")
 	private BusinessAssociate businessAssociate;
+	
+	@OneToOne
+	@JoinColumn(name = "lead_id")
+	private Leads leads;
 
 	public Long getId() {
 		return id;
@@ -77,13 +85,21 @@ public class WalletDetails {
 		this.businessAssociate = businessAssociate;
 	}
 
+	public Leads getLeads() {
+		return leads;
+	}
+
+	public void setLeads(Leads leads) {
+		this.leads = leads;
+	}
+
 	public WalletDetails() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public WalletDetails(Long id, @NotBlank(message = "transaction id cannot be empty!!") String transaction_id,
-			Long amount, String rejection_reason, String status, BusinessAssociate businessAssociate) {
+	public WalletDetails(Long id, String transaction_id, Long amount, String rejection_reason, String status,
+			BusinessAssociate businessAssociate, Leads leads) {
 		super();
 		this.id = id;
 		this.transaction_id = transaction_id;
@@ -91,14 +107,16 @@ public class WalletDetails {
 		this.rejection_reason = rejection_reason;
 		this.status = status;
 		this.businessAssociate = businessAssociate;
+		this.leads = leads;
 	}
 
 	@Override
 	public String toString() {
 		return "WalletDetails [id=" + id + ", transaction_id=" + transaction_id + ", amount=" + amount
 				+ ", rejection_reason=" + rejection_reason + ", status=" + status + ", businessAssociate="
-				+ businessAssociate + "]";
+				+ businessAssociate + ", leads=" + leads + "]";
 	}
+
 	
 	
 }

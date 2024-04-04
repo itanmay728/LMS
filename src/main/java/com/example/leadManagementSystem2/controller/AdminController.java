@@ -26,12 +26,14 @@ import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.LeadsConversation;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Entity.WalletDetails;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateHistoryRepo;
 import com.example.leadManagementSystem2.Repository.BusinessAssociateRepository;
 import com.example.leadManagementSystem2.Repository.CourseRepository;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
 import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
+import com.example.leadManagementSystem2.Repository.WalletDetailsRepository;
 import com.example.leadManagementSystem2.Service.BusinessAssociateService;
 import com.example.leadManagementSystem2.Service.EmployeeService;
 import com.example.leadManagementSystem2.Service.LeadService;
@@ -72,6 +74,9 @@ public class AdminController {
 
 	@Autowired
 	private CourseRepository courseRepository;
+	
+	@Autowired
+	private WalletDetailsRepository walletDetailsRepository;
 
 	@GetMapping("/admin_Dashboard")
 	public String getAdminDashboard(Model model, HttpSession session) {
@@ -441,6 +446,38 @@ public class AdminController {
 		leadService.transferSelectedLeads(leadIds, newCallerId);
 
 		return "redirect:/Admin/admin_Dashboard/leadsUnderCaller/{id}";
+	}
+	
+	
+	//Payment of BA
+	
+	@GetMapping("/admin_Dashboard/paymentRequest")
+	public String paymentRequestPage(Model model) {
+		
+		model.addAttribute("walletDetails", walletDetailsRepository.findAll());
+		return "Admin/BusinessAssociatePaymentRequest";
+	}
+	
+	@PostMapping("/admin_Dashboard/ApprovePaymentRequest/{id}")
+	public String approvePayment(@PathVariable("id") Long id, @ModelAttribute WalletDetails walletDetails ) {
+		
+		WalletDetails walletDetails2 = walletDetailsRepository.findById(id).get();
+		walletDetails2.setTransaction_id(walletDetails.getTransaction_id());
+		walletDetails2.setStatus("Approved");
+		
+		walletDetailsRepository.save(walletDetails2);
+		return "redirect:/Admin/admin_Dashboard/paymentRequest";
+	}
+	
+	@PostMapping("/admin_Dashboard/RejectPaymentRequest/{id}")
+	public String rejectPayment(@PathVariable("id") Long id, @ModelAttribute WalletDetails walletDetails ) {
+		
+		WalletDetails walletDetails2 = walletDetailsRepository.findById(id).get();
+		walletDetails2.setRejection_reason(walletDetails.getRejection_reason());
+		walletDetails2.setStatus("Rejected");
+		
+		walletDetailsRepository.save(walletDetails2);
+		return "redirect:/Admin/admin_Dashboard/paymentRequest";
 	}
 
 }

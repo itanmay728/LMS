@@ -29,4 +29,5 @@ public interface BusinessAssociateService {
 	public Long conutOfBa(String username);
 	public String uniqueForm(Long id);
 	Long amountTransferRequest(Map<String, Object> amountToTransfer);
+	Long totalAmountTransfer(Map<String, Object> amountToTransfer);
 }
