@@ -35,6 +35,9 @@ public class CustomAuthSuccessHandler implements AuthenticationSuccessHandler {
 		else if (roles.contains("ROLE_BUSINESSASSOCIATE")) {
 			
 			response.sendRedirect("/businessAssociate/businessAssociateDashboard");
+		}else if (roles.contains("ROLE_MANAGER")) {
+			
+			response.sendRedirect("/Manager/ManagerDashboard");
 		}
 		else {
 			response.sendRedirect("/user/profile");

@@ -53,6 +53,7 @@ public class MyConfiguration {
 	            request.requestMatchers("/Admin/**").hasRole("ADMIN");
 	            request.requestMatchers("/Caller/**").hasRole("CALLER");
 	            request.requestMatchers("/fieldManager/**").hasRole("FIELDMANAGER");
+	            request.requestMatchers("/Manager/**").hasRole("MANAGER");
 	            request.requestMatchers("/businessAssociate/**").hasRole("BUSINESSASSOCIATE");
 	            request.anyRequest().authenticated();
 	            
