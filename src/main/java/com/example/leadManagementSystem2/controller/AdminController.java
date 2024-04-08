@@ -182,6 +182,7 @@ public class AdminController {
 	public String getEditLeadsPage(@PathVariable Long id, Model model) {
 
 		model.addAttribute("Leads", leadsRepository.findById(id).get());
+		model.addAttribute("courses", courseRepository.findAll());
 		return "Admin/Edit_Leads";
 	}
 
@@ -195,9 +196,11 @@ public class AdminController {
 		existingLead.setEmail(leads.getEmail());
 		existingLead.setPhone(leads.getPhone());
 		existingLead.setAddress(leads.getAddress());
-		existingLead.setCourse(leads.getCourse());
+		//existingLead.setCourse(leads.getCourse());
 		existingLead.setMessage(leads.getMessage());
 		existingLead.setLeadStatus(leads.getLeadStatus());
+		System.out.println(leads.getCourse());
+		
 
 		try {
 			businessAssociateService.walletUpdate(existingLead);
@@ -205,6 +208,7 @@ public class AdminController {
 			session.setAttribute("msg", "Updated Successfully");
 		} catch (Exception e) {
 			session.setAttribute("msg", "Something went wrong!");
+			System.out.println(e);
 		}
 		return "redirect:/Admin/admin_Dashboard/Leads/edit/{id}";
 	}

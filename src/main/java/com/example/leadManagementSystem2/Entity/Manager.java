@@ -1,28 +1,19 @@
 package com.example.leadManagementSystem2.Entity;
 
-
-import java.util.ArrayList;
-
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
 @Entity
-public class EmployeeDetails {
+public class Manager {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -69,25 +60,9 @@ public class EmployeeDetails {
 	private String password;
 
 	private String role;
-
-	private boolean approve;
-
-	@OneToOne(mappedBy = "employeeDetails",cascade = CascadeType.ALL)
-	@JsonIgnore
-	private Users_Credentials users_Credentials;
 	
-	@OneToMany(mappedBy = "fieldManager")
-	@JsonIgnore
-	private List<BusinessAssociate> businessAssociates;
-
-	@OneToMany(mappedBy = "employeeDetails")
-	@JsonIgnore
-	private List<Leads> leads = new ArrayList<>();
-	
-	@ManyToOne
-	@JoinColumn(name = "manager_id")
-	@JsonIgnore
-	private Manager manager;
+	@OneToMany(mappedBy = "manager")
+	private List<EmployeeDetails> employeeDetails;
 
 	public Long getId() {
 		return id;
@@ -201,52 +176,15 @@ public class EmployeeDetails {
 		this.role = role;
 	}
 
-	public boolean isApprove() {
-		return approve;
+	public List<EmployeeDetails> getEmployeeDetails() {
+		return employeeDetails;
 	}
 
-	public void setApprove(boolean approve) {
-		this.approve = approve;
+	public void setEmployeeDetails(List<EmployeeDetails> employeeDetails) {
+		this.employeeDetails = employeeDetails;
 	}
 
-	public Users_Credentials getUsers_Credentials() {
-		return users_Credentials;
-	}
-
-	public void setUsers_Credentials(Users_Credentials users_Credentials) {
-		this.users_Credentials = users_Credentials;
-	}
-
-	public List<BusinessAssociate> getBusinessAssociates() {
-		return businessAssociates;
-	}
-
-	public void setBusinessAssociates(List<BusinessAssociate> businessAssociates) {
-		this.businessAssociates = businessAssociates;
-	}
-
-	public List<Leads> getLeads() {
-		return leads;
-	}
-
-	public void setLeads(List<Leads> leads) {
-		this.leads = leads;
-	}
-
-	public Manager getManager() {
-		return manager;
-	}
-
-	public void setManager(Manager manager) {
-		this.manager = manager;
-	}
-
-	public EmployeeDetails() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public EmployeeDetails(Long id, @NotBlank(message = "name cannot be empty!!") String name,
+	public Manager(Long id, @NotBlank(message = "name cannot be empty!!") String name,
 			@NotBlank(message = "Email cannot be empty!!") @Email(message = "Invalid email format!") String userName,
 			String image, @NotBlank(message = "Address cannot be empty!!") String address,
 			@NotBlank(message = "Phone cannot be empty!!") String phone,
@@ -256,9 +194,8 @@ public class EmployeeDetails {
 			@NotBlank(message = "Account number cannot be empty!!") String accountNumber,
 			@NotBlank(message = "IFSC code cannot be empty!!") @Pattern(regexp = "[A-Z]{4}0[A-Z0-9]{6}", message = "Invalid IFSC Code") String ifscCode,
 			@NotBlank(message = "Branch Address cannot be empty!!") String branchAddress,
-			@NotBlank(message = "Password cannot be empty!!") String password, String role, boolean approve,
-			Users_Credentials users_Credentials, List<BusinessAssociate> businessAssociates, List<Leads> leads,
-			Manager manager) {
+			@NotBlank(message = "Password cannot be empty!!") String password, String role,
+			List<EmployeeDetails> employeeDetails) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -274,24 +211,22 @@ public class EmployeeDetails {
 		this.branchAddress = branchAddress;
 		this.password = password;
 		this.role = role;
-		this.approve = approve;
-		this.users_Credentials = users_Credentials;
-		this.businessAssociates = businessAssociates;
-		this.leads = leads;
-		this.manager = manager;
+		this.employeeDetails = employeeDetails;
+	}
+
+	public Manager() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String toString() {
-		return "EmployeeDetails [id=" + id + ", name=" + name + ", userName=" + userName + ", image=" + image
-				+ ", address=" + address + ", phone=" + phone + ", panNumber=" + panNumber + ", aadhaar=" + aadhaar
+		return "Manager [id=" + id + ", name=" + name + ", userName=" + userName + ", image=" + image + ", address="
+				+ address + ", phone=" + phone + ", panNumber=" + panNumber + ", aadhaar=" + aadhaar
 				+ ", accountHolderName=" + accountHolderName + ", accountNumber=" + accountNumber + ", ifscCode="
 				+ ifscCode + ", branchAddress=" + branchAddress + ", password=" + password + ", role=" + role
-				+ ", approve=" + approve + ", users_Credentials=" + users_Credentials + ", businessAssociates="
-				+ businessAssociates + ", leads=" + leads + ", manager=" + manager + "]";
+				+ ", employeeDetails=" + employeeDetails + "]";
 	}
 	
 	
-
-
 }

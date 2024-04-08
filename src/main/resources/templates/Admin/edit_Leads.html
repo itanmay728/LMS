@@ -67,25 +67,10 @@
 								<label>Select Course</label> <select class="form-select"
 									aria-label="Default select example" name="course">
 									
-									<option value="" selected disabled th:text="${Leads.course}"></option>
-									<option>9th / 10th Foundation Course</option>
-									<option>One year Course (Medical/ Engineering) 12th</option>
-									<option>One year Course (Medical/ Engineering) after 12th</option>
-									<option>B.tech</option>
-									<option>MCA</option>
+									<option th:text="${Leads.course}" selected disabled></option>
+									<option th:each="course : ${courses}" th:text="${course.courseName}"></option>
 								</select>
 
-							</div>
-
-
-
-							<div class="col-md-12 mb-3">
-								<div class="form-group fw-bold">
-									<label for="form_message">Caller Follow Up Message</label>
-									<textarea id="form_message" name="" class="form-control"
-										placeholder="Write your message here." rows="4"
-										data-error="Please, leave us a message."></textarea>
-								</div>
 							</div>
 
 
@@ -93,7 +78,7 @@
 								<label>Lead Status</label> <select class="form-select" 
 									aria-label="Default select example" name="leadStatus">
 
-									<option value="" selected disabled th:text="${Leads.leadStatus}" ></option>
+									<option th:text="${Leads.leadStatus}" selected disabled></option>
 									<option th:if="${Leads.leadStatus != 'Success'}">New</option>
 									<option th:if="${Leads.leadStatus != 'Success'}">Follow up</option>
 									<option th:if="${Leads.leadStatus != 'Success'}">Success</option>

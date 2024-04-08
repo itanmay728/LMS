@@ -124,8 +124,7 @@
 							<div class="mb-3">
 								<label for="form_need">Please specify your Course *</label>
 								<select id="form_need" name="course" class="form-select">
-									<option value="" selected disabled>--Select Your
-										Course--</option>
+									<option value="" selected disabled>--Select Your Course--</option>
 									<option th:each="course : ${courses}" th:text="${course.courseName}"></option>
 
 								</select>

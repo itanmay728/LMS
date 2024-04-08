@@ -1,8 +1,9 @@
 package com.example.leadManagementSystem2.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.sql.Date;
 
-import jakarta.persistence.CascadeType;
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,7 +11,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-import jakarta.validation.constraints.NotBlank;
+
 
 @Entity
 public class WalletDetails {
@@ -20,6 +21,8 @@ public class WalletDetails {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@CreationTimestamp
+	private Date date;
 	
 	private String transaction_id;
 	
@@ -28,6 +31,7 @@ public class WalletDetails {
 	private String rejection_reason;
 	
 	private String status;
+	
 	
 	@ManyToOne
 	@JoinColumn(name = "businessAssociate_id")
@@ -43,6 +47,14 @@ public class WalletDetails {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public String getTransaction_id() {
@@ -98,10 +110,11 @@ public class WalletDetails {
 		// TODO Auto-generated constructor stub
 	}
 
-	public WalletDetails(Long id, String transaction_id, Long amount, String rejection_reason, String status,
+	public WalletDetails(Long id, Date date, String transaction_id, Long amount, String rejection_reason, String status,
 			BusinessAssociate businessAssociate, Leads leads) {
 		super();
 		this.id = id;
+		this.date = date;
 		this.transaction_id = transaction_id;
 		this.amount = amount;
 		this.rejection_reason = rejection_reason;
@@ -112,10 +125,12 @@ public class WalletDetails {
 
 	@Override
 	public String toString() {
-		return "WalletDetails [id=" + id + ", transaction_id=" + transaction_id + ", amount=" + amount
-				+ ", rejection_reason=" + rejection_reason + ", status=" + status + ", businessAssociate="
+		return "WalletDetails [id=" + id + ", date=" + date + ", transaction_id=" + transaction_id + ", amount="
+				+ amount + ", rejection_reason=" + rejection_reason + ", status=" + status + ", businessAssociate="
 				+ businessAssociate + ", leads=" + leads + "]";
 	}
+	
+	
 
 	
 	
