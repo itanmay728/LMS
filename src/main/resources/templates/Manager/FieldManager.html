@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="/Manager/ManagerBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<section>
+
+<div class="card text-center mt-3">
+			<h2>Field Manager Details</h2>
+		</div>
+		
+
+		<div class="card text-center mt-4"
+			th:each="FMdetail : ${fm}">
+			<div class="card-header">
+				<div class="card-header text-center">
+					<span class="float-sm-start fw-bold">Name :- </span> <span
+						class="float-sm-start" th:text="${FMdetail.name}"></span> <span
+						class="fw-bold mr-2">Username :- </span> <span
+						th:text="${FMdetail.userName}"></span> 
+				</div>
+				
+				<div class="card-body">
+        <p><span class="fw-bold">BA Count: </span><span th:text="${#lists.size(FMdetail.businessAssociates)}"></span></p>
+    </div>
+				
+			</div>
+			</div>
+
+</section>
+</body>
+</html>

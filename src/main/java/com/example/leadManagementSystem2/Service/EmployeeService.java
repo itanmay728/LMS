@@ -10,5 +10,7 @@ public interface EmployeeService {
 	
 	public void updateEmployeeDetails(Long id, EmployeeDetails employeeDetails);
 
+	int getCountOfBusinessAssociatesUnderFieldManager(EmployeeDetails fm);
+
 	
 }

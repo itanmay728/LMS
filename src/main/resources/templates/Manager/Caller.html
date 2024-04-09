@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org "  th:replace="/Manager/ManagerBase::layout(~{::section})">
+<head>
+<meta charset="ISO-8859-1">
+<title>Caller Page</title>
+</head>
+<body>
+
+<section>
+<div class="card text-center mt-3">
+			<h2>Caller Details</h2>
+		</div>
+		
+
+		<div class="card text-center mt-4"
+			th:each="Callerdetail : ${caller}">
+			<div class="card-header">
+				<div class="card-header text-center">
+					<span class="float-sm-start fw-bold">Name :- </span> <span
+						class="float-sm-start" th:text="${Callerdetail.name}"></span> <span
+						class="fw-bold mr-2">Username :- </span> <span
+						th:text="${Callerdetail.userName}"></span> 
+				</div>
+				
+				 <div class="card-body">
+        <p><span class="fw-bold">Leads : </span><span th:text="${#lists.size(Callerdetail.leads)}"></span></p>
+    </div> 
+				
+			</div>
+			</div>
+</section>
+
+</body>
+</html>

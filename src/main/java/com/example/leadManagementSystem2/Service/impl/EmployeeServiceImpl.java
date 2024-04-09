@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
 import com.example.leadManagementSystem2.Entity.Manager;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
@@ -191,5 +192,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		employeeDetailsRepository.save(existingEmp);
 	}
+
+	@Override
+	public int getCountOfBusinessAssociatesUnderFieldManager(EmployeeDetails fm) {
+		
+		List<BusinessAssociate> BAunderFM=fm.getBusinessAssociates();
+		int countOfBA=0;
+		for(int i=0;i<BAunderFM.size();i++) {
+			countOfBA++;
+		}
+		
+		return countOfBA;
+	}
+	
 
 }
