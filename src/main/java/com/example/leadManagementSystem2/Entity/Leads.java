@@ -1,6 +1,9 @@
 package com.example.leadManagementSystem2.Entity;
 
+import java.sql.Date;
 import java.util.List;
+
+import org.hibernate.annotations.CreationTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -42,6 +45,9 @@ public class Leads {
 	private String message;
 	
 	private String leadStatus;
+	
+	@CreationTimestamp
+	private Date date;
 	
 	@ManyToOne
 	@JoinColumn(name = "businessAssociate_id")
@@ -155,6 +161,14 @@ public class Leads {
 
 	public void setWalletDetails(WalletDetails walletDetails) {
 		this.walletDetails = walletDetails;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
 	}
 
 	public Leads() {
