@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     var inp = document.getElementById('myCheckbox');
                 if (inp.disabled) {
-                    //console.log('disabled input clicked!');
+                    console.log('disabled input clicked!');
                     alert("It has not been 30 days");
                 }
                 });
