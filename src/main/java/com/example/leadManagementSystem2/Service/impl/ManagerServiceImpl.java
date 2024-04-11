@@ -1,17 +1,24 @@
 package com.example.leadManagementSystem2.Service.impl;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
+import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Manager;
 import com.example.leadManagementSystem2.Repository.EmployeeDetailsRepository;
+import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.ManagerRepository;
 import com.example.leadManagementSystem2.Service.ManagerService;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.Query;
 
 @Service
 public class ManagerServiceImpl implements ManagerService {
@@ -21,6 +28,14 @@ public class ManagerServiceImpl implements ManagerService {
 
 	@Autowired
 	private ManagerRepository managerRepository;
+	@Autowired
+	private LeadsRepository leadsRepository;
+	
+	 @Autowired
+	 private EntityManager entityManager;
+	 
+	 @Autowired
+	 private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public Manager getManagerFromUsername(String username) {
@@ -71,4 +86,9 @@ public class ManagerServiceImpl implements ManagerService {
 		return caller;
 
 	}
+	
+
+
+
+
 }

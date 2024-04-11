@@ -108,6 +108,7 @@ public class IndexController {
 		
 		String businessName = businessAssociateService.uniqueForm(id);
 		model.addAttribute("businessName", businessName);
+		model.addAttribute("courses", courseRepository.findAll());
 		System.out.println(id);
 
 		if (result.hasErrors()) {

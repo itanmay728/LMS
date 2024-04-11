@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.leadManagementSystem2.Entity.BusinessAssociate;
 import com.example.leadManagementSystem2.Entity.EmployeeDetails;
+import com.example.leadManagementSystem2.Entity.Leads;
 import com.example.leadManagementSystem2.Entity.Users_Credentials;
+import com.example.leadManagementSystem2.Repository.LeadsRepository;
 import com.example.leadManagementSystem2.Repository.User_Credentials_Repository;
 import com.example.leadManagementSystem2.Service.EmployeeService;
 import com.example.leadManagementSystem2.Service.ManagerService;
@@ -31,6 +33,9 @@ public class ManagerController {
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
+	@Autowired
+	private LeadsRepository leadsRepository;
 
 	@GetMapping("/managerDashboard")
 	public String getManagerDashboard(Model model, HttpSession session) {
