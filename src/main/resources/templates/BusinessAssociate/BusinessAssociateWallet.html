@@ -55,19 +55,21 @@
 
 								<th scope="col">AMOUNT</th>
 								<th scope="col">STATUS</th>
+								<th scope="col">DATE</th>
 							</tr>
 						</thead>
 
 						<tbody>
 
-							<tr th:each="wd: ${walletDetails}" th:if="${wd.status == 'New'}">
+							<tr class="wallet-row" th:each="wd: ${walletDetails}" th:if="${wd.status == 'New'}">
 							
-								<th><input type="checkbox" th:value="${wd.id}" onclick="totalAmountTransfer()"
-									class="form-check-input me-2 amount-checkbox">
+								<th><input id="myCheckbox" type="checkbox" th:value="${wd.id}" onclick="totalAmountTransfer()"
+									class="form-check-input me-2 amount-checkbox" disabled>
 								</th>
 								<th scope="row" th:text="${wd.id}">1</th>
 								<td th:text="${wd.amount}"></td>
 								<td th:text="${wd.status}"></td>
+								<td th:text="${wd.date}"></td>
 								
 							</tr>
 
