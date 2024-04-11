@@ -47,6 +47,11 @@ public class ManagerController {
 			// Handle the case where username is not found in the session
 			return "redirect:/login"; // Redirect to login page or handle appropriately
 		}
+		
+		Users_Credentials user = user_Credentials_Repository.getUsersCredentialsByUserName(Username);
+
+		EmployeeDetails employeeDetails = user.getEmployeeDetails();
+		session.setAttribute("employeeDetails", employeeDetails);
 
 		return "Manager/ManagerDashboard";
 	}
@@ -83,6 +88,11 @@ public class ManagerController {
 		model.addAttribute("caller", caller);
 		
 		return "Manager/Caller";
+	}
+	
+	@GetMapping("/managerDashboard/profile")
+	public String getProfilePage() {
+		return "Manager/ManagerProfile";
 	}
 
 }
